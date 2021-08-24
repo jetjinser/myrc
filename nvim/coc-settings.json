@@ -1,0 +1,11 @@
+{
+    "coc.preferences.formatOnSaveFiletypes": [
+        "python"
+    ],
+    "groovy.java.home": "/usr/local/opt/openjdk/",
+    "python.formatting.provider": "black",
+    "python.linting.pylintEnabled": true,
+    "python.venvPath": "/usr/local/Caskroom/miniconda/",
+    "python.pythonPath": "~/.config/nvim/scripts/python.sh",
+    "python.analysis.typeshedPaths": ["~/.config/nvim/stub/typeshed"]
+}
