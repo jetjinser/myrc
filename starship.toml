@@ -1,1 +1,26 @@
 add_newline = true
+
+[[battery.display]]
+threshold = 30
+
+[character]
+vicmd_symbol = "🍥 "
+
+[memory_usage]
+disabled = false
+threshold = 65
+
+[custom.fennel]
+command = "fennel -v"
+symbol = "🧅 "
+extensions = ["fnl"]
+
+[custom.racket]
+command = """echo `racket -v` | awk '{ print $4 " " $5 }' | sed 's/.$//'"""
+symbol = "ﬦ|卵 "
+extensions = ["rkt", "rktl"]
+
+[custom.haskell]
+symbol = " "
+files = ["stack.yaml"]
+extensions = ["hs"]
