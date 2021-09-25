@@ -13,10 +13,33 @@ Plug 'cespare/vim-toml'
 Plug 'tpope/vim-commentary'
 Plug 'voldikss/vim-floaterm'
 Plug 'lervag/vimtex'
+Plug 'ryanoasis/vim-devicons'
+Plug 'luochen1990/rainbow'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'kevinhwang91/nvim-bqf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'wsdjeg/vim-todo'
+Plug 'mbbill/undotree'
+Plug 'projekt0n/github-nvim-theme'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'Olical/conjure'
+" Plug 'Olical/aniseed'
+Plug 'ap/vim-css-color'
+Plug 'mfussenegger/nvim-dap'
+
+" git
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
 " 特定语言语法高亮
-Plug 'bakpakin/fennel.vim'
+" Plug 'bakpakin/fennel.vim'
+Plug 'mnacamura/vim-fennel-syntax'
+Plug 'wlangstroth/vim-racket'
 Plug 'udalov/kotlin-vim'
+Plug 'pangloss/vim-javascript'
 
 " themes
 Plug 'dracula/vim', { 'as': 'dracula' }
@@ -42,6 +65,8 @@ nmap <Leader>t <Plug>(coc-translator-p)
 vmap <Leader>t <Plug>(coc-translator-pv)
 
 "  tab 触发补全
+"  优先度问题？tab 补全候选会被 snippets 跳转抢先，可能要分别设置，不能 map
+"  TODO
 inoremap <silent><expr> <Tab> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<Tab>"
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
@@ -53,7 +78,7 @@ nmap <leader>rn <Plug>(coc-rename)
 nmap <silent> ga <Plug>(coc-codeaction-line)
 
 " 高亮选中
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " 格式化代码
 xmap <leader>f  <Plug>(coc-format-selected)
@@ -120,6 +145,19 @@ set updatetime=300
 
 set encoding=utf-8
 
+" 不换行
+set nowrap
+
+hi Search guibg=gray guifg=LightBlue
+hi Normal guibg=NONE ctermbg=NONE
+
+let mapleader=","
+let maplocalleader=","
+
+" 设置不可见字符空格可见
+set listchars=space:⋅
+set list
+
 " 设置 tab 和缩进为4空格
 set tabstop=4
 set shiftwidth=4
@@ -164,6 +202,61 @@ augroup highlight
 augroup END
 
 colorscheme dracula
+lua require('github-theme').setup()
+
+highlight IndentBlanklineIndent1 guifg=#E06C75 blend=nocombine
+highlight IndentBlanklineIndent2 guifg=#E5C07B blend=nocombine
+highlight IndentBlanklineIndent3 guifg=#98C379 blend=nocombine
+highlight IndentBlanklineIndent4 guifg=#56B6C2 blend=nocombine
+highlight IndentBlanklineIndent5 guifg=#61AFEF blend=nocombine
+highlight IndentBlanklineIndent6 guifg=#C678DD blend=nocombine
+
+lua require("indent_blankline").setup {
+        \ buftype_exclude = {"terminal"},
+        \ space_char_blankline = " ",
+        \ char_highlight_list = {
+        \   "IndentBlanklineIndent1",
+        \   "IndentBlanklineIndent2",
+        \   "IndentBlanklineIndent3",
+        \   "IndentBlanklineIndent4",
+        \   "IndentBlanklineIndent5",
+        \   "IndentBlanklineIndent6",
+        \ },
+        \ show_end_of_line = false,
+      \ }
+
+let g:conjure#client#scheme#stdio#command = "chez"
+
+" 彩虹括号 {{{
+
+let g:rainbow_active = 1
+let g:rainbow_conf = {
+\   'guifgs' : ['#63B0CF', '#C0FF3E', '#EEC900', '#AB44DD', '#EE7600', '#98fb98', '#C9A3C9', '#CA2A22'],
+\   'ctermfgs': 'xterm-256color' == $TERM ? ['114', '196', '112', '208', '129', '166', '85', '237'] : ['firebrick', 'seagreen3', 'yellow', 'darkorange3', 'magenta'],
+\}
+
+" }}}
+
+""" {{{ dap
+lua << EOF
+local dap = require('dap')
+dap.adapters.python = {
+    type = 'executable';
+    command = "~/.config/nvim/scripts/python.sh";
+    args = { '-m', 'debugpy.adapter' };
+}
+EOF
+""" }}}
+
+let g:javascript_plugin_ngdoc = 1
+let g:javascript_plugin_ngdoc = 1
+let g:javascript_plugin_flow = 1
+set conceallevel=1
+
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " airline {{{
 let g:airline#extensions#tabline#enabled = 1

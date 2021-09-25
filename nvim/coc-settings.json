@@ -1,11 +1,52 @@
 {
-    "coc.preferences.formatOnSaveFiletypes": [
-        "python"
-    ],
-    "groovy.java.home": "/usr/local/opt/openjdk/",
-    "python.formatting.provider": "black",
-    "python.linting.pylintEnabled": true,
-    "python.venvPath": "/usr/local/Caskroom/miniconda/",
-    "python.pythonPath": "~/.config/nvim/scripts/python.sh",
-    "python.analysis.typeshedPaths": ["~/.config/nvim/stub/typeshed"]
+  "coc.preferences.formatOnSaveFiletypes": [
+    "python",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "list.normalMappings": {
+    "t": "action:tabe",
+    "v": "action:vsplit",
+    "s": "action:split",
+    "d": "expr:GetDeleteAction"
+  },
+  "list.insertMappings": {
+    "<C-t>": "action:tabe",
+    "<C-w>": "command:wincmd k"
+  },
+  "groovy.java.home": "/usr/local/opt/openjdk/",
+  "python.formatting.provider": "black",
+  "python.linting.pylintEnabled": true,
+  "python.pythonPath": "~/.config/nvim/scripts/python.sh",
+  "python.analysis.typeshedPaths": ["~/.config/nvim/stub/typeshed"],
+  "explorer.icon.enableNerdfont": true,
+  "rust-analyzer.diagnostics.disabled": ["unresolved-import"],
+  "languageserver": {
+    "racket": {
+      "command": "racket",
+      "args": ["--lib", "racket-langserver"],
+      "filetypes": ["racket", "scheme"]
+    },
+    "haskell": {
+      "command": "haskell-language-server-wrapper",
+      "args": ["--lsp"],
+      "rootPatterns": [
+        "*.cabal",
+        "stack.yaml",
+        "cabal.project",
+        "package.yaml",
+        "hie.yaml"
+      ],
+      "filetypes": ["haskell", "lhaskell"]
+      "initializationOptions": {
+          "languageServerHaskell": {
+              "hlintOn": true,
+              "maxNumberOfProblems": 10,
+              "completionSnippetsOn": true
+          }
+      }
+    }
+  }
 }
