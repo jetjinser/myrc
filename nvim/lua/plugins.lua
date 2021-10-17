@@ -136,6 +136,7 @@ return require('packer').startup({
         use "hrsh7th/cmp-nvim-lsp"
         use "hrsh7th/cmp-buffer"
         use "hrsh7th/cmp-emoji"
+        use "hrsh7th/cmp-calc"
         use "L3MON4D3/LuaSnip"
         use "saadparwaiz1/cmp_luasnip"
         use "kdheepak/cmp-latex-symbols"

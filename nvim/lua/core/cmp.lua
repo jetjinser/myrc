@@ -45,6 +45,7 @@ cmp.setup({
                 path = "(Path)",
                 latex_symbols = "(LaTeX)",
                 emoji = "(Emoji)",
+                calc = "(Calc)",
                 -- look = "(Look)",
                 -- spell = "(Spell)",
             })[entry.source.name]
@@ -59,8 +60,9 @@ cmp.setup({
         ['<Tab>'] = cmp.mapping(function()
             if luasnip.expand_or_jumpable() then
                 luasnip.expand_or_jump()
+            else
+                cmp.confirm({select = true})
             end
-            cmp.confirm({select = true})
         end, {"i", "s"}),
         ['<S-Tab'] = cmp.mapping(function()
             if luasnip.jumpable(-1) then
@@ -102,6 +104,7 @@ cmp.setup({
         { name = "path" },
         { name = "latex_symbols" },
         { name = "emoji" },
+        { name = "calc" }
         -- { name='look', keyword_length=2 }
         -- { name = "spell" }
     }
