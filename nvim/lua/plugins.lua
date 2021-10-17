@@ -152,8 +152,30 @@ return require('packer').startup({
         use "windwp/nvim-autopairs"
         use "rafamadriz/friendly-snippets"
         -- damn
-        use { "f3fora/cmp-spell", opt = true }
+        use { "f3fora/cmp-spell", disable = true }
 
+        -- Tree
+        use {
+            'kyazdani42/nvim-tree.lua',
+            requires = 'kyazdani42/nvim-web-devicons',
+            config = function()
+                require'nvim-tree'.setup()
+                vim.api.nvim_set_keymap("n", "<space>e", ":NvimTreeToggle<CR>", { noremap = true })
+                vim.api.nvim_set_keymap("n", "<leader>r", ":NvimTreeRefresh<CR>", { noremap = true })
+                vim.api.nvim_set_keymap("n", "<leader>f", ":NvimTreeFindFile<CR>", { noremap = true })
+            end,
+        }
+        use {
+            "simrat39/symbols-outline.nvim",
+            config = function()
+                vim.g.symbols_outline = {
+                    keymaps = {
+                        hover_symbol = "<C-k>"
+                    }
+                }
+                vim.api.nvim_set_keymap("n", "<space>s", ":SymbolsOutline<CR>", { noremap = true })
+            end
+        }
     end,
     config = {
         git = {
