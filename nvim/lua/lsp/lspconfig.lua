@@ -9,7 +9,7 @@ local function install_lsp(lsp)
     end
 end
 
-local lsps = {"sumneko_lua", "rust_analyzer"}
+local lsps = {"sumneko_lua", "rust_analyzer", "hls", "pylsp", "vimls"}
 for _, lsp in ipairs(lsps) do
     install_lsp(lsp)
 end
