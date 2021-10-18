@@ -57,11 +57,16 @@ cmp.setup({
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-w>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.close(),
+        -- FIXME cannot feed keys <Tab> before word because exec order
         ['<Tab>'] = cmp.mapping(function()
             if luasnip.expand_or_jumpable() then
                 luasnip.expand_or_jump()
-            else
+            elseif has_words_before() then
                 cmp.confirm({select = true})
+            elseif check_backspace() then
+                vim.fn.feedkeys(T "<Tab>", "n")
+            else
+                vim.fn.feedkeys(T "<Tab>", "n")
             end
         end, {"i", "s"}),
         ['<S-Tab'] = cmp.mapping(function()
@@ -79,10 +84,6 @@ cmp.setup({
                 cmp.complete()
             elseif luasnip.jumpable() then
                 luasnip.jump(1)
-            elseif check_backspace() then
-                vim.fn.feedkeys(T "<Tab>", "n")
-            else
-                vim.fn.feedkeys(T "<Tab>", "n")
             end
         end, {"i", "s"}),
 
