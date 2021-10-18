@@ -13,6 +13,9 @@ ts_config.setup({
         extended_mode = true,
         max_file_lines = nil,
     },
+    matchup = {
+        enable = true,
+    }
 })
 
 vim.cmd [[highlight TreesitterContext guibg=grey30]]

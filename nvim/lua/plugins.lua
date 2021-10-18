@@ -176,6 +176,10 @@ return require('packer').startup({
                 vim.api.nvim_set_keymap("n", "<space>s", ":SymbolsOutline<CR>", { noremap = true })
             end
         }
+
+        use {'akinsho/bufferline.nvim', requires = 'kyazdani42/nvim-web-devicons'}
+
+        use {'andymass/vim-matchup', event = 'VimEnter'}
     end,
     config = {
         git = {
