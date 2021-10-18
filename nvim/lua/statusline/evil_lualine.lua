@@ -67,20 +67,6 @@ local config = {
         lualine_c = {},
         lualine_x = {},
     },
-    tabline = {
-        lualine_a = { 
-            function()
-                return "  "
-            end,
-            color = 'LualineMode',
-            padding = { left = 1 }
-        },
-        lualine_b = {},
-        lualine_c = { tabline.tabline_buffers },
-        lualine_x = { tabline.tabline_tabs },
-        lualine_y = {},
-        lualine_z = {},
-    }
 }
 
 -- Inserts a component in lualine_c at left section
