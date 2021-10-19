@@ -1,3 +1,5 @@
+require("lsp.racket_ls")
+
 local lsp_installer_servers = require'nvim-lsp-installer.servers'
 
 local function install_lsp(lsp)
@@ -9,7 +11,7 @@ local function install_lsp(lsp)
     end
 end
 
-local lsps = {"sumneko_lua", "rust_analyzer", "hls", "pylsp", "vimls"}
+local lsps = {"sumneko_lua", "vimls"}
 for _, lsp in ipairs(lsps) do
     install_lsp(lsp)
 end
