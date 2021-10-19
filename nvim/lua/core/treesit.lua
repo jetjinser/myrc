@@ -15,7 +15,13 @@ ts_config.setup({
     },
     matchup = {
         enable = true,
-    }
+    },
+    autotag = {
+        enable = true,
+    },
+    context_commentstring = {
+        enable = true
+    },
 })
 
 vim.cmd [[highlight TreesitterContext guibg=grey30]]
