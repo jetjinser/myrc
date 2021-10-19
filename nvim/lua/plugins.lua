@@ -79,6 +79,11 @@ return require('packer').startup({
         }
         use "romgrk/nvim-treesitter-context"
         use "p00f/nvim-ts-rainbow"
+        use {
+            "SmiteshP/nvim-gps",
+            requires = "nvim-treesitter/nvim-treesitter"
+        }
+
 
         -- Quickfix
         use "kevinhwang91/nvim-bqf"
@@ -151,6 +156,10 @@ return require('packer').startup({
         }
         use "windwp/nvim-autopairs"
         use "rafamadriz/friendly-snippets"
+        use { "windwp/nvim-ts-autotag", ft = {"html", "tsx", "vue", "svelte", "php"}}
+        -- comment
+        use "JoosepAlviste/nvim-ts-context-commentstring"
+        use "tpope/vim-commentary"
         -- damn
         use { "f3fora/cmp-spell", disable = true }
 
@@ -162,7 +171,7 @@ return require('packer').startup({
                 require'nvim-tree'.setup()
                 vim.api.nvim_set_keymap("n", "<space>e", ":NvimTreeToggle<CR>", { noremap = true })
                 vim.api.nvim_set_keymap("n", "<leader>r", ":NvimTreeRefresh<CR>", { noremap = true })
-                vim.api.nvim_set_keymap("n", "<leader>f", ":NvimTreeFindFile<CR>", { noremap = true })
+                vim.api.nvim_set_keymap("n", "<leader>g", ":NvimTreeFindFile<CR>", { noremap = true })
             end,
         }
         use {
