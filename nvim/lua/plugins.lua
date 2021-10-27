@@ -191,6 +191,8 @@ return require('packer').startup({
         use {'andymass/vim-matchup', event = 'VimEnter'}
 
         use "enomsg/vim-haskellConcealPlus"
+
+        use "wakatime/vim-wakatime"
     end,
     config = {
         git = {
