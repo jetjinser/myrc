@@ -2,6 +2,10 @@ lua require('init')
 
 let mapleader = ","
 
+inoremap jk <esc>
+inoremap <esc> <NOP>
+
+
 set termguicolors
 
 set nu
