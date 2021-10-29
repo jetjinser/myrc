@@ -195,6 +195,13 @@ return require('packer').startup({
             }
         }
         use "wakatime/vim-wakatime"
+
+        use {
+            "skywind3000/asynctasks.vim",
+            requires = {
+                "skywind3000/asyncrun.vim"
+            }
+        }
     end,
     config = {
         git = {
