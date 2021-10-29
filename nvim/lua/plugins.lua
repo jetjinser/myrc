@@ -61,7 +61,6 @@ return require('packer').startup({
             },
             run = ':TSUpdate',
         }
-        use "romgrk/nvim-treesitter-context"
         use "p00f/nvim-ts-rainbow"
         use {
             "SmiteshP/nvim-gps",

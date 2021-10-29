@@ -1,5 +1,4 @@
 local ts_config = require("nvim-treesitter.configs")
-local ts_ctx_config = require("treesitter-context")
 
 ts_config.setup({
     ensure_installed = "maintained",
@@ -29,17 +28,3 @@ local npairs = require("nvim-autopairs")
 npairs.setup({
     check_ts = true,
 })
-
-vim.cmd [[highlight TreesitterContext guibg=grey30]]
-ts_ctx_config.setup{
-    enable = true,
-    throttle = true,
-    max_lines = 0,
-    patterns = {
-        default = {
-            'class',
-            'function',
-            'method',
-        },
-    },
-}
