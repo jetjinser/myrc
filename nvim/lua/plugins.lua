@@ -195,6 +195,16 @@ return require('packer').startup({
             }
         }
         use "wakatime/vim-wakatime"
+
+        use {
+            "skywind3000/asynctasks.vim",
+            config = function ()
+                vim.api.nvim_set_var("asyncrun_open", 6)
+            end,
+            requires = {
+                "skywind3000/asyncrun.vim"
+            }
+        }
     end,
     config = {
         git = {
