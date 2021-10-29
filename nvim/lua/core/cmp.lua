@@ -37,17 +37,17 @@ cmp.setup({
             local icons = require("kind.icons").icons
             vim_item.kind = icons[vim_item.kind]
             vim_item.menu = ({
-                nvim_lsp = "(LSP)",
-                nvim_lua = "(Lua)",
-                luasnip = "(Snippet)",
-                crates = "(Crates)",
-                buffer = "(Buffer)",
-                path = "(Path)",
-                latex_symbols = "(LaTeX)",
-                emoji = "(Emoji)",
-                calc = "(Calc)",
-                -- look = "(Look)",
-                -- spell = "(Spell)",
+                nvim_lsp = "[LSP]",
+                nvim_lua = "[Lua]",
+                luasnip = "[Snippet]",
+                crates = "[Crates]",
+                buffer = "[Buffer]",
+                path = "[Path]",
+                latex_symbols = "[LaTeX]",
+                emoji = "[Emoji]",
+                calc = "[Calc]",
+                -- look = "[Look]",
+                -- spell = "[Spell]",
             })[entry.source.name]
             return vim_item
         end
@@ -123,4 +123,7 @@ require("nvim-autopairs.completion.cmp").setup({
   map_complete = true,
   auto_select = true,
   insert = false,
+  map_char = {
+    haskell = " "
+  }
 })
