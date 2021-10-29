@@ -1,21 +1,33 @@
-local nvim_lsp = require('lspconfig')
-
-vim.cmd [[autocmd ColorScheme * highlight NormalFloat guibg=#1E2127]]
-vim.cmd [[autocmd ColorScheme * highlight FloatBorder guibg=#1E2127]]
-vim.cmd [[
-sign define DiagnosticSignError text=  linehl= texthl=DiagnosticSignError numhl=
-sign define DiagnosticSignWarn text= linehl= texthl=DiagnosticSignWarn numhl=
-sign define DiagnosticSignInfo text=  linehl= texthl=DiagnosticSignInfo numhl=
-sign define DiagnosticSignHint text=💡  linehl= texthl=DiagnosticSignHint numhl=
-]]
 local border = {
-    {"╭", "floatborder"}, {"▔", "floatborder"}, {"╮", "floatborder"},
-    {"▕", "floatborder"}, {"╯", "floatborder"}, {"▁", "floatborder"},
-    {"╰", "floatborder"}, {"▏", "floatborder"}
+    {"╭", "FloatBorder"}, {"─", "FloatBorder"},
+    {"╮", "FloatBorder"}, {"│", "FloatBorder"},
+    {"╯", "FloatBorder"}, {"─", "FloatBorder"},
+    {"╰", "FloatBorder"}, {"│", "FloatBorder"}
 }
--- NOTE: LSP Settings
 
 local on_attach = function(client, bufnr)
+    vim.cmd [[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]]
+    vim.cmd [[autocmd ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
+
+    vim.cmd [[
+    hi link LspDiagnosticsVirtualTextError NightflyRedAlert
+    hi link LspDiagnosticsVirtualTextWarning NightflyTan
+    hi link LspDiagnosticsVirtualTextInformation NightflyBlueAlert
+    hi link LspDiagnosticsVirtualTextHint NightflyGreen
+
+    " Underline the offending code
+    hi LspDiagnosticsUnderlineError guifg=NONE ctermfg=NONE cterm=underline gui=underline
+    hi LspDiagnosticsUnderlineWarning guifg=NONE ctermfg=NONE cterm=underline gui=underline
+    hi LspDiagnosticsUnderlineInformation guifg=NONE ctermfg=NONE cterm=underline gui=underline
+    hi LspDiagnosticsUnderlineHint guifg=NONE ctermfg=NONE cterm=underline gui=underline
+
+    " TODO: there is no underline?
+    sign define LspDiagnosticsSignError text= texthl=LspDiagnosticsUnderlineError numhl=NightflyRedAlert
+    sign define LspDiagnosticsSignWarning text= texthl=LspDiagnosticsSignWarning numhl=NightflyTan
+    sign define LspDiagnosticsSignInformation text= texthl=LspDiagnosticsSignInformation numhl=NightflyBlueAlert
+    sign define LspDiagnosticsSignHint text= texthl=NightflyGreen numhl=NightflyGreen
+    ]]
+
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
     vim.lsp.handlers.hover, {
         border = border
@@ -28,13 +40,10 @@ local on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-    -- Enable completion triggered by <c-x><c-o>
     buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-    -- Mappings.
     local opts = { noremap=true, silent=true }
 
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
     buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
     buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
@@ -56,17 +65,12 @@ end
 
 vim.lsp.handlers['textDocument/publishDiagnostics'] =
 vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = true,
+    virtual_text = {
+        "●"
+    },
     signs = true,
     underline = false,
     update_in_insert = false
-})
-
-vim.lsp.handlers["textDocument/publishDiagnostics"] =
-vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = {
-        prefix = '●' -- Could be '●', '▎', 'x'
-    }
 })
 
 local lsp_installer = require("nvim-lsp-installer")

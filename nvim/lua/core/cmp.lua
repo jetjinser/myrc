@@ -32,6 +32,9 @@ cmp.setup({
     completion = {
         completeopt = "menu,menuone,noselect"
     },
+    experimental = {
+        ghost_text = true,
+    },
     formatting = {
         format = function(entry, vim_item)
             local icons = require("kind.icons").icons

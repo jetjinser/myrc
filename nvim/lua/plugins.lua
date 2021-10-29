@@ -29,36 +29,20 @@ return require('packer').startup({
         }
         -- }}}
 
-        -- statusline TODO to be replace {{{
         use {
-            'nvim-lualine/lualine.nvim',
-            requires = {'kyazdani42/nvim-web-devicons', opt = true},
-            config = [[ require('statusline.evil_lualine') ]]
-            -- config = function()
-            --     require('lualine').setup {
-            --         options = {
-            --             theme = 'nightfly'
-            --         }
-            --     }
-            -- end
-        }
-
-        use {
-            'kdheepak/tabline.nvim',
+            "windwp/windline.nvim",
             config = function()
-                require('tabline').setup {
-                    options = {
-                        show_filename_only = true,
-                    }
-                }
-                vim.cmd[[
-                set guioptions-=e
-                set sessionoptions+=tabpages,globals
-                ]]
+                require('statusline.evil_line')
             end,
-            requires = { { 'hoob3rt/lualine.nvim', opt=true }, {'kyazdani42/nvim-web-devicons', opt = true} }
+            requires = {
+                {
+                    "lewis6991/gitsigns.nvim",
+                    config = function()
+                        require('gitsigns').setup()
+                    end,
+                }
+            }
         }
-        --- }}}
 
         -- start view
         use "mhinz/vim-startify"
