@@ -117,13 +117,11 @@ cmp.setup({
 
 require("luasnip/loaders/from_vscode").lazy_load()
 
-require('nvim-autopairs').setup()
-require("nvim-autopairs.completion.cmp").setup({
-  map_cr = true,
-  map_complete = true,
-  auto_select = true,
-  insert = false,
-  map_char = {
-    haskell = " "
-  }
-})
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+cmp.event:on(
+    "confirm_done", cmp_autopairs.on_confirm_done({
+        map_char = {
+            hasekll = ""
+        }
+    })
+)
