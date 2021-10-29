@@ -22,5 +22,5 @@ extensions = ["rkt", "rktl"]
 
 [custom.haskell]
 symbol = " "
+extensions = ["hs", "lhs"]
 files = ["stack.yaml"]
-extensions = ["hs"]
