@@ -31,7 +31,7 @@ return require('packer').startup({
 
         -- statusline TODO to be replace {{{
         use {
-            'shadmansaleh/lualine.nvim',
+            'nvim-lualine/lualine.nvim',
             requires = {'kyazdani42/nvim-web-devicons', opt = true},
             config = [[ require('statusline.evil_lualine') ]]
             -- config = function()
@@ -139,8 +139,10 @@ return require('packer').startup({
         use "neovim/nvim-lspconfig"
         use "hrsh7th/nvim-cmp"
         use "hrsh7th/cmp-nvim-lsp"
+        use "hrsh7th/cmp-nvim-lua"
         use "hrsh7th/cmp-buffer"
         use "hrsh7th/cmp-emoji"
+        use "hrsh7th/cmp-path"
         use "hrsh7th/cmp-calc"
         use "L3MON4D3/LuaSnip"
         use "saadparwaiz1/cmp_luasnip"
@@ -162,16 +164,25 @@ return require('packer').startup({
         use "tpope/vim-commentary"
         -- damn
         use { "f3fora/cmp-spell", disable = true }
+        use { "itchyny/vim-haskell-indent", ft = {"haskell"} }
 
         -- Tree
         use {
             'kyazdani42/nvim-tree.lua',
             requires = 'kyazdani42/nvim-web-devicons',
             config = function()
-                require'nvim-tree'.setup()
+                require'nvim-tree'.setup{
+                    update_focused_file = {
+                        enable = true,
+                        update_cwd = true,
+                    },
+                    update_cwd = true,
+                }
                 vim.api.nvim_set_keymap("n", "<space>e", ":NvimTreeToggle<CR>", { noremap = true })
                 vim.api.nvim_set_keymap("n", "<leader>r", ":NvimTreeRefresh<CR>", { noremap = true })
                 vim.api.nvim_set_keymap("n", "<leader>g", ":NvimTreeFindFile<CR>", { noremap = true })
+
+                vim.cmd([[doautocmd NvimTree BufEnter *]])
             end,
         }
         use {
@@ -191,6 +202,13 @@ return require('packer').startup({
         use {'andymass/vim-matchup', event = 'VimEnter'}
 
         use "enomsg/vim-haskellConcealPlus"
+
+        use {
+            "rcarriga/nvim-notify",
+            config = {
+                require("notify").setup()
+            }
+        }
     end,
     config = {
         git = {
