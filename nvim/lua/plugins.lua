@@ -209,6 +209,7 @@ return require('packer').startup({
                 require("notify").setup()
             }
         }
+        use "wakatime/vim-wakatime"
     end,
     config = {
         git = {
