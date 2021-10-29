@@ -17,11 +17,17 @@ ts_config.setup({
         enable = true,
     },
     autotag = {
-        enable = true,
+        enable = false,
     },
     context_commentstring = {
         enable = true
     },
+})
+
+local npairs = require("nvim-autopairs")
+
+npairs.setup({
+    check_ts = true,
 })
 
 vim.cmd [[highlight TreesitterContext guibg=grey30]]
