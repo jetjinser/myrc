@@ -6,6 +6,8 @@ local state = _G.WindLine.state
 local lsp_comps = require('windline.components.lsp')
 local git_comps = require('windline.components.git')
 
+local gps = require('nvim-gps')
+
 local hl_list = {
     Black = { 'white', 'black' },
     White = { 'black', 'white' },
@@ -189,6 +191,16 @@ basic.lsp_name = {
             { b_components.cache_file_type({icon = true}), 'magenta' },
         }
     end,
+}
+
+basic.gps = {
+    function()
+		if gps.is_available() then
+			return gps.get_location()
+		end
+		return ''
+	end,
+	{"white", "black"}
 }
 
 local default = {

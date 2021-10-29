@@ -64,7 +64,10 @@ return require('packer').startup({
         use "p00f/nvim-ts-rainbow"
         use {
             "SmiteshP/nvim-gps",
-            requires = "nvim-treesitter/nvim-treesitter"
+            requires = "nvim-treesitter/nvim-treesitter",
+            config = function()
+                require("nvim-gps").setup()
+            end
         }
 
 
