@@ -87,6 +87,9 @@ lsp_installer.on_server_ready(function(server)
                 },
                 -- TODO how to install 3rd plugins through nvim-lsp-installer in the venv?
             }
+        },
+        haskell = {
+            formattingProvider = "stylish-haskell"
         }
     }
 
