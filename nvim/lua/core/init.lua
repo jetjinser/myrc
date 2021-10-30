@@ -1,5 +1,5 @@
-require "core.cmp"
+require("core.cmp")
 
-require "core.treesit"
+require("core.treesit")
 
-require "core.npairs"
+require("core.npairs")
