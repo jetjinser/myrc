@@ -41,7 +41,6 @@ else
     evil = "  "
 end
 
-
 basic.vi_mode = {
     name = 'vi_mode',
     hl_colors = colors_mode,
@@ -194,13 +193,19 @@ basic.lsp_name = {
 }
 
 basic.gps = {
-    function()
-		if gps.is_available() then
-			return gps.get_location()
-		end
+    hl_colors = colors_mode,
+    text = function()
+        if gps.is_available() then
+            local location = gps.get_location()
+            if location ~= '' then
+                return {
+                    { ' ', state.mode[2] },
+                    { gps.get_location(), hl_list.Black }
+                }
+            end
+        end
 		return ''
 	end,
-	{"white", "black"}
 }
 
 local default = {
@@ -209,6 +214,7 @@ local default = {
         basic.square_mode,
         basic.vi_mode,
         basic.file,
+        basic.gps,
         basic.lsp_diagnos,
         basic.divider,
         basic.file_right,
