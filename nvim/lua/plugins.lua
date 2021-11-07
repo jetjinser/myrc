@@ -212,6 +212,61 @@ return require("packer").startup({
 				"skywind3000/asyncrun.vim",
 			},
 		})
+
+		use({
+			"github/copilot.vim",
+			opt = true,
+		})
+
+		use({
+			"nvim-telescope/telescope.nvim",
+			requires = { { "nvim-lua/plenary.nvim" } },
+			config = function()
+				vim.cmd([[
+                nnoremap <leader>ff <cmd>Telescope find_files<cr>
+                nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+                nnoremap <leader>fb <cmd>Telescope buffers<cr>
+                nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+                ]])
+			end,
+		})
+
+		use({
+			"nvim-neorg/neorg",
+			config = function()
+				require("neorg").setup({
+					-- Tell Neorg what modules to load
+					load = {
+						["core.defaults"] = {}, -- Load all the default modules
+                        ["core.keybinds"] = {
+                            config = {
+                                default_keybinds = true,
+                            }
+                        },
+						["core.norg.concealer"] = {}, -- Allows for use of icons
+						["core.norg.dirman"] = { -- Manage your directories with Neorg
+							config = {
+								workspaces = {
+									my_workspace = "~/life/neorg",
+								},
+							},
+						},
+						["core.norg.completion"] = {
+							config = {
+								engine = "nvim-cmp",
+							},
+						},
+						["core.integrations.telescope"] = {}, -- Enable the telescope module
+					},
+				})
+			end,
+			requires = { "nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope" },
+		})
+
+        use {
+            "gelguy/wilder.nvim",
+            run = ":UpdateRemotePlugins",
+        }
 	end,
 	config = {
 		git = {

@@ -33,7 +33,7 @@ cmp.setup({
 		completeopt = "menu,menuone,noselect",
 	},
 	experimental = {
-		ghost_text = true,
+		ghost_text = false,
 	},
 	formatting = {
 		format = function(entry, vim_item)
@@ -49,6 +49,7 @@ cmp.setup({
 				latex_symbols = "[LaTeX]",
 				emoji = "[Emoji]",
 				calc = "[Calc]",
+                neorg = "[neorg]"
 				-- look = "[Look]",
 				-- spell = "[Spell]",
 			})[entry.source.name]
@@ -64,12 +65,17 @@ cmp.setup({
 		["<Tab>"] = cmp.mapping(function()
 			if luasnip.expand_or_jumpable() then
 				luasnip.expand_or_jump()
-			elseif has_words_before() then
+			elseif cmp.visible() then
 				cmp.confirm({ select = true })
 			elseif check_backspace() then
 				vim.fn.feedkeys(T("<Tab>"), "n")
 			else
-				vim.fn.feedkeys(T("<Tab>"), "n")
+                local copilot_keys = vim.fn["copilot#Accept"]()
+                if copilot_keys ~= "" then
+                    vim.api.nvim_feedkeys(copilot_keys, "i", true)
+                else
+				    vim.fn.feedkeys(T("<Tab>"), "n")
+                end
 			end
 		end, {
 			"i",
@@ -121,6 +127,7 @@ cmp.setup({
 		{ name = "latex_symbols" },
 		{ name = "emoji" },
 		{ name = "calc" },
+        { name = "neorg" },
 		-- { name='look', keyword_length=2 }
 		-- { name = "spell" }
 	},

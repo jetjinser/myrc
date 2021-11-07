@@ -14,22 +14,22 @@ local on_attach = function(client, bufnr)
 	vim.cmd([[autocmd ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]])
 
 	vim.cmd([[
-    hi link LspDiagnosticsVirtualTextError NightflyRedAlert
-    hi link LspDiagnosticsVirtualTextWarning NightflyTan
-    hi link LspDiagnosticsVirtualTextInformation NightflyBlueAlert
-    hi link LspDiagnosticsVirtualTextHint NightflyGreen
+    hi link DiagnosticVirtualTextError NightflyRedAlert
+    hi link DiagnosticVirtualTextWarn NightflyTan
+    hi link DiagnosticVirtualTextInfo NightflyBlueAlert
+    hi link DiagnosticVirtualTextHint NightflyGreen
 
     " Underline the offending code
-    hi LspDiagnosticsUnderlineError guifg=NONE ctermfg=NONE cterm=underline gui=underline
-    hi LspDiagnosticsUnderlineWarning guifg=NONE ctermfg=NONE cterm=underline gui=underline
-    hi LspDiagnosticsUnderlineInformation guifg=NONE ctermfg=NONE cterm=underline gui=underline
-    hi LspDiagnosticsUnderlineHint guifg=NONE ctermfg=NONE cterm=underline gui=underline
+    hi DiagnosticUnderlineError guifg=NONE ctermfg=NONE cterm=underline gui=underline
+    hi DiagnosticUnderlineWarn guifg=NONE ctermfg=NONE cterm=underline gui=underline
+    hi DiagnosticUnderlineInfo guifg=NONE ctermfg=NONE cterm=underline gui=underline
+    hi DiagnosticUnderlineHint guifg=NONE ctermfg=NONE cterm=underline gui=underline
 
     " TODO: there is no underline?
-    sign define LspDiagnosticsSignError text= texthl=LspDiagnosticsUnderlineError numhl=NightflyRedAlert
-    sign define LspDiagnosticsSignWarning text= texthl=LspDiagnosticsSignWarning numhl=NightflyTan
-    sign define LspDiagnosticsSignInformation text= texthl=LspDiagnosticsSignInformation numhl=NightflyBlueAlert
-    sign define LspDiagnosticsSignHint text= texthl=NightflyGreen numhl=NightflyGreen
+    sign define DiagnosticSignError text= texthl=LspDiagnosticsUnderlineError numhl=NightflyRedAlert
+    sign define DiagnosticSignWarn text= texthl=LspDiagnosticsSignWarning numhl=NightflyTan
+    sign define DiagnosticSignInfo text= texthl=LspDiagnosticsSignInformation numhl=NightflyBlueAlert
+    sign define DiagnosticSignHint text= texthl=NightflyGreen numhl=NightflyGreen
     ]])
 
 	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -88,18 +88,24 @@ lsp_installer.on_server_ready(function(server)
 		},
 	}
 
+	local lsputil = require("lspconfig/util")
+	local venv = require("lsp.utils").get_python_venv()
 	opts.settings = {
 		pylsp = {
+			cmd = { "pylsp", "-v" },
+			cmd_env = { VIRTUAL_ENV = venv, PATH = lsputil.path.join(venv, "bin") .. ":" .. vim.env.PATH },
 			plugins = {
 				pylint = {
 					enabled = true,
 				},
-				-- TODO how to install 3rd plugins through nvim-lsp-installer in the venv?
+				jedi = {
+					environment = os.getenv("VIRTUAL_ENV"),
+				},
 			},
 		},
-		haskell = {
-			formattingProvider = "stylish-haskell",
-		},
+		-- haskell = {
+		-- 	formattingProvider = "stylish-haskell",
+		-- },
 	}
 
 	server:setup(opts)
