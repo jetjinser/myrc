@@ -6,10 +6,6 @@ threshold = 30
 [character]
 vicmd_symbol = "🍥 "
 
-[memory_usage]
-disabled = false
-threshold = 65
-
 [custom.fennel]
 command = "fennel -v"
 symbol = "🧅 "
