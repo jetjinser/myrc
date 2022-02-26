@@ -5,6 +5,9 @@ let mapleader = ","
 inoremap jk <esc>
 inoremap <esc> <NOP>
 
+set foldmethod=marker
+set nowrap
+
 set termguicolors
 
 set nu
