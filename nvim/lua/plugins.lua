@@ -76,8 +76,14 @@ return require("packer").startup({
         -- terminal {{{
         use {
             "akinsho/toggleterm.nvim",
-            opt = true
+            opt = true,
         }
+        -- }}}
+
+        -- move {{{
+        -- use {
+        --     "edluffy/specs.nvim",
+        -- }
         -- }}}
     end
 })
