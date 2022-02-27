@@ -206,7 +206,7 @@ return require("packer").startup({
 		use({
 			"skywind3000/asynctasks.vim",
 			config = function()
-				vim.api.nvim_set_var("asyncrun_open", "6")
+				vim.api.nvim_set_var("asyncrun_open", 6)
 			end,
 			requires = {
 				"skywind3000/asyncrun.vim",
@@ -266,6 +266,11 @@ return require("packer").startup({
         use {
             "gelguy/wilder.nvim",
             run = ":UpdateRemotePlugins",
+        }
+
+        use {
+            "Olical/conjure",
+            requires = { "wlangstroth/vim-racket" }
         }
 	end,
 	config = {

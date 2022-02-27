@@ -7,11 +7,13 @@ inoremap <esc> <NOP>
 
 set rtp+=/usr/local/opt/fzf
 
-if has('nvim') && !empty($CONDA_PREFIX)
-  let g:python3_host_prog = $CONDA_PREFIX . '/bin/python'
-endif
+" set termguicolors
 
-set termguicolors
+" for chez scheme
+let g:conjure#client#scheme#stdio#command = "petite"
+let g:conjure#client#scheme#stdio#prompt_pattern = "> $?"
+
+set foldmethod=marker
 
 set nu
 set rnu
@@ -22,6 +24,7 @@ augroup relative_numbser
 augroup end
 
 set cursorline
+set termguicolors
 
 set tabstop=4
 set shiftwidth=4

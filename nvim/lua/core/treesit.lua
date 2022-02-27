@@ -34,6 +34,14 @@ parser_configs.norg = {
 	},
 }
 
+parser_configs.racket = {
+    install_info = {
+        url = "https://github.com/jetjinser/tree-sitter-racket",
+        files = { "src/parser.c", "src/binding.cc" },
+        branch = "master",
+    }
+}
+
 local npairs = require("nvim-autopairs")
 
 npairs.setup({
