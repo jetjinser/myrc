@@ -38,7 +38,7 @@ return require("packer").startup({
         }
         -- }}}
 
-        -- bufferline
+        -- bufferline {{{
         use {
             "akinsho/bufferline.nvim",
             requires = "kyazdani42/nvim-web-devicons",
@@ -52,8 +52,8 @@ return require("packer").startup({
                     nnoremap <silent>}b :BufferLineMoveNext<CR>
                     nnoremap <silent>{b :BufferLineMovePrev<CR>
 
-                    nnoremap <silent>be :BufferLineSortByExtension<CR>
-                    nnoremap <silent>bd :BufferLineSortByDirectory<CR>
+                    nnoremap <silent><leader>be :BufferLineSortByExtension<CR>
+                    nnoremap <silent><leader>bd :BufferLineSortByDirectory<CR>
                 ]]
 
                 require("bufferline").setup {
@@ -61,6 +61,19 @@ return require("packer").startup({
                 }
             end
         }
+        -- }}}
+
+        -- statusline {{{
+        use {
+            "nvim-lualine/lualine.nvim",
+            requires = { "kyazdani42/nvim-web-devicons" },
+            config = function()
+                require('lualine').setup {
+                    options = {theme = "nightfly"}
+                }
+            end
+        }
+        -- }}}
 
         -- indent {{{
         use {
@@ -110,7 +123,7 @@ return require("packer").startup({
         use {
             "edluffy/specs.nvim",
             config = function()
-                require('specs').setup {
+                require("specs").setup {
                     show_jumps  = true,
                     min_jump = 30,
                     popup = {
@@ -119,8 +132,8 @@ return require("packer").startup({
                         blend = 10, -- starting blend, between 0-100 (fully transparent), see :h winblend
                         width = 10,
                         winhl = "PMenu",
-                        fader = require('specs').linear_fader,
-                        resizer = require('specs').shrink_resizer
+                        fader = require("specs").linear_fader,
+                        resizer = require("specs").shrink_resizer
                     },
                     ignore_filetypes = {},
                     ignore_buftypes = {
@@ -128,11 +141,11 @@ return require("packer").startup({
                     },
                 }
                 -- Press <C-b> to call specs!
-                vim.api.nvim_set_keymap('n', '<C-b>', ':lua require("specs").show_specs()<CR>', { noremap = true, silent = true })
+                vim.api.nvim_set_keymap("n", "<C-b>", ":lua require('specs').show_specs()<CR>", { noremap = true, silent = true })
 
                 -- You can even bind it to search jumping and more, example:
-                vim.api.nvim_set_keymap('n', 'n', 'n:lua require("specs").show_specs()<CR>', { noremap = true, silent = true })
-                vim.api.nvim_set_keymap('n', 'N', 'N:lua require("specs").show_specs()<CR>', { noremap = true, silent = true })
+                vim.api.nvim_set_keymap("n", "n", "n:lua require('specs').show_specs()<CR>", { noremap = true, silent = true })
+                vim.api.nvim_set_keymap("n", "N", "N:lua require('specs').show_specs()<CR>", { noremap = true, silent = true })
             end
         }
         -- }}}
@@ -176,7 +189,7 @@ return require("packer").startup({
             ft = "norg",
             after = "nvim-treesitter",
             config = function()
-                require('neorg').setup {
+                require("neorg").setup {
                     load = {
                         ["core.defaults"] = {},
                         ["core.norg.dirman"] = {
