@@ -9,9 +9,9 @@ return require("packer").startup({
         -- tree-sitter
         use {
             "nvim-treesitter/nvim-treesitter",
-            run = ":TSUpdate"
+            run = ":TSUpdate",
         }
-        
+
         -- deps
         use("nvim-lua/plenary.nvim")
 
@@ -38,12 +38,39 @@ return require("packer").startup({
         }
         -- }}}
 
+        -- bufferline
+        use {
+            "akinsho/bufferline.nvim",
+            requires = "kyazdani42/nvim-web-devicons",
+            config = function()
+                vim.opt.termguicolors = true
+
+                vim.cmd [[
+                    nnoremap <silent>[b :BufferLineCycleNext<CR>
+                    nnoremap <silent>b] :BufferLineCyclePrev<CR>
+
+                    nnoremap <silent><mymap> :BufferLineMoveNext<CR>
+                    nnoremap <silent><mymap> :BufferLineMovePrev<CR>
+
+                    nnoremap <silent>be :BufferLineSortByExtension<CR>
+                    nnoremap <silent>bd :BufferLineSortByDirectory<CR>
+                    nnoremap <silent><mymap> :lua require'bufferline'.sort_buffers_by(function (buf_a, buf_b) return buf_a.id < buf_b.id end)<CR>
+                ]]
+
+                require("bufferline").setup {
+                    diagnostics = "nvim_lsp"
+                }
+            end
+        }
+
         -- indent {{{
         use {
             "lukas-reineke/indent-blankline.nvim",
             config = function()
                 vim.opt.list = true
-                -- vim.g.indentLine_char = "⎢"
+
+                vim.g.indent_blankline_filetype_exclude = {"man"}
+                vim.g.indent_blankline_buftype_exclude = {"nofile"}
 
                 require("indent_blankline").setup {
                     show_current_context = true,
@@ -84,12 +111,12 @@ return require("packer").startup({
         use {
             "edluffy/specs.nvim",
             config = function()
-                require('specs').setup{ 
+                require('specs').setup {
                     show_jumps  = true,
                     min_jump = 30,
                     popup = {
                         delay_ms = 0, -- delay before popup displays
-                        inc_ms = 10, -- time increments used for fade/resize effects 
+                        inc_ms = 10, -- time increments used for fade/resize effects
                         blend = 10, -- starting blend, between 0-100 (fully transparent), see :h winblend
                         width = 10,
                         winhl = "PMenu",
@@ -119,5 +146,108 @@ return require("packer").startup({
           end
         }
         -- }}}
+
+        -- depend on tree-sitter {{{
+        use {
+            "nvim-treesitter/nvim-treesitter-refactor",
+            requires = "nvim-treesitter/nvim-treesitter",
+            config = function()
+                vim.go.updatetime = 1800
+            end
+        }
+
+        use {
+            "nvim-treesitter/nvim-treesitter-textobjects",
+            requires = "nvim-treesitter/nvim-treesitter",
+        }
+
+        use {
+            "p00f/nvim-ts-rainbow",
+            requires = "nvim-treesitter/nvim-treesitter",
+        }
+
+        use {
+            "nvim-treesitter/playground",
+            opt = true,
+        }
+
+        -- neorg {{{
+        use {
+            "nvim-neorg/neorg",
+            ft = "norg",
+            after = "nvim-treesitter",
+            config = function()
+                require('neorg').setup {
+                    load = {
+                        ["core.defaults"] = {},
+                        ["core.norg.dirman"] = {
+                            config = {
+                                workspaces = {
+                                    work = "~/life/notes/work",
+                                    home = "~/life/notes/home",
+                                }
+                            }
+                        },
+                        ["core.norg.concealer"] = {},
+                        ["core.norg.completion"] = {
+							config = {
+								engine = "nvim-cmp",
+							},
+						},
+                        ["core.keybinds"] = {
+                            config = {
+                                default_keybinds = true,
+                            }
+                        },
+                    }
+                }
+            end,
+            requires = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" }
+        }
+        -- }}}
+
+        -- }}}
+
+        -- lsp {{{
+        use {
+            "neovim/nvim-lspconfig"
+        }
+        use("williamboman/nvim-lsp-installer")
+        -- }}}
+
+        -- Completion  {{{
+        use("hrsh7th/nvim-cmp")
+
+        -- snippets
+        use("L3MON4D3/LuaSnip")
+		use("saadparwaiz1/cmp_luasnip")
+
+		use("hrsh7th/cmp-nvim-lsp")
+		use("hrsh7th/cmp-nvim-lua")
+		use("hrsh7th/cmp-buffer")
+		use("hrsh7th/cmp-path")
+		use({
+			"Saecki/crates.nvim",
+			event = "BufRead Cargo.toml",
+			requires = "nvim-lua/plenary.nvim",
+			config = function()
+				require("crates").setup()
+			end,
+		})
+
+		-- use("windwp/nvim-autopairs")
+		-- use("rafamadriz/friendly-snippets")
+		-- use({ "windwp/nvim-ts-autotag", ft = { "html", "tsx", "vue", "svelte", "php" } })
+
+		-- TODO:conceal not there
+		-- use({ "itchyny/vim-haskell-indent", ft = { "haskell" } })
+
+        -- }}}
+
+        -- comments {{{
+        use("JoosepAlviste/nvim-ts-context-commentstring")
+		use("tpope/vim-commentary")
+        -- }}}
+
     end
 })
