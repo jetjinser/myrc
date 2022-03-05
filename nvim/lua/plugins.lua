@@ -47,14 +47,13 @@ return require("packer").startup({
 
                 vim.cmd [[
                     nnoremap <silent>[b :BufferLineCycleNext<CR>
-                    nnoremap <silent>b] :BufferLineCyclePrev<CR>
+                    nnoremap <silent>]b :BufferLineCyclePrev<CR>
 
-                    nnoremap <silent><mymap> :BufferLineMoveNext<CR>
-                    nnoremap <silent><mymap> :BufferLineMovePrev<CR>
+                    nnoremap <silent>}b :BufferLineMoveNext<CR>
+                    nnoremap <silent>{b :BufferLineMovePrev<CR>
 
                     nnoremap <silent>be :BufferLineSortByExtension<CR>
                     nnoremap <silent>bd :BufferLineSortByDirectory<CR>
-                    nnoremap <silent><mymap> :lua require'bufferline'.sort_buffers_by(function (buf_a, buf_b) return buf_a.id < buf_b.id end)<CR>
                 ]]
 
                 require("bufferline").setup {
