@@ -247,8 +247,13 @@ return require("packer").startup({
 			end,
 		})
 
-		-- use("windwp/nvim-autopairs")
-		-- use("rafamadriz/friendly-snippets")
+		use{
+            "windwp/nvim-autopairs",
+            config = function()
+                require('nvim-autopairs').setup()
+            end
+        }
+		use("rafamadriz/friendly-snippets")
 		-- use({ "windwp/nvim-ts-autotag", ft = { "html", "tsx", "vue", "svelte", "php" } })
 
 		-- TODO:conceal not there

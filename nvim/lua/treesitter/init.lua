@@ -1,4 +1,5 @@
 require("treesitter.neorg")
+require("treesitter.autopairs")
 
 require("nvim-treesitter.configs").setup {
     ensure_installed = {

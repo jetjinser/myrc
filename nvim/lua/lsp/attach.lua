@@ -9,7 +9,7 @@ local border = {
     { "│", "FloatBorder" },
 }
 
-local on_attach = function(client, bufnr)
+local on_attach = function(_client, bufnr)
 
     -- hightlight {{{
     vim.cmd([[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]])
@@ -45,10 +45,6 @@ local on_attach = function(client, bufnr)
         vim.api.nvim_buf_set_keymap(bufnr, ...)
     end
 
-    local function buf_set_option(...) end
-
-    buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-
     local opts = { noremap = true, silent = true }
 
     -- keymap {{{
@@ -81,7 +77,20 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
     update_in_insert = false,
 })
 
+-- on_server_ready {{{
+
 local lsp_installer = require("nvim-lsp-installer")
+
+local enhance_server_opts = {
+  -- dont work, i dunno
+  ["sumneko_lua"] = function(opts)
+    opts.settings = {
+        misc = {
+            parameters = {"--preview"}
+        }
+    }
+  end,
+}
 
 lsp_installer.on_server_ready(function(server)
     local opts = {
@@ -91,14 +100,11 @@ lsp_installer.on_server_ready(function(server)
         },
     }
 
-    -- opts.settings = {
-    --     haskell = {
-    --         ormattingProvider = "stylish-haskell",
-    --     },
-    -- }
+    if enhance_server_opts[server.name] then
+        enhance_server_opts[server.name](opts)
+    end
 
     server:setup(opts)
-    vim.cmd([[ do User LspAttachBuffers ]])
 end)
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -106,3 +112,5 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport = {
     properties = { "documentation", "detail", "additionalTextEdits" },
 }
+
+-- }}}
