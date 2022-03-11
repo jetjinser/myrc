@@ -82,14 +82,11 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 local lsp_installer = require("nvim-lsp-installer")
 
 local enhance_server_opts = {
-  -- dont work, i dunno
-  ["sumneko_lua"] = function(opts)
-    opts.settings = {
-        misc = {
-            parameters = {"--preview"}
+    ["sumneko_lua"] = function(opts)
+        opts.cmd = {
+            "lua-language-server", "--preview"
         }
-    }
-  end,
+    end,
 }
 
 lsp_installer.on_server_ready(function(server)
