@@ -77,6 +77,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
     update_in_insert = false,
 })
 
+
 -- on_server_ready {{{
 
 local lsp_installer = require("nvim-lsp-installer")
@@ -101,7 +102,30 @@ lsp_installer.on_server_ready(function(server)
         enhance_server_opts[server.name](opts)
     end
 
-    server:setup(opts)
+    -- Initialize the LSP via rust-tools instead
+    -- FIXME: codelldb.so, 9: image not found
+    if server.name == "rust_analyzer" then
+        local extension_path = vim.env.HOME .. "/.local/share/nvim/visx/codelldb-x86_64-darwin/extension/"
+        local codelldb_path = extension_path .. "adapter/codelldb"
+        local liblldb_path = extension_path .. "lldb/lib/liblldb.so"
+
+        require("rust-tools").setup {
+            server = vim.tbl_deep_extend("force", server:get_default_options(), opts),
+            dap = {
+                adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path)
+            },
+            tools = {
+                crate_graph = {
+                    -- x11 not recognized, it said
+                    backend = "plain"
+                },
+                executor = require("rust-tools/executors").quickfix
+            }
+        }
+        server:attach_buffers()
+    else
+        server:setup(opts)
+    end
 end)
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()

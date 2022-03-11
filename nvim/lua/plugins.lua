@@ -75,6 +75,10 @@ return require("packer").startup({
         }
         -- }}}
 
+        -- pretty vim.ui {{{
+        use "stevearc/dressing.nvim"
+        -- }}}
+
         -- indent {{{
         use {
             "lukas-reineke/indent-blankline.nvim",
@@ -264,6 +268,13 @@ return require("packer").startup({
         -- comments {{{
         use("JoosepAlviste/nvim-ts-context-commentstring")
 		use("tpope/vim-commentary")
+        -- }}}
+
+        -- debugger {{{
+
+        use "mfussenegger/nvim-dap"
+        use "simrat39/rust-tools.nvim"
+
         -- }}}
 
     end
