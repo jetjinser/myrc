@@ -79,6 +79,22 @@ return require("packer").startup({
         use "stevearc/dressing.nvim"
         -- }}}
 
+        -- fancy vim.notify {{{
+        use {
+            "rcarriga/nvim-notify",
+            config = function()
+                local notify = require("notify")
+
+                notify.setup {
+                    stages = "slide",
+                    timeout = 4000,
+                }
+
+                vim.notify = notify
+            end
+        }
+        -- }}}
+
         -- better quickfix {{{
         use "kevinhwang91/nvim-bqf"
         -- }}}
