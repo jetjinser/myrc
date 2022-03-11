@@ -105,7 +105,7 @@ lsp_installer.on_server_ready(function(server)
     -- Initialize the LSP via rust-tools instead
     -- FIXME: codelldb.so, 9: image not found
     if server.name == "rust_analyzer" then
-        local extension_path = vim.env.HOME .. "/.local/share/nvim/visx/codelldb-x86_64-darwin/extension/"
+        local extension_path = vim.fn.stdpath("data") .. "/visx/codelldb-x86_64-darwin/extension/"
         local codelldb_path = extension_path .. "adapter/codelldb"
         local liblldb_path = extension_path .. "lldb/lib/liblldb.so"
 

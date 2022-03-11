@@ -69,7 +69,7 @@ return require("packer").startup({
             requires = { "kyazdani42/nvim-web-devicons" },
             config = function()
                 require('lualine').setup {
-                    options = {theme = "nightfly"}
+                    options = { theme = "nightfly" }
                 }
             end
         }
@@ -105,8 +105,8 @@ return require("packer").startup({
             config = function()
                 vim.opt.list = true
 
-                vim.g.indent_blankline_filetype_exclude = {"man"}
-                vim.g.indent_blankline_buftype_exclude = {"nofile"}
+                vim.g.indent_blankline_filetype_exclude = { "man" }
+                vim.g.indent_blankline_buftype_exclude = { "nofile" }
 
                 require("indent_blankline").setup {
                     show_current_context = true,
@@ -148,9 +148,9 @@ return require("packer").startup({
             "edluffy/specs.nvim",
             config = function()
                 require("specs").setup {
-                    show_jumps  = true,
-                    min_jump = 30,
-                    popup = {
+                    show_jumps       = true,
+                    min_jump         = 30,
+                    popup            = {
                         delay_ms = 0, -- delay before popup displays
                         inc_ms = 10, -- time increments used for fade/resize effects
                         blend = 10, -- starting blend, between 0-100 (fully transparent), see :h winblend
@@ -160,7 +160,7 @@ return require("packer").startup({
                         resizer = require("specs").shrink_resizer
                     },
                     ignore_filetypes = {},
-                    ignore_buftypes = {
+                    ignore_buftypes  = {
                         nofile = true,
                     },
                 }
@@ -176,10 +176,10 @@ return require("packer").startup({
 
         -- which-key {{{
         use {
-          "folke/which-key.nvim",
-          config = function()
-            require("which-key").setup()
-          end
+            "folke/which-key.nvim",
+            config = function()
+                require("which-key").setup()
+            end
         }
         -- }}}
 
@@ -226,10 +226,10 @@ return require("packer").startup({
                         },
                         ["core.norg.concealer"] = {},
                         ["core.norg.completion"] = {
-							config = {
-								engine = "nvim-cmp",
-							},
-						},
+                            config = {
+                                engine = "nvim-cmp",
+                            },
+                        },
                         ["core.keybinds"] = {
                             config = {
                                 default_keybinds = true,
@@ -256,44 +256,51 @@ return require("packer").startup({
 
         -- snippets
         use("L3MON4D3/LuaSnip")
-		use("saadparwaiz1/cmp_luasnip")
+        use("saadparwaiz1/cmp_luasnip")
 
-		use("hrsh7th/cmp-nvim-lsp")
-		use("hrsh7th/cmp-nvim-lua")
-		use("hrsh7th/cmp-buffer")
-		use("hrsh7th/cmp-path")
-		use({
-			"Saecki/crates.nvim",
-			event = "BufRead Cargo.toml",
-			requires = "nvim-lua/plenary.nvim",
-			config = function()
-				require("crates").setup()
-			end,
-		})
+        use("hrsh7th/cmp-nvim-lsp")
+        use("hrsh7th/cmp-nvim-lua")
+        use("hrsh7th/cmp-buffer")
+        use("hrsh7th/cmp-path")
+        use({
+            "Saecki/crates.nvim",
+            event = "BufRead Cargo.toml",
+            requires = "nvim-lua/plenary.nvim",
+            config = function()
+                require("crates").setup()
+            end,
+        })
 
-		use{
+        use {
             "windwp/nvim-autopairs",
             config = function()
                 require('nvim-autopairs').setup()
             end
         }
-		use("rafamadriz/friendly-snippets")
-		-- use({ "windwp/nvim-ts-autotag", ft = { "html", "tsx", "vue", "svelte", "php" } })
+        use("rafamadriz/friendly-snippets")
+        -- use({ "windwp/nvim-ts-autotag", ft = { "html", "tsx", "vue", "svelte", "php" } })
 
-		-- TODO:conceal not there
-		-- use({ "itchyny/vim-haskell-indent", ft = { "haskell" } })
+        -- TODO:conceal not there
+        -- use({ "itchyny/vim-haskell-indent", ft = { "haskell" } })
 
         -- }}}
 
         -- comments {{{
         use("JoosepAlviste/nvim-ts-context-commentstring")
-		use("tpope/vim-commentary")
+        use("tpope/vim-commentary")
         -- }}}
 
         -- debugger {{{
 
         use "mfussenegger/nvim-dap"
         use "simrat39/rust-tools.nvim"
+        use {
+            "rcarriga/nvim-dap-ui",
+            requires = { "mfussenegger/nvim-dap" },
+            config = function()
+                require("dapui").setup()
+            end
+        }
 
         -- }}}
 

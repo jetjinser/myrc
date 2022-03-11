@@ -1,0 +1,1 @@
+require("dbg/haskell")
