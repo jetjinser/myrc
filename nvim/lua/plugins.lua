@@ -79,6 +79,10 @@ return require("packer").startup({
         use "stevearc/dressing.nvim"
         -- }}}
 
+        -- better quickfix {{{
+        use "kevinhwang91/nvim-bqf"
+        -- }}}
+
         -- indent {{{
         use {
             "lukas-reineke/indent-blankline.nvim",
