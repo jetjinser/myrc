@@ -75,6 +75,36 @@ return require("packer").startup({
         }
         -- }}}
 
+        -- tree {{{
+        use {
+            "kyazdani42/nvim-tree.lua",
+            requires = {
+                "kyazdani42/nvim-web-devicons",
+            },
+            config = function()
+                require("nvim-tree").setup {
+                    diagnostics = {
+                        enable = true,
+                    },
+                    update_focused_file = {
+                        enable = true,
+                        updated_cwd = true,
+                    },
+                }
+
+                -- set shell & mapping
+                vim.cmd [[
+                    set shell=/bin/bash
+                    set shellcmdflag=--noprofile\ --norc\ -c
+
+                    nnoremap <Space>e :NvimTreeToggle<CR>
+                    nnoremap <Space>r :NvimTreeRefresh<CR>
+                    nnoremap <Space>n :NvimTreeFindFile<CR>
+                ]]
+            end
+        }
+        -- }}}
+
         -- pretty vim.ui {{{
         use "stevearc/dressing.nvim"
         -- }}}

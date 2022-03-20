@@ -77,18 +77,25 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
     update_in_insert = false,
 })
 
-
--- on_server_ready {{{
-
-local lsp_installer = require("nvim-lsp-installer")
-
 local enhance_server_opts = {
     ["sumneko_lua"] = function(opts)
         opts.cmd = {
             "lua-language-server", "--preview"
         }
     end,
+    ["hls"] = function(opts)
+        opts.settings = {
+            haskell = {
+                formattingProvider = "stylish-haskell"
+                -- formattingProvider = "ormolu"
+            }
+        }
+    end
 }
+
+-- on_server_ready {{{
+
+local lsp_installer = require("nvim-lsp-installer")
 
 lsp_installer.on_server_ready(function(server)
     local opts = {
