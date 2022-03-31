@@ -17,6 +17,10 @@ return require("packer").startup({
 
         -- }}}
 
+        -- wakatime {{{
+        use "wakatime/vim-wakatime"
+        -- }}}
+
         -- dashboard {{{
         use {
             "goolord/alpha-nvim",
@@ -95,7 +99,7 @@ return require("packer").startup({
                 -- set shell & mapping
                 vim.cmd [[
                     set shell=/bin/bash
-                    set shellcmdflag=--noprofile\ --norc\ -c
+                    " set shellcmdflag=--noprofile\ --norc\ -c
 
                     nnoremap <Space>e :NvimTreeToggle<CR>
                     nnoremap <Space>r :NvimTreeRefresh<CR>
@@ -300,6 +304,9 @@ return require("packer").startup({
                 require("crates").setup()
             end,
         })
+
+        -- 有机会再看看？
+        -- use("machakann/vim-sandwich")
 
         use {
             "windwp/nvim-autopairs",
