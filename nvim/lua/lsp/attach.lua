@@ -86,8 +86,8 @@ local enhance_server_opts = {
     ["hls"] = function(opts)
         opts.settings = {
             haskell = {
-                formattingProvider = "stylish-haskell"
-                -- formattingProvider = "ormolu"
+                -- formattingProvider = "stylish-haskell"
+                formattingProvider = "ormolu"
             }
         }
     end

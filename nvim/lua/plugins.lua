@@ -285,8 +285,11 @@ return require("packer").startup({
         use("williamboman/nvim-lsp-installer")
         -- }}}
 
-        -- Completion  {{{
-        use("hrsh7th/nvim-cmp")
+        -- cmp {{{
+        use {
+            "hrsh7th/nvim-cmp",
+            branch = "dev",
+        }
 
         -- snippets
         use("L3MON4D3/LuaSnip")
