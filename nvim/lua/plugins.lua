@@ -223,6 +223,7 @@ return require("packer").startup({
             requires = "nvim-treesitter/nvim-treesitter",
             config = function()
                 vim.go.updatetime = 1800
+                vim.cmd[[highlight link TSDefinition WildMenu]]
             end
         }
 
