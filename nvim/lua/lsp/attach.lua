@@ -90,6 +90,17 @@ local enhance_server_opts = {
                 formattingProvider = "ormolu"
             }
         }
+    end,
+    ["kotlin_language_server"] = function(opts)
+        opts.settings = {
+            kotlin = {
+                compiler = {
+                    jvm = {
+                        target = "11";
+                    }
+                };
+            };
+        }
     end
 }
 
