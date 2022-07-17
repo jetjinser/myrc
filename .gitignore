@@ -1,4 +1,5 @@
 /*
 !/nvim/
 !starship.toml
+!wayfire.ini
 nvim/plugin/packer_compiled.lua
