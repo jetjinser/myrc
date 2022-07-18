@@ -21,10 +21,10 @@ local function T(str)
 end
 
 local tab = function()
-    if luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-    elseif cmp.visible() then
+    if cmp.visible() then
         cmp.confirm({ select = true })
+    elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
     elseif check_backspace() then
         vim.fn.feedkeys(T("<Tab>"), "n")
     else

@@ -37,7 +37,23 @@ return require("packer").startup({
         use {
             "bluz71/vim-nightfly-guicolors",
             config = function()
-                vim.cmd([[colorscheme nightfly]])
+                -- vim.cmd("colorscheme nightfly")
+            end,
+            opt = true,
+        }
+        use {
+            "rose-pine/neovim",
+            as = "rose-pine",
+            tag = "1.*",
+            config = function()
+                vim.o.background = "dark"
+                require("rose-pine").setup {
+                    dark_variant = "moon",
+                    highlight_groups = {
+                        ColorColumn = { bg = "rose" }
+                    }
+                }
+                vim.cmd("colorscheme rose-pine")
             end,
         }
         -- }}}
@@ -50,8 +66,8 @@ return require("packer").startup({
                 vim.opt.termguicolors = true
 
                 vim.cmd [[
-                    nnoremap <silent>[b :BufferLineCycleNext<CR>
-                    nnoremap <silent>]b :BufferLineCyclePrev<CR>
+                    nnoremap <silent>]b :BufferLineCycleNext<CR>
+                    nnoremap <silent>[b :BufferLineCyclePrev<CR>
 
                     nnoremap <silent>}b :BufferLineMoveNext<CR>
                     nnoremap <silent>{b :BufferLineMovePrev<CR>
@@ -73,7 +89,7 @@ return require("packer").startup({
             requires = { "kyazdani42/nvim-web-devicons" },
             config = function()
                 require('lualine').setup {
-                    options = { theme = "nightfly" }
+                    options = { theme = "rose-pine" }
                 }
             end
         }
@@ -90,10 +106,8 @@ return require("packer").startup({
                     diagnostics = {
                         enable = true,
                     },
-                    update_focused_file = {
-                        enable = true,
-                        updated_cwd = true,
-                    },
+                    update_cwd = true,
+                    reload_on_bufenter = true,
                 }
 
                 -- set shell & mapping
@@ -114,19 +128,19 @@ return require("packer").startup({
         -- }}}
 
         -- fancy vim.notify {{{
-        use {
-            "rcarriga/nvim-notify",
-            config = function()
-                local notify = require("notify")
+        -- use {
+        --     "rcarriga/nvim-notify",
+        --     config = function()
+        --         local notify = require("notify")
 
-                notify.setup {
-                    stages = "slide",
-                    timeout = 4000,
-                }
+        --         notify.setup {
+        --             stages = "slide",
+        --             timeout = 4000,
+        --         }
 
-                vim.notify = notify
-            end
-        }
+        --         vim.notify = notify
+        --     end
+        -- }
         -- }}}
 
         -- better quickfix {{{
@@ -223,7 +237,7 @@ return require("packer").startup({
             requires = "nvim-treesitter/nvim-treesitter",
             config = function()
                 vim.go.updatetime = 1800
-                vim.cmd[[highlight link TSDefinition WildMenu]]
+                vim.cmd [[highlight link TSDefinition WildMenu]]
             end
         }
 
@@ -260,11 +274,11 @@ return require("packer").startup({
                             }
                         },
                         ["core.norg.concealer"] = {},
-                        ["core.norg.completion"] = {
-                            config = {
-                                engine = "nvim-cmp",
-                            },
-                        },
+                        -- ["core.norg.completion"] = {
+                        --     config = {
+                        --         engine = "nvim-cmp",
+                        --     },
+                        -- },
                         ["core.keybinds"] = {
                             config = {
                                 default_keybinds = true,
