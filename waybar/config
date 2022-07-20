@@ -1,0 +1,127 @@
+[{
+    // "height": 1,
+    // "width": 300,
+    "name": "bottom",
+    "layer": "top",
+    "output": "eDP-1",
+    "margin": "0px 0px 0px 0px",
+    "position": "left",
+    "modules-left": ["wlr/taskbar"],
+    // "modules-right": ["tray", "custom/bluetooth", "pulseaudio", "clock", "backlight", "battery", "memory", "cpu", "disk", "temperature", "idle_inhibitor"],
+    "modules-right": ["tray", "custom/bluetooth", "pulseaudio", "clock", "backlight", "battery", "memory", "cpu", "disk", "temperature"],
+    "battery": {
+        "format": "{capacity}",
+        /* "format-icons": ["", "", "", ""], */
+        "format-charging": "{capacity}",
+        "interval": 30,
+        "on-click": "gnome-control-center power",
+        "states": {
+            "full": 100,
+            "closefull": 99,
+            "warning": 45,
+            "critical": 20
+        }
+    },
+    "wlr/taskbar": {
+        "format": "{icon}",
+        "icon-size": 18,
+        "icon-theme": "Arc",
+        "tooltip-format": "{title}",
+        "on-click": "activate",
+        "on-click-middle": "close",
+        "on-click-right": "minimize",
+        /* "ignore-list": [ */
+           /* "Alacritty" */
+        /* ], */
+        "app_ids-mapping": {
+          "firefoxdeveloperedition": "firefox-developer-edition"
+        }
+    },
+    "clock": {
+        "format": "{:%H}",
+        "tooltip-format": "{:%Y-%m-%d %H:%M}"
+    },
+    "backlight": {
+        /* "device": "intel_backlight", */
+        "format": "{icon}",
+        "format-icons": ["", "", ""],
+        /* "on-scroll-up": "exec brightnessctl set 5%+", */
+        /* "on-scroll-down": "brightnessctl set 5%-", */
+        /* "tooltip-format": "{percent}%", */
+        "states": {
+            "low": 0,
+            "mid": 50,
+            "high": 75
+        }
+    },
+    "pulseaudio": {
+        "format": "{icon}",
+        "format-alt-click": "click-right",
+        "format-bluetooth": "",
+        "format-muted": "婢",
+        "format-icons": {
+            "headphone": "",
+            "default": ["", ""]
+        },
+        "tooltip-format": "{volume}",
+        "scroll-step": 10,
+        "on-click": "pavucontrol",
+        "states": {
+            "low": 0,
+            "mid": 50,
+            "high": 75
+        }
+    },
+    "cpu": {
+        "interval": 10,
+        "format": "",
+        "format-alt-click": "click-right",
+        "on-click": "~/.config/waybar/custom/stats.sh",
+        "states": {
+            "low": 0,
+            "mid": 25,
+            "high": 50
+        }
+    },
+    "memory": {
+        "interval": 30,
+        "format": "",
+        "tooltip-format": "{used:0.1f}G used\n{avail:0.1f}G available\n{total:0.1f}G total",
+        "format-alt-click": "click-right",
+        "on-click": "~/.config/waybar/custom/stats.sh",
+        "states": {
+            "low": 0,
+            "mid": 25,
+            "high": 50
+        }
+    },
+    "disk": {
+        "interval": 30,
+        "format": "",
+        "format-alt-click": "click-right",
+        "tooltip-format": "{used} used\n{free} free\n{total} total",
+        "on-click": "~/.config/waybar/custom/disk_stats.sh",
+        "path": "/",
+        "states": {
+            "low": 0,
+            "mid": 25,
+            "high": 50
+        }
+    },
+    "temperature": {
+        "format": "",
+        "critical-threshold": 80
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+        "activated": "",
+        "deactivated": ""
+        }
+    },
+    "tray": {
+        "icon-size": 18,
+        "spacing": 8,
+        "show-passive-items": true
+    }
+}]
