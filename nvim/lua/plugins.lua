@@ -297,7 +297,7 @@ return require("packer").startup({
         use {
             "neovim/nvim-lspconfig"
         }
-        use("williamboman/nvim-lsp-installer")
+        -- use("williamboman/nvim-lsp-installer")
         -- }}}
 
         -- cmp {{{

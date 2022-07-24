@@ -96,35 +96,35 @@ cmp.setup({
             i = tab,
             s = tab,
             -- c = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Replace }),
-            c = function(fallback)
-                if cmp.visible() then
-                    local entry = cmp.get_selected_entry()
-                    if not entry then
-                        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-                    else
-                        cmp.confirm()
-                    end
-                else
-                    fallback()
-                end
-            end
+            -- c = function(fallback)
+            --     if cmp.visible() then
+            --         local entry = cmp.get_selected_entry()
+            --         if not entry then
+            --             cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+            --         else
+            --             cmp.confirm()
+            --         end
+            --     else
+            --         fallback()
+            --     end
+            -- end
         }),
         ["<S-Tab"] = cmp.mapping({
             i = s_tab,
             s = s_tab,
             -- c = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Repace }),
-            c = function(fallback)
-                if cmp.visible() then
-                    local entry = cmp.get_selected_entry()
-                    if not entry then
-                        cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-                    else
-                        cmp.confirm()
-                    end
-                else
-                    fallback()
-                end
-            end
+            -- c = function(fallback)
+            --     if cmp.visible() then
+            --         local entry = cmp.get_selected_entry()
+            --         if not entry then
+            --             cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+            --         else
+            --             cmp.confirm()
+            --         end
+            --     else
+            --         fallback()
+            --     end
+            -- end
         }),
 
         ["<C-j>"] = cmp.mapping(function()

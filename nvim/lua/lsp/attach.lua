@@ -1,3 +1,5 @@
+local _M = {}
+
 local border = {
     { "╭", "FloatBorder" },
     { "─", "FloatBorder" },
@@ -9,8 +11,7 @@ local border = {
     { "│", "FloatBorder" },
 }
 
-local on_attach = function(_client, bufnr)
-
+function _M.on_attach(client, bufnr)
     -- hightlight {{{
     vim.cmd([[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]])
     vim.cmd([[autocmd ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]])
@@ -66,90 +67,21 @@ local on_attach = function(_client, bufnr)
     buf_set_keymap("n", "<leader>q", "<cmd>lua vim.lsp.diagnostic.setloclist()<CR>", opts)
     buf_set_keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.format{ async = true }<CR>", opts)
     -- }}}
+
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+        virtual_text = {
+            "●",
+        },
+        signs = true,
+        underline = false,
+        update_in_insert = false,
+    })
+
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
+    capabilities.textDocument.completion.completionItem.resolveSupport = {
+        properties = { "documentation", "detail", "additionalTextEdits" },
+    }
 end
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = {
-        "●",
-    },
-    signs = true,
-    underline = false,
-    update_in_insert = false,
-})
-
-local enhance_server_opts = {
-    ["sumneko_lua"] = function(opts)
-        opts.cmd = {
-            "lua-language-server", "--preview"
-        }
-    end,
-    ["hls"] = function(opts)
-        opts.settings = {
-            haskell = {
-                -- formattingProvider = "stylish-haskell"
-                formattingProvider = "ormolu"
-            }
-        }
-    end,
-    ["kotlin_language_server"] = function(opts)
-        opts.settings = {
-            kotlin = {
-                compiler = {
-                    jvm = {
-                        target = "11";
-                    }
-                };
-            };
-        }
-    end
-}
-
--- on_server_ready {{{
-
-local lsp_installer = require("nvim-lsp-installer")
-
-lsp_installer.on_server_ready(function(server)
-    local opts = {
-        on_attach = on_attach,
-        flags = {
-            debounce_text_changes = 150,
-        },
-    }
-
-    if enhance_server_opts[server.name] then
-        enhance_server_opts[server.name](opts)
-    end
-
-    -- Initialize the LSP via rust-tools instead
-    -- FIXME: codelldb.so, 9: image not found
-    if server.name == "rust_analyzer" then
-        local extension_path = vim.fn.stdpath("data") .. "/visx/codelldb-x86_64-darwin/extension/"
-        local codelldb_path = extension_path .. "adapter/codelldb"
-        local liblldb_path = extension_path .. "lldb/lib/liblldb.so"
-
-        require("rust-tools").setup {
-            server = vim.tbl_deep_extend("force", server:get_default_options(), opts),
-            dap = {
-                adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path)
-            },
-            tools = {
-                crate_graph = {
-                    -- x11 not recognized, it said
-                    backend = "plain"
-                },
-                executor = require("rust-tools/executors").quickfix
-            }
-        }
-        server:attach_buffers()
-    else
-        server:setup(opts)
-    end
-end)
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-    properties = { "documentation", "detail", "additionalTextEdits" },
-}
-
--- }}}
+return _M
