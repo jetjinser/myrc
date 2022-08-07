@@ -306,6 +306,15 @@ return require("packer").startup({
             branch = "dev",
         }
 
+        use {
+            "eraserhd/parinfer-rust",
+            cmd = "PaiinferOn",
+            run = "cargo build --release",
+            ft = {
+                "scheme",
+            },
+        }
+
         -- snippets
         use("L3MON4D3/LuaSnip")
         use("saadparwaiz1/cmp_luasnip")
@@ -314,14 +323,14 @@ return require("packer").startup({
         use("hrsh7th/cmp-nvim-lua")
         use("hrsh7th/cmp-buffer")
         use("hrsh7th/cmp-path")
-        use({
+        use{
             "Saecki/crates.nvim",
             event = "BufRead Cargo.toml",
             requires = "nvim-lua/plenary.nvim",
             config = function()
                 require("crates").setup()
             end,
-        })
+        }
 
         -- 有机会再看看？
         -- use("machakann/vim-sandwich")
@@ -329,7 +338,12 @@ return require("packer").startup({
         use {
             "windwp/nvim-autopairs",
             config = function()
-                require('nvim-autopairs').setup()
+                require('nvim-autopairs').setup {
+                    disable_filetype = {
+                        "vim",
+                        "scheme",
+                    }
+                }
             end
         }
         use("rafamadriz/friendly-snippets")
