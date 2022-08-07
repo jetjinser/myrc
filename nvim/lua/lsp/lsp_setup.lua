@@ -8,6 +8,14 @@ lsp.hls.setup {
     },
 }
 
-lsp.rust_analyzer.setup{
+lsp.rust_analyzer.setup {
+    on_attach = on_attach,
+}
+
+lsp.rnix.setup {
+    on_attach = on_attach,
+}
+
+lsp.racket_langserver.setup {
     on_attach = on_attach,
 }
