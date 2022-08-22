@@ -109,7 +109,7 @@ cmp.setup({
             --     end
             -- end
         }),
-        ["<S-Tab"] = cmp.mapping({
+        ["<S-Tab>"] = cmp.mapping({
             i = s_tab,
             s = s_tab,
             -- c = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Repace }),
