@@ -34,6 +34,10 @@ lsp.html.setup {
     on_attach = on_attach,
 }
 
+lsp.jsonls.setup {
+    on_attach = on_attach,
+}
+
 lsp.sumneko_lua.setup {
     on_attach = on_attach,
     settings = {
@@ -54,4 +58,12 @@ lsp.sumneko_lua.setup {
             },
         },
     },
+}
+
+lsp.texlab.setup {
+    on_attach = on_attach,
+}
+
+lsp.zls.setup {
+    on_attach = on_attach
 }

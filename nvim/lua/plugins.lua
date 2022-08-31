@@ -213,11 +213,14 @@ return require("packer").startup({
                     },
                 }
                 -- Press <C-b> to call specs!
-                vim.api.nvim_set_keymap("n", "<C-b>", ":lua require('specs').show_specs()<CR>", { noremap = true, silent = true })
+                vim.api.nvim_set_keymap("n", "<C-b>", ":lua require('specs').show_specs()<CR>",
+                    { noremap = true, silent = true })
 
                 -- You can even bind it to search jumping and more, example:
-                vim.api.nvim_set_keymap("n", "n", "n:lua require('specs').show_specs()<CR>", { noremap = true, silent = true })
-                vim.api.nvim_set_keymap("n", "N", "N:lua require('specs').show_specs()<CR>", { noremap = true, silent = true })
+                vim.api.nvim_set_keymap("n", "n", "n:lua require('specs').show_specs()<CR>",
+                    { noremap = true, silent = true })
+                vim.api.nvim_set_keymap("n", "N", "N:lua require('specs').show_specs()<CR>",
+                    { noremap = true, silent = true })
             end
         }
         -- }}}
@@ -297,7 +300,9 @@ return require("packer").startup({
         use {
             "neovim/nvim-lspconfig"
         }
-        -- use("williamboman/nvim-lsp-installer")
+        use {
+            "jose-elias-alvarez/null-ls.nvim"
+        }
         -- }}}
 
         -- cmp {{{
@@ -319,11 +324,13 @@ return require("packer").startup({
         use("L3MON4D3/LuaSnip")
         use("saadparwaiz1/cmp_luasnip")
 
+        -- cmp sources
         use("hrsh7th/cmp-nvim-lsp")
         use("hrsh7th/cmp-nvim-lua")
         use("hrsh7th/cmp-buffer")
         use("hrsh7th/cmp-path")
-        use{
+        use("hrsh7th/cmp-emoji")
+        use {
             "Saecki/crates.nvim",
             event = "BufRead Cargo.toml",
             requires = "nvim-lua/plenary.nvim",
@@ -331,20 +338,15 @@ return require("packer").startup({
                 require("crates").setup()
             end,
         }
+        -- use("Ninlives/cmp-rime")
+        use("kdheepak/cmp-latex-symbols")
+        use("dmitmel/cmp-digraphs")
 
         -- 有机会再看看？
         -- use("machakann/vim-sandwich")
 
         use {
             "windwp/nvim-autopairs",
-            config = function()
-                require('nvim-autopairs').setup {
-                    disable_filetype = {
-                        "vim",
-                        "scheme",
-                    }
-                }
-            end
         }
         use("rafamadriz/friendly-snippets")
         -- use({ "windwp/nvim-ts-autotag", ft = { "html", "tsx", "vue", "svelte", "php" } })

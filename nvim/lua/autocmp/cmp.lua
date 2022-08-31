@@ -1,7 +1,6 @@
 local luasnip = require("luasnip")
 local cmp = require("cmp")
 
-
 -- functions {{{
 local has_words_before = function()
     if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
@@ -48,7 +47,9 @@ end
 -- setup crates
 vim.cmd([[autocmd FileType toml lua require("cmp").setup.buffer { sources = { { name = "crates" } } }]])
 
+-- setup {{{
 cmp.setup({
+    -- config {{{
     snippet = {
         expand = function(args)
             require("luasnip").lsp_expand(args.body)
@@ -70,18 +71,21 @@ cmp.setup({
     },
     formatting = {
         fields = { "kind", "abbr", "menu" },
-        format = function(_, vim_item)
+        format = function(entry, vim_item)
             local icons = require("kind.icons").icons
             vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
-            -- vim_item.menu = ({
-            -- 	nvim_lsp = "[LSP]",
-            -- 	nvim_lua = "[Lua]",
-            -- 	luasnip = "[Spt]",
-            -- 	crates = "[Cas]",
-            -- 	buffer = "[Buf]",
-            -- 	path = "[Pah]",
-            -- neorg = "[nrg]"
-            -- })[entry.source.name]
+            vim_item.menu = ({
+                nvim_lsp = "[LSP]",
+                nvim_lua = "[Lua]",
+                luasnip = "[Spt]",
+                crates = "[Cas]",
+                buffer = "[Buf]",
+                path = "[Pah]",
+                neorg = "[Nrg]",
+                latex_symbols = "[Syb]",
+                emoji = "[emj]",
+                digraphs = "[Dig]",
+            })[entry.source.name]
             return vim_item
         end,
     },
@@ -156,6 +160,7 @@ cmp.setup({
         }),
     },
     -- }}}
+    -- }}}
 
     sources = {
         { name = "nvim_lsp" },
@@ -164,10 +169,29 @@ cmp.setup({
         { name = "buffer" },
         { name = "path" },
         { name = "neorg" },
+        -- {
+        --     name = "rime",
+        --     option = {
+        --         shared_data_dir = "/home/jinser/share",
+        --         user_data_dir = vim.fn.getenv("HOME") .. "/.local/share/cmp-rime",
+        --         max_candidates = 10,
+        --     }
+        -- },
     },
 })
 
--- setup {{{
+cmp.setup.filetype({ "plaintex", "markdown" }, {
+    sources = {
+        { name = "nvim_lsp" },
+        { name = "luasnip" },
+        { name = "buffer" },
+        { name = "path" },
+        { name = "latex_symbols" },
+        { name = "emoji" },
+        { name = "digraphs" },
+    }
+})
+
 cmp.setup.cmdline(":", {
     completion = { autocomplete = true },
     sources = cmp.config.sources({
