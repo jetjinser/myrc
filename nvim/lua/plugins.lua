@@ -124,7 +124,7 @@ return require("packer").startup({
         -- }}}
 
         -- pretty vim.ui {{{
-        use "stevearc/dressing.nvim"
+        use("stevearc/dressing.nvim")
         -- }}}
 
         -- fancy vim.notify {{{
@@ -297,18 +297,20 @@ return require("packer").startup({
         -- }}}
 
         -- lsp {{{
-        use {
-            "neovim/nvim-lspconfig"
-        }
-        use {
-            "jose-elias-alvarez/null-ls.nvim"
-        }
+        use("neovim/nvim-lspconfig")
+        use("jose-elias-alvarez/null-ls.nvim")
+        use{
+            "glepnir/lspsaga.nvim",
+            config = function()
+                require("lspsaga").init_lsp_saga()
+            end
+    }
         -- }}}
 
         -- cmp {{{
         use {
             "hrsh7th/nvim-cmp",
-            branch = "dev",
+            -- branch = "dev",
         }
 
         use {

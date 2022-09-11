@@ -27,12 +27,13 @@ local tab = function()
     elseif check_backspace() then
         vim.fn.feedkeys(T("<Tab>"), "n")
     else
-        local copilot_keys = vim.fn["copilot#Accept"]()
-        if copilot_keys ~= "" then
-            vim.api.nvim_feedkeys(copilot_keys, "i", true)
-        else
-            vim.fn.feedkeys(T("<Tab>"), "n")
-        end
+        -- local copilot_keys = vim.fn["copilot#Accept"]()
+        -- if copilot_keys ~= "" then
+        --     vim.api.nvim_feedkeys(copilot_keys, "i", true)
+        -- else
+        --     vim.fn.feedkeys(T("<Tab>"), "n")
+        -- end
+        vim.fn.feedkeys(T("<Tab>"), "n")
     end
 end
 
