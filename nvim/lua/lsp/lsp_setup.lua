@@ -38,6 +38,11 @@ lsp.jsonls.setup {
     on_attach = on_attach,
 }
 
+-- lsp.jdtls.setup {
+--     on_attach = on_attach,
+--     cmd = { "jdt-language-server", "-configuration", "/home/runner/.cache/jdtls/config", "-data", "/home/runner/.cache/jdtls/workspace" }
+-- }
+
 lsp.sumneko_lua.setup {
     on_attach = on_attach,
     settings = {
