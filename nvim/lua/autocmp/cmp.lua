@@ -187,9 +187,9 @@ cmp.setup.filetype({ "plaintex", "markdown" }, {
         { name = "luasnip" },
         { name = "buffer" },
         { name = "path" },
-        { name = "latex_symbols" },
+        -- { name = "latex_symbols" },
         { name = "emoji" },
-        { name = "digraphs" },
+        -- { name = "digraphs" },
     }
 })
 

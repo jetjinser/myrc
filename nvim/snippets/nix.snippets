@@ -1,0 +1,6 @@
+snippet mksl
+		{ pkgs ? import <nixpkgs> { } }:
+		with pkgs;
+		  mkShell {
+		    buildInputs = [];
+		  }

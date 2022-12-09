@@ -25,7 +25,7 @@ if ! test $(pgrep slurp); then
   esac
 fi
 
-wl-copy < $TMP
+wl-copy -t image/png < $TMP
 
 notify-send -a control -t 1500 \
   Screenshot "Copied to clipboard"

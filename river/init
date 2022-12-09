@@ -1,8 +1,0 @@
-#!/bin/sh
-
-riverctl map normal Super Return spawn alacritty
-riverctl map normal Super Space spawn 'rofi -show drun -show-icon'
-
-riverctl map normal Super Backspace close
-
-swaybg -i ~/wallpapers/100006639_p0.png -m fill
