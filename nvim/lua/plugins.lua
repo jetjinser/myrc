@@ -1,5 +1,3 @@
--- vim.cmd([[packadd packer.nvim]])
-
 return require("packer").startup(function(use)
     -- prelude {{{
     -- self
@@ -124,24 +122,46 @@ return require("packer").startup(function(use)
     }
     -- }}}
 
-    -- pretty vim.ui {{{
-    -- use("stevearc/dressing.nvim")
+    -- pretty {{{
+    use {
+        "jbyuki/nabla.nvim",
+        config = function()
+            local opts = { noremap = true, silent = true }
+            vim.api.nvim_set_keymap("n", "<Leader>p", ":lua require('nabla').popup()<CR>", opts)
+            require("nabla").enable_virt()
+        end
+    }
     -- }}}
 
-    -- fancy vim.notify {{{
-    -- use {
-    --     "rcarriga/nvim-notify",
-    --     config = function()
-    --         local notify = require("notify")
+    -- {{{ hlsearch
+    use {
+        "kevinhwang91/nvim-hlslens",
+        config = function()
+            require("hlslens").setup()
 
-    --         notify.setup {
-    --             stages = "slide",
-    --             timeout = 4000,
-    --         }
+            local kopts = { noremap = true, silent = true }
 
-    --         vim.notify = notify
-    --     end
-    -- }
+            vim.api.nvim_set_keymap("n", "n",
+                [[<Cmd>execute("normal! " . v:count1 . "n")<CR><Cmd>lua require("hlslens").start()<CR>]],
+                kopts)
+            vim.api.nvim_set_keymap("n", "N",
+                [[<Cmd>execute("normal! " . v:count1 . "N")<CR><Cmd>lua require("hlslens").start()<CR>]],
+                kopts)
+            vim.api.nvim_set_keymap("n", "*", [[*<Cmd>lua require("hlslens").start()<CR>]], kopts)
+            vim.api.nvim_set_keymap("n", "#", [[#<Cmd>lua require("hlslens").start()<CR>]], kopts)
+            vim.api.nvim_set_keymap("n", "g*", [[g*<Cmd>lua require("hlslens").start()<CR>]], kopts)
+            vim.api.nvim_set_keymap("n", "g#", [[g#<Cmd>lua require("hlslens").start()<CR>]], kopts)
+
+            vim.api.nvim_set_keymap("n", "<Leader>l", "<Cmd>noh<CR>", kopts)
+
+            vim.cmd [[
+                hi default link HlSearchNear IncSearch
+                hi default link HlSearchLens WildMenu
+                hi default link HlSearchLensNear IncSearch
+            ]]
+        end
+    }
+
     -- }}}
 
     -- better quickfix {{{
@@ -232,6 +252,13 @@ return require("packer").startup(function(use)
                 { noremap = true, silent = true })
         end
     }
+
+    use {
+        "ggandor/leap.nvim",
+        config = function()
+            require('leap').add_default_mappings()
+        end
+    }
     -- }}}
 
     -- which-key {{{
@@ -246,22 +273,15 @@ return require("packer").startup(function(use)
     -- depend on tree-sitter {{{
     use {
         "nvim-treesitter/nvim-treesitter-refactor",
-        requires = "nvim-treesitter/nvim-treesitter",
         config = function()
             vim.go.updatetime = 1800
             vim.cmd [[highlight link TSDefinition WildMenu]]
         end
     }
 
-    use {
-        "nvim-treesitter/nvim-treesitter-textobjects",
-        requires = "nvim-treesitter/nvim-treesitter",
-    }
+    use("nvim-treesitter/nvim-treesitter-textobjects")
 
-    use {
-        "p00f/nvim-ts-rainbow",
-        requires = "nvim-treesitter/nvim-treesitter",
-    }
+    use("p00f/nvim-ts-rainbow")
 
     use {
         "nvim-treesitter/playground",
@@ -299,7 +319,6 @@ return require("packer").startup(function(use)
                 }
             }
         end,
-        requires = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" }
     }
     -- }}}
 
@@ -311,7 +330,11 @@ return require("packer").startup(function(use)
     use {
         "glepnir/lspsaga.nvim",
         config = function()
-            require("lspsaga").init_lsp_saga()
+            require("lspsaga").setup({
+                lightbulb = {
+                    enable = false,
+                }
+            })
         end
     }
     -- }}}
@@ -359,7 +382,6 @@ return require("packer").startup(function(use)
     use {
         "windwp/nvim-autopairs",
     }
-    use("rafamadriz/friendly-snippets")
     -- use({ "windwp/nvim-ts-autotag", ft = { "html", "tsx", "vue", "svelte", "php" } })
 
     -- TODO:conceal not there
@@ -370,6 +392,16 @@ return require("packer").startup(function(use)
     -- comments {{{
     use("JoosepAlviste/nvim-ts-context-commentstring")
     use("tpope/vim-commentary")
+    use {
+        "danymat/neogen",
+        config = function()
+            require('neogen').setup { snippet_engine = "luasnip" }
+            local opts = { noremap = true, silent = true }
+            vim.api.nvim_set_keymap("n", "<Leader>nf", ":lua require('neogen').generate()<CR>", opts)
+            vim.api.nvim_set_keymap("n", "<Leader>nc", ":lua require('neogen').generate({ type = 'class' })<CR>", opts)
+        end,
+        tag = "*"
+    }
     -- }}}
 
     -- debugger {{{

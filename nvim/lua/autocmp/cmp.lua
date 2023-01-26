@@ -6,7 +6,7 @@ local has_words_before = function()
     if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
         return false
     end
-    local line, col = table.unpack(vim.api.nvim_win_get_cursor(0))
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
@@ -170,14 +170,6 @@ cmp.setup({
         { name = "buffer" },
         { name = "path" },
         { name = "neorg" },
-        -- {
-        --     name = "rime",
-        --     option = {
-        --         shared_data_dir = "/home/jinser/share",
-        --         user_data_dir = vim.fn.getenv("HOME") .. "/.local/share/cmp-rime",
-        --         max_candidates = 10,
-        --     }
-        -- },
     },
 })
 

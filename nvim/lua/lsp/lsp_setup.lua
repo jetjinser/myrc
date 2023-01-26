@@ -1,7 +1,6 @@
 local on_attach = require("lsp.attach").on_attach
 local lsp = require("lspconfig")
 
-
 lsp.hls.setup {
     on_attach = on_attach,
     settings = {
@@ -33,6 +32,11 @@ lsp.racket_langserver.setup {
 lsp.html.setup {
     on_attach = on_attach,
 }
+
+lsp.svelte.setup {
+    on_attach = on_attach,
+}
+
 
 lsp.jsonls.setup {
     on_attach = on_attach,
