@@ -1,6 +1,9 @@
-require("plugins")
+require("boot_lazy")
 
-require("treesitter/init")
-require("autocmp/init")
-require("lsp/init")
-require("dbg/init")
+require("config")
+require("lazy").setup("plugins")
+
+-- require("treesitter/init")
+-- require("autocmp/init")
+-- require("lsp/init")
+-- require("dbg/init")
