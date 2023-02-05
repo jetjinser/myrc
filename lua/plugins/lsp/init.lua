@@ -30,6 +30,7 @@ return {
           },
         },
         rust_analyzer = {},
+        nil_ls = {},
       },
       -- rust-tool.nvim ready
       setup = {},
@@ -63,6 +64,34 @@ return {
         end
         require("lspconfig")[server].setup(server_opts)
       end
+    end,
+  },
+
+  -- formatters
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    event = "BufReadPre",
+    opts = function()
+      local nls = require("null-ls")
+      return {
+        sources = {
+          nls.builtins.diagnostics.checkmake,
+          -- LaTeX
+          nls.builtins.diagnostics.chktex,
+          nls.builtins.diagnostics.editorconfig_checker,
+          nls.builtins.diagnostics.fish,
+          nls.builtins.diagnostics.gitlint,
+          nls.builtins.diagnostics.sqlfluff.with({
+            extra_args = { "--dialect", "postgres" }, -- change to your dialect
+          }),
+
+          nls.builtins.completion.luasnip,
+
+          -- nix lang
+          -- nls.builtins.code_actions.statix,
+          nls.builtins.code_actions.gitsigns,
+        },
+      }
     end,
   },
 }
