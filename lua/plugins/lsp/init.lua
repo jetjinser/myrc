@@ -30,7 +30,12 @@ return {
           },
         },
         rust_analyzer = {},
-        nil_ls = {},
+        clangd = {},
+        nil_ls = {
+          formatting = {
+            command = { "nixpkgs-fmt" },
+          },
+        },
       },
       -- rust-tool.nvim ready
       setup = {},
@@ -50,6 +55,7 @@ return {
       vim.diagnostic.config(opts.diagnostics)
 
       local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+      capabilities.offsetEncoding = { "utf-16" };
 
       for server, server_opts in pairs(opts.servers) do
         server_opts.capabilities = capabilities
