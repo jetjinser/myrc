@@ -3,7 +3,7 @@ return {
   { "nvim-lua/plenary.nvim", lazy = true },
 
   -- makes some plugins dot-repeatable like leap
-  { "tpope/vim-repeat", event = "VeryLazy" },
+  { "tpope/vim-repeat",      event = "VeryLazy" },
 
   -- measure startuptime
   {
@@ -13,4 +13,6 @@ return {
       vim.g.startuptime_tries = 10
     end,
   },
+
+  { "wakatime/vim-wakatime", event = "VeryLazy" },
 }

@@ -1,10 +1,12 @@
+local servers = require("plugins.lsp.servers")
+
 return {
   -- lspconfig
   {
     "neovim/nvim-lspconfig",
-    event = "BufReadPre",
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      { "folke/neodev.nvim", opts = { experimental = { pathStrict = true } } },
+      { "folke/neodev.nvim",   opts = { experimental = { pathStrict = true } } },
       { "hrsh7th/cmp-nvim-lsp" },
     },
     ---@class PluginLspOpts
@@ -17,26 +19,7 @@ return {
         severity_sort = true,
       },
       -- LSP Server Settings
-      servers = {
-        sumneko_lua = {
-          settings = {
-            Lua = {
-              diagnostics = {
-                unusedLocalExclude = {
-                  "_*"
-                },
-              },
-            },
-          },
-        },
-        rust_analyzer = {},
-        clangd = {},
-        nil_ls = {
-          formatting = {
-            command = { "nixpkgs-fmt" },
-          },
-        },
-      },
+      servers = servers,
       -- rust-tool.nvim ready
       setup = {},
     },
@@ -73,10 +56,10 @@ return {
     end,
   },
 
-  -- formatters
+  -- null-ls
   {
     "jose-elias-alvarez/null-ls.nvim",
-    event = "BufReadPre",
+    event = { "BufReadPre", "BufNewFile" },
     opts = function()
       local nls = require("null-ls")
       return {
