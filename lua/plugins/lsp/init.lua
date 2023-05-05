@@ -67,7 +67,6 @@ return {
           nls.builtins.diagnostics.checkmake,
           -- LaTeX
           nls.builtins.diagnostics.chktex,
-          nls.builtins.diagnostics.editorconfig_checker,
           nls.builtins.diagnostics.fish,
           nls.builtins.diagnostics.gitlint,
           nls.builtins.diagnostics.sqlfluff.with({

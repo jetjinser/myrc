@@ -12,8 +12,6 @@ return {
     end,
   },
 
-  { "gpanders/editorconfig.nvim" },
-
   -- buffer remove
   {
     "echasnovski/mini.bufremove",
