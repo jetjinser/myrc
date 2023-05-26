@@ -82,4 +82,12 @@ return {
       }
     end,
   },
+
+  -- {
+  --   "ShinKage/idris2-nvim",
+  --   event = { "BufReadPre", "BufNewFile" },
+  --   config = function(_plugin, _opts)
+  --     require("idris2").setup {}
+  --   end
+  -- },
 }

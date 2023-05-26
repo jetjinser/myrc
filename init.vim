@@ -21,4 +21,6 @@ set shiftwidth=4
 set softtabstop=0
 set expandtab
 
+set mouse=
+
 lua require('init')
