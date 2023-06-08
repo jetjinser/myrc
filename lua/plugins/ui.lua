@@ -155,7 +155,8 @@ return {
       local function fg(name)
         return function()
           ---@type {foreground?:number}?
-          local hl = vim.api.nvim_get_hl_by_name(name, true)
+          local hl = vim.api.nvim_get_hl(0, {name = name});
+          print(hl);
           return hl and hl.foreground and { fg = string.format("#%06x", hl.foreground) }
         end
       end
@@ -179,9 +180,14 @@ return {
                 hint = icons.diagnostics.Hint,
               },
             },
-            { "filetype", icon_only = true, separator = "",                                                    padding = {
-              left = 1, right = 0 } },
-            { "filename", path = 1,         symbols = { modified = "[*]", readonly = "🔒", unnamed = "" } },
+            {
+              "filetype",
+              icon_only = true,
+              separator = "",
+              padding = {
+                left = 1, right = 0 }
+            },
+            { "filename", path = 1, symbols = { modified = "[*]", readonly = "🔒", unnamed = "" } },
             -- stylua: ignore
             {
               function() return require("nvim-navic").get_location() end,

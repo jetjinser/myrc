@@ -13,9 +13,7 @@ return {
   rust_analyzer = {},
   clangd = {},
   nil_ls = {
-    formatting = {
-      command = { "nixpkgs-fmt" },
-    },
+    formatting = { command = { "nixpkgs-fmt" } }
   },
   eslint = {},
   tsserver = {},

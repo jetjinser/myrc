@@ -5,7 +5,7 @@ return {
     event = { "BufReadPost", "BufNewFile" },
     keys = {
       { "<C-space>", desc = "Increment selection" },
-      { "<bs>", desc = "Schrink selection", mode = "x" },
+      { "<bs>",      desc = "Schrink selection",  mode = "x" },
     },
     ---@type TSConfig
     opts = {

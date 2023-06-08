@@ -78,6 +78,9 @@ return {
           -- nix lang
           -- nls.builtins.code_actions.statix,
           nls.builtins.code_actions.gitsigns,
+
+          -- LaTeX
+          nls.builtins.formatting.latexindent
         },
       }
     end,
