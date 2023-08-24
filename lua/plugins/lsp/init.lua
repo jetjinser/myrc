@@ -1,4 +1,5 @@
 local servers = require("plugins.lsp.servers")
+local border = require("config").border
 
 return {
   -- lspconfig
@@ -6,7 +7,7 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      { "folke/neodev.nvim",   opts = { experimental = { pathStrict = true } } },
+      { "folke/neodev.nvim", opts = { experimental = { pathStrict = true } } },
       { "hrsh7th/cmp-nvim-lsp" },
     },
     ---@class PluginLspOpts
@@ -17,6 +18,7 @@ return {
         update_in_insert = false,
         virtual_text = { spacing = 4, prefix = "●" },
         severity_sort = true,
+        float = { border = border },
       },
       -- LSP Server Settings
       servers = servers,
@@ -39,9 +41,20 @@ return {
 
       local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
       capabilities.offsetEncoding = { "utf-16" };
+      capabilities.textDocument.foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true
+      }
+
+      local handlers = {
+        ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+        ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+      }
 
       for server, server_opts in pairs(opts.servers) do
         server_opts.capabilities = capabilities
+        server_opts.handlers = handlers;
+
         if opts.setup[server] then
           if opts.setup[server](server, server_opts) then
             return
@@ -60,18 +73,29 @@ return {
   {
     "jose-elias-alvarez/null-ls.nvim",
     event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      { "nvim-lua/plenary.nvim", lazy = true },
+    },
     opts = function()
       local nls = require("null-ls")
       return {
+        debug = true,
         sources = {
           nls.builtins.diagnostics.checkmake,
           -- LaTeX
           nls.builtins.diagnostics.chktex,
           nls.builtins.diagnostics.fish,
           nls.builtins.diagnostics.gitlint,
-          nls.builtins.diagnostics.sqlfluff.with({
-            extra_args = { "--dialect", "postgres" }, -- change to your dialect
-          }),
+          -- nls.builtins.diagnostics.sqlfluff.with({
+          --   extra_args = { "--dialect", "postgres" },
+          -- extra_args = { "--dialect", "sqlite" },
+          -- }),
+          -- nls.builtins.diagnostics.pylint.with({
+          --   diagnostics_postprocess = function(dia)
+          --     -- dia.code = dia.message_id .. "[" .. dia.code .. "]"
+          --   end,
+          -- }),
+          nls.builtins.diagnostics.ruff,
 
           nls.builtins.completion.luasnip,
 
@@ -80,7 +104,8 @@ return {
           nls.builtins.code_actions.gitsigns,
 
           -- LaTeX
-          nls.builtins.formatting.latexindent
+          nls.builtins.formatting.latexindent,
+          nls.builtins.formatting.black,
         },
       }
     end,

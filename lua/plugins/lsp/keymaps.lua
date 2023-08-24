@@ -3,65 +3,58 @@ local M = {}
 ---@return (LazyKeys|{has?:string})[]
 function M.get()
   return {
-    { "<leader>cd", vim.diagnostic.open_float,   desc = "Line Diagnostics" },
-    { "gd",         vim.lsp.buf.definition,      desc = "Goto Definition" },
-    { "gr",         vim.lsp.buf.references,      desc = "References" },
-    { "gt",         vim.lsp.buf.type_definition, desc = "Goto Type Definition" },
-    { "gD",         vim.lsp.buf.declaration,     desc = "Goto Declaration" },
-    { "gI",         vim.lsp.buf.implementation,  desc = "Goto Implementation" },
-    { "K",          vim.lsp.buf.hover,           desc = "Hover" },
+    { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
+    { "gd", vim.lsp.buf.definition, desc = "Goto Definition" },
+    { "gr", vim.lsp.buf.references, desc = "References" },
+    { "gt", vim.lsp.buf.type_definition, desc = "Goto Type Definition" },
+    { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
+    { "gI", vim.lsp.buf.implementation, desc = "Goto Implementation" },
+    { "K", vim.lsp.buf.hover, desc = "Hover" },
     {
       "gK",
       vim.lsp.buf.signature_help,
       desc = "Signature Help",
-      has =
-      "signatureHelp"
+      has = "signatureHelp"
     },
     {
       "<c-k>",
       vim.lsp.buf.signature_help,
       mode = "i",
-      desc =
-      "Signature Help",
-      has =
-      "signatureHelp"
+      desc = "Signature Help",
+      has = "signatureHelp"
     },
-    { "]d", M.diagnostic_goto(true),           desc = "Next Diagnostic" },
-    { "[d", M.diagnostic_goto(false),          desc = "Prev Diagnostic" },
-    { "]e", M.diagnostic_goto(true, "ERROR"),  desc = "Next Error" },
+    { "]d", M.diagnostic_goto(true), desc = "Next Diagnostic" },
+    { "[d", M.diagnostic_goto(false), desc = "Prev Diagnostic" },
+    { "]e", M.diagnostic_goto(true, "ERROR"), desc = "Next Error" },
     { "[e", M.diagnostic_goto(false, "ERROR"), desc = "Prev Error" },
-    { "]w", M.diagnostic_goto(true, "WARN"),   desc = "Next Warning" },
-    { "[w", M.diagnostic_goto(false, "WARN"),  desc = "Prev Warning" },
+    { "]w", M.diagnostic_goto(true, "WARN"), desc = "Next Warning" },
+    { "[w", M.diagnostic_goto(false, "WARN"), desc = "Prev Warning" },
     {
       "<leader>ca",
       vim.lsp.buf.code_action,
       desc = "Code Action",
       mode = { "n", "v" },
-      has =
-      "codeAction"
+      has = "codeAction"
     },
     {
       "<leader>cf",
       function() vim.lsp.buf.format { async = true } end,
       desc = "Format Document",
-      has =
-      "documentFormatting"
+      has = "documentFormatting"
     },
     {
       "<leader>cf",
       function() vim.lsp.buf.format { async = true } end,
       desc = "Format Range",
       mode = "v",
-      has =
-      "documentRangeFormatting"
+      has = "documentRangeFormatting"
     },
     {
       "<leader>cr",
       vim.lsp.buf.rename,
       expr = true,
       desc = "Rename",
-      has =
-      "rename"
+      has = "rename"
     },
   }
 end

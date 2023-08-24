@@ -1,3 +1,5 @@
+local border = require("config").border;
+
 local tab = function(fallback)
   local cmp = require("cmp")
   local luasnip = require("luasnip")
@@ -96,10 +98,10 @@ return {
         },
         window = {
           completion = {
-            border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
+            border = border,
           },
           documentation = {
-            border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
+            border = border,
           },
         },
         mapping = cmp.mapping.preset.insert({
@@ -117,6 +119,7 @@ return {
           { name = "luasnip" },
           { name = "buffer" },
           { name = "path" },
+          { name = "neorg" },
         }),
         formatting = {
           fields = { "abbr", "kind", "menu" },
