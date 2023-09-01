@@ -1,9 +1,26 @@
+local _lsp_progress = {
+  "lsp_progress",
+  -- display_components = { "lsp_client_name", "spinner", { "title", "percentage", "message" } },
+  display_components = { "spinner", { "title", "percentage", "message" } },
+  separators = {
+    component = " ",
+    progress = " | ",
+    message = { pre = "(", post = ")" },
+    percentage = { pre = "", post = "%% " },
+    title = { pre = "", post = ": " },
+    lsp_client_name = { pre = "[", post = "]" },
+    spinner = { pre = "", post = "" },
+  },
+  timer = { progress_enddelay = 500, spinner = 1000, lsp_client_name_enddelay = 1000 },
+  spinner_symbols = { "🌑 ", "🌒 ", "🌓 ", "🌔 ", "🌕 ", "🌖 ", "🌗 ", "🌘 " },
+};
+
 return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
-  dependencies = {
-    { "arkav/lualine-lsp-progress" }
-  },
+  -- dependencies = {
+  --   { "arkav/lualine-lsp-progress" }
+  -- },
   opts = function(_plugin)
     local icons = require("config").icons
 
@@ -51,22 +68,7 @@ return {
         },
         lualine_x = {
           { require("lazy.status").updates, cond = require("lazy.status").has_updates, color = fg("Special") },
-          {
-            "lsp_progress",
-            -- display_components = { "lsp_client_name", "spinner", { "title", "percentage", "message" } },
-            display_components = { "spinner", { "title", "percentage", "message" } },
-            separators = {
-              component = " ",
-              progress = " | ",
-              message = { pre = "(", post = ")" },
-              percentage = { pre = "", post = "%% " },
-              title = { pre = "", post = ": " },
-              lsp_client_name = { pre = "[", post = "]" },
-              spinner = { pre = "", post = "" },
-            },
-            timer = { progress_enddelay = 500, spinner = 1000, lsp_client_name_enddelay = 1000 },
-            spinner_symbols = { "🌑 ", "🌒 ", "🌓 ", "🌔 ", "🌕 ", "🌖 ", "🌗 ", "🌘 " },
-          },
+          -- lsp_progress,
           {
             "diff",
             symbols = {

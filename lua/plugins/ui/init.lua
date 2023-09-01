@@ -84,6 +84,17 @@ return {
     opts = { separator = " ", highlight = true, depth_limit = 5 },
   },
 
+  {
+    "j-hui/fidget.nvim",
+    tag = "legacy",
+    event = "LspAttach",
+    opts = {
+      text = {
+        spinner = "moon",
+      },
+    },
+  },
+
   -- dashboard
   {
     "goolord/alpha-nvim",
@@ -155,4 +166,3 @@ return {
 
   statusline
 }
-

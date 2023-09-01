@@ -1,6 +1,4 @@
-local opt = vim.opt
-
-opt.list = true
-opt.conceallevel = 1
+vim.opt.list = true
+vim.opt.conceallevel = 1
 
 -- opt.cmdheight = 0

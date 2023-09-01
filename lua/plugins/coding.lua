@@ -168,24 +168,24 @@ return {
     keys = function(plugin, keys)
       local opts = require("lazy.core.plugin").values(plugin, "opts", false)
       local mappings = {
-        { opts.mappings.add,            desc = "Add surrounding",                     mode = { "n", "v" } },
-        { opts.mappings.delete,         desc = "Delete surrounding" },
-        { opts.mappings.find,           desc = "Find right surrounding" },
-        { opts.mappings.find_left,      desc = "Find left surrounding" },
-        { opts.mappings.highlight,      desc = "Highlight surrounding" },
-        { opts.mappings.replace,        desc = "Replace surrounding" },
+        { opts.mappings.add, desc = "Add surrounding", mode = { "n", "v" } },
+        { opts.mappings.delete, desc = "Delete surrounding" },
+        { opts.mappings.find, desc = "Find right surrounding" },
+        { opts.mappings.find_left, desc = "Find left surrounding" },
+        { opts.mappings.highlight, desc = "Highlight surrounding" },
+        { opts.mappings.replace, desc = "Replace surrounding" },
         { opts.mappings.update_n_lines, desc = "Update `MiniSurround.config.n_lines`" },
       }
       return vim.list_extend(mappings, keys, 1, #keys)
     end,
     opts = {
       mappings = {
-        add = "gaa",            -- Add surrounding in Normal and Visual modes
-        delete = "gad",         -- Delete surrounding
-        find = "gaf",           -- Find surrounding (to the right)
-        find_left = "gaF",      -- Find surrounding (to the left)
-        highlight = "gah",      -- Highlight surrounding
-        replace = "gar",        -- Replace surrounding
+        add = "gaa", -- Add surrounding in Normal and Visual modes
+        delete = "gad", -- Delete surrounding
+        find = "gaf", -- Find surrounding (to the right)
+        find_left = "gaF", -- Find surrounding (to the left)
+        highlight = "gah", -- Highlight surrounding
+        replace = "gar", -- Replace surrounding
         update_n_lines = "gan", -- Update `n_lines`
       },
     },

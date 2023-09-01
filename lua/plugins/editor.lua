@@ -11,6 +11,14 @@ return {
       leap.add_default_mappings(true)
     end,
   },
+  -- 我能吞下玻璃而不伤身体
+
+  {
+    "gpanders/editorconfig.nvim",
+    cond = function(_)
+      return vim.fn.has("nvim-0.9") ~= 1;
+    end
+  },
 
   -- buffer remove
   {
@@ -186,6 +194,17 @@ return {
       { "g*", "g*<Cmd>lua require('hlslens').start()<CR>", desc = "Lens g*" },
       { "g#", "g*<Cmd>lua require('hlslens').start()<CR>", desc = "Lens g#" },
     }
+  },
+
+  -- enhanced matchparen.vim
+  {
+    "utilyre/sentiment.nvim",
+    version = "*",
+    event = "VeryLazy",
+    opts = {},
+    init = function()
+      vim.g.loaded_matchparen = 1
+    end,
   },
 
   -- better fold

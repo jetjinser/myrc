@@ -1,9 +1,8 @@
 let mapleader = ","
 
 inoremap jk <esc>
-inoremap <esc> <NOP>
 
-set foldmethod=marker
+" set foldmethod=marker
 
 set nu
 set rnu
