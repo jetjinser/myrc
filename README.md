@@ -1,6 +1,6 @@
 # 👋 Greeting
 
-This repo contains my `nvim` **R**un**C**ommand file.
+This repo contains **my** `nvim` **r**un**c**ommand files.
 
 # Screenshots
 
