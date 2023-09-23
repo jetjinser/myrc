@@ -36,6 +36,8 @@ return {
       options = {
         theme = "auto",
         globalstatus = true,
+        section_separators = "",
+        component_separators = "",
         disabled_filetypes = { statusline = { "lazy", "alpha" } },
       },
       sections = {
@@ -82,7 +84,7 @@ return {
           { "progress", separator = "" },
         },
         lualine_z = {
-          { "location", fmt = function(str) return " " .. str end },
+          { "location", fmt = function(str) return "" .. str end },
         },
       },
       extensions = { "neo-tree" },
