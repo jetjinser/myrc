@@ -11,15 +11,13 @@ return {
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "BufReadPost",
-    -- TODO: need to upgrade nvim...
-    -- branch = "v3",
-    -- main = "ibl",
+    main = "ibl",
     opts = {
-      char = "▏",
-      space_char_blankline = " ",
-      show_trailing_blankline_indent = false,
-      show_current_context = true,
-      show_current_context_start = true,
+      -- char = "▏",
+      -- space_char_blankline = " ",
+      -- show_trailing_blankline_indent = false,
+      -- show_current_context = true,
+      -- show_current_context_start = true,
       filetype_exclude = { "help", "alpha", "neo-tree", "Trouble", "lazy" },
     },
   },
