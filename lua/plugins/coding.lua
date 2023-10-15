@@ -83,6 +83,7 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
+      "PaterJason/cmp-conjure",
       "saadparwaiz1/cmp_luasnip",
     },
     opts = function()
@@ -120,6 +121,7 @@ return {
           { name = "buffer" },
           { name = "path" },
           { name = "neorg" },
+          { name = "conjure" },
         }),
         formatting = {
           fields = { "abbr", "kind", "menu" },
