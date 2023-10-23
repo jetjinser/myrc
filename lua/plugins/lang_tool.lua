@@ -12,9 +12,6 @@ return {
   {
     "Olical/conjure",
     ft = { "clojure", "fennel", "racket" },
-    dependencies = {
-      "wlangstroth/vim-racket",
-    },
     config = function(_, _opts)
       require("conjure.main").main()
       require("conjure.mapping")["on-filetype"]()

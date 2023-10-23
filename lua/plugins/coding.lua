@@ -115,19 +115,19 @@ return {
           ["<C-j>"] = cmp.mapping(next, { "i", "s" }),
           ["<C-k>"] = cmp.mapping(prev, { "i", "s" }),
         }),
-        sources = cmp.config.sources({
+        sources = cmp.config.sources {
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "buffer" },
           { name = "path" },
           { name = "neorg" },
           { name = "conjure" },
-        }),
+        },
         formatting = {
           fields = { "abbr", "kind", "menu" },
           format = function(entry, item)
-            if string.len(item.abbr) > 24 then
-              item.abbr = string.sub(item.abbr, 1, 24) .. "…"
+            if string.len(item.abbr) > 28 then
+              item.abbr = string.sub(item.abbr, 1, 28) .. "…"
             end
 
             local icons = require("config").icons.kinds
@@ -138,9 +138,10 @@ return {
             item.menu = ({
               buffer = "[Buf]",
               nvim_lsp = "[LSP]",
-              nvim_lua = "[Lua]",
+              neorg = "[Org]",
               luasnip = "[Spt]",
               path = "[Pah]",
+              conjure = "[Con]",
             })[entry.source.name]
 
             return item
@@ -159,12 +160,13 @@ return {
   {
     "windwp/nvim-autopairs",
     event = "VeryLazy",
-    config = function()
-      require("nvim-autopairs").setup {}
-    end
+    opts = {
+      disable_filetype = { "TelescopePrompt", "vim", "clojure", "fennel", "racket" },
+    },
   },
 
   -- surround
+  -- FIXIT:
   {
     "echasnovski/mini.surround",
     keys = function(plugin, keys)
@@ -224,9 +226,15 @@ return {
       backends = { "lsp", "treesitter", "markdown", "man" },
     },
     keys = {
-      { "[o", "<cmd>AerialPrev<CR>", desc = "jump to prev outline item" },
-      { "]o", "<cmd>AerialNext<CR>", desc = "jump to next outline item" },
+      { "[o",        "<cmd>AerialPrev<CR>",    desc = "jump to prev outline item" },
+      { "]o",        "<cmd>AerialNext<CR>",    desc = "jump to next outline item" },
       { "<leader>o", "<cmd>AerialToggle!<CR>", desc = "toggle outline" },
     },
+  },
+
+  -- parinfer
+  {
+    "gpanders/nvim-parinfer",
+    ft = { "clojure", "fennel", "racket" },
   }
 }

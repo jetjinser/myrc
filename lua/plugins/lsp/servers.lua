@@ -18,6 +18,7 @@ return {
   hls = {
     filetypes = { "haskell", "lhaskell", "cabal" },
   },
+  racket_langserver = {},
   eslint = {},
   tsserver = {},
 

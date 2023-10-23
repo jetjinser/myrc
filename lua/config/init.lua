@@ -1,4 +1,6 @@
 require("config.options")
+require("config.map")
+require("config.filetype")
 
 local M = {}
 
