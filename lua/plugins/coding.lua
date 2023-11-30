@@ -147,11 +147,6 @@ return {
             return item
           end,
         },
-        experimental = {
-          ghost_text = {
-            hl_group = "LspCodeLens",
-          },
-        },
       }
     end,
   },
@@ -199,19 +194,12 @@ return {
   },
 
   -- comments
-  { "JoosepAlviste/nvim-ts-context-commentstring", lazy = true },
   {
     "echasnovski/mini.comment",
-    event = "VeryLazy",
-    opts = {
-      hooks = {
-        pre = function()
-          require("ts_context_commentstring.internal").update_commentstring({})
-        end,
-      },
-    },
+    event = "UIEnter",
+    version = "*",
     config = function(_, opts)
-      require("mini.comment").setup(opts)
+      require('mini.comment').setup(opts)
     end,
   },
 

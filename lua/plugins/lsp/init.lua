@@ -97,8 +97,6 @@ return {
           -- }),
           nls.builtins.diagnostics.ruff,
 
-          nls.builtins.completion.luasnip,
-
           -- nix lang
           -- nls.builtins.code_actions.statix,
           nls.builtins.code_actions.gitsigns,

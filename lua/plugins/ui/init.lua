@@ -11,10 +11,9 @@ return {
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "BufReadPost",
+    ft = { "help", "alpha", "neo-tree", "Trouble", "lazy" },
     main = "ibl",
-    opts = {
-      filetype_exclude = { "help", "alpha", "neo-tree", "Trouble", "lazy" },
-    },
+    opts = {},
   },
 
   -- better vim.ui

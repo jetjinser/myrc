@@ -12,12 +12,6 @@ return {
       highlight = { enable = true },
       indent = { enable = true },
       context_commentstring = { enable = true, enable_autocmd = false },
-      ensure_installed = {
-        "vim",
-        "lua",
-        "markdown",
-        "markdown_inline",
-      },
       incremental_selection = {
         enable = true,
         keymaps = {

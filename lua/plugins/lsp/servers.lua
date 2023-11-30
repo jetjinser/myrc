@@ -13,7 +13,9 @@ return {
   rust_analyzer = {},
   clangd = {},
   nil_ls = {
-    formatting = { command = { "nixpkgs-fmt" } }
+    formatting = {
+      command = "nix fmt",
+    },
   },
   hls = {
     filetypes = { "haskell", "lhaskell", "cabal" },
