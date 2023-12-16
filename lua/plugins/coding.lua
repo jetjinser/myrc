@@ -83,7 +83,7 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
-      "PaterJason/cmp-conjure",
+      -- "PaterJason/cmp-conjure",
       "saadparwaiz1/cmp_luasnip",
     },
     opts = function()

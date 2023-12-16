@@ -10,7 +10,15 @@ return {
       },
     },
   },
-  rust_analyzer = {},
+  rust_analyzer = {
+    settings = {
+      ['rust-analyzer'] = {
+        checkOnSave = {
+          allTargets = false,
+        }
+      }
+    }
+  },
   clangd = {},
   nil_ls = {
     formatting = {
@@ -21,8 +29,10 @@ return {
     filetypes = { "haskell", "lhaskell", "cabal" },
   },
   racket_langserver = {},
+  arduino_language_server = {},
   eslint = {},
   tsserver = {},
+  -- denols = {},
 
   -- ruff_lsp = {},
   -- pylyzer = {},

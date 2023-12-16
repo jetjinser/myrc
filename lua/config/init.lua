@@ -1,6 +1,7 @@
 require("config.options")
 require("config.map")
 require("config.filetype")
+require("config.autocmds")
 
 local M = {}
 
@@ -55,7 +56,8 @@ M.icons = {
 }
 
 M.border = {
-  "┌", "─", "┐", "│", "┘", "─", "└", "│",
+  -- "┌", "─", "┐", "│", "┘", "─", "└", "│",
+  "╭", "─", "╮", "│", "╯", "─", "╰", "│",
 }
 
 return M

@@ -1,6 +1,13 @@
 vim.filetype.add {
   pattern = {
-    -- /Users/jinserkakfa/life/etude/eoc/support-code/conjure-log-16755.rkt
-    [".*/conjure%-log%-%d+%.rkt"] = "conjure",
+    [".*/conjure%-log%-%d+%.(%a+)"] = function(_path, _bufnr, ext)
+      if ext == "rkt" then
+        return "conjure-rkt"
+      elseif ext == "py" then
+        return "conjure-py"
+      end
+    end
   },
 }
+
+vim.filetype.add({ extension = { ua = 'uiua' } })
