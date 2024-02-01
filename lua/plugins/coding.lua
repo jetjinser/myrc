@@ -85,6 +85,7 @@ return {
       "hrsh7th/cmp-path",
       -- "PaterJason/cmp-conjure",
       "saadparwaiz1/cmp_luasnip",
+      "zbirenbaum/copilot-cmp",
     },
     opts = function()
       local cmp = require("cmp")
@@ -122,6 +123,7 @@ return {
           { name = "path" },
           { name = "neorg" },
           { name = "conjure" },
+          { name = "copilot" },
         },
         formatting = {
           fields = { "abbr", "kind", "menu" },
@@ -224,5 +226,30 @@ return {
   {
     "gpanders/nvim-parinfer",
     ft = { "clojure", "fennel", "racket" },
+  },
+
+  -- copilot
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup {
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+        filetypes = {
+          ["gitcommit"] = true,
+          ["*"] = false,
+        },
+      }
+    end,
+  },
+
+  {
+    "zbirenbaum/copilot-cmp",
+    config = function()
+      vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+      require("copilot_cmp").setup()
+    end
   }
 }

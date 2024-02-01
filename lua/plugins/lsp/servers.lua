@@ -21,12 +21,21 @@ return {
   },
   clangd = {},
   nil_ls = {
-    formatting = {
-      command = "nix fmt",
+    settings = {
+      ['nil'] = {
+        formatting = {
+          command = { "nixpkgs-fmt" },
+        },
+      },
     },
   },
   hls = {
     filetypes = { "haskell", "lhaskell", "cabal" },
+    settings = {
+      haskell = {
+        -- formattingProvider = "floskell",
+      },
+    }
   },
   racket_langserver = {},
   arduino_language_server = {},
