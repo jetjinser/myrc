@@ -85,7 +85,6 @@ return {
       "hrsh7th/cmp-path",
       -- "PaterJason/cmp-conjure",
       "saadparwaiz1/cmp_luasnip",
-      "zbirenbaum/copilot-cmp",
     },
     opts = function()
       local cmp = require("cmp")
@@ -247,6 +246,9 @@ return {
 
   {
     "zbirenbaum/copilot-cmp",
+    dependencies = {
+      "zbirenbaum/copilot.lua",
+    },
     config = function()
       vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
       require("copilot_cmp").setup()
