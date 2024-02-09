@@ -1,3 +1,5 @@
+local on_attach = require("plugins.lsp.keymaps").on_attach
+
 return {
   {
     "isovector/cornelis",
@@ -19,5 +21,16 @@ return {
       require("conjure.main").main()
       require("conjure.mapping")["on-filetype"]()
     end,
+  },
+
+  {
+    "https://github.com/Julian/lean.nvim",
+    ft = { "lean" },
+    opts = {
+      lsp = {
+        on_attach = on_attach,
+      },
+      mappings = true,
+    },
   }
 }
