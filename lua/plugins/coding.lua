@@ -224,7 +224,6 @@ return {
       vim.g.skip_ts_context_commentstring_module = true
       vim.opt.updatetime = 150
 
-      vim.print(opts)
       require("ts_context_commentstring").setup(opts)
     end
   },

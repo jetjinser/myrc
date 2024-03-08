@@ -1,4 +1,5 @@
 return {
+  jdtls = {},
   lua_ls = {
     settings = {
       Lua = {
@@ -20,6 +21,8 @@ return {
     }
   },
   clangd = {},
+  dartls = {},
+  nickel_ls = {},
   nil_ls = {
     settings = {
       ['nil'] = {
@@ -33,7 +36,7 @@ return {
     filetypes = { "haskell", "lhaskell", "cabal" },
     settings = {
       haskell = {
-        -- formattingProvider = "floskell",
+        formattingProvider = "stylish-haskell",
       },
     }
   },

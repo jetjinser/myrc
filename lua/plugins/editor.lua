@@ -14,6 +14,12 @@ return {
   -- 我能吞下玻璃而不伤身体
 
   {
+    'norcalli/nvim-colorizer.lua',
+    event = "VeryLazy",
+    config = true,
+  },
+
+  {
     "gpanders/editorconfig.nvim",
     cond = function(_)
       return vim.fn.has("nvim-0.9") ~= 1;
@@ -25,7 +31,7 @@ return {
     "echasnovski/mini.bufremove",
     keys = {
       { "<leader>bd", function() require("mini.bufremove").delete(0, false) end, desc = "Delete Buffer" },
-      { "<leader>bD", function() require("mini.bufremove").delete(0, true) end, desc = "Delete Buffer (Force)" },
+      { "<leader>bD", function() require("mini.bufremove").delete(0, true) end,  desc = "Delete Buffer (Force)" },
     },
   },
 
@@ -126,7 +132,7 @@ return {
         desc = "Explorer NeoTree (cwd)",
       },
       { "<space>e", "<leader>fe", desc = "Explorer NeoTree (root dir)", remap = true },
-      { "<space>E", "<leader>fE", desc = "Explorer NeoTree (cwd)", remap = true },
+      { "<space>E", "<leader>fE", desc = "Explorer NeoTree (cwd)",      remap = true },
     },
     deactivate = function()
       vim.cmd([[Neotree close]])
@@ -134,7 +140,7 @@ return {
     init = function()
       vim.g.neo_tree_remove_legacy_commands = 1
       if vim.fn.argc() == 1 then
-        local stat = vim.loop.fs_stat(vim.fn.argv(0)--[[@as string]] )
+        local stat = vim.loop.fs_stat(vim.fn.argv(0) --[[@as string]])
         if stat and stat.type == "directory" then
           require("neo-tree")
         end
@@ -169,7 +175,7 @@ return {
     cmd = { "TroubleToggle", "Trouble" },
     opts = { use_diagnostic_signs = true },
     keys = {
-      { "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
+      { "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>",  desc = "Document Diagnostics (Trouble)" },
       { "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
     },
   },
@@ -179,12 +185,20 @@ return {
     "folke/todo-comments.nvim",
     cmd = { "TodoTrouble" },
     event = "BufReadPost",
-    config = true,
+    opts = {
+      keywords = {
+        SAFETY = {
+          icon = "󰩐 ",
+          color = "hint",
+          alt = { "SAFE" },
+        },
+      },
+    },
     keys = {
-      { "]t", function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
-      { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
-      { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo Trouble" },
-      { "<leader>xtt", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo Trouble" },
+      { "]t",          function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
+      { "[t",          function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
+      { "<leader>xt",  "<cmd>TodoTrouble<cr>",                              desc = "Todo Trouble" },
+      { "<leader>xtt", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>",      desc = "Todo Trouble" },
     },
   },
 
@@ -195,12 +209,18 @@ return {
       "kevinhwang91/nvim-ufo",
     },
     keys = {
-      { "n", "<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>",
-        desc = "Lens n" },
-      { "N", "<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>",
-        desc = "Lens N" },
-      { "*", "*<Cmd>lua require('hlslens').start()<CR>", desc = "Lens *" },
-      { "#", "#<Cmd>lua require('hlslens').start()<CR>", desc = "Lens #" },
+      {
+        "n",
+        "<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>",
+        desc = "Lens n"
+      },
+      {
+        "N",
+        "<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>",
+        desc = "Lens N"
+      },
+      { "*",  "*<Cmd>lua require('hlslens').start()<CR>",  desc = "Lens *" },
+      { "#",  "#<Cmd>lua require('hlslens').start()<CR>",  desc = "Lens #" },
       { "g*", "g*<Cmd>lua require('hlslens').start()<CR>", desc = "Lens g*" },
       { "g#", "g*<Cmd>lua require('hlslens').start()<CR>", desc = "Lens g#" },
     }
@@ -236,7 +256,7 @@ return {
       o.fillchars = [[eob:~,fold: ,foldopen:,foldsep: ,foldclose:]]
     end,
     keys = {
-      { "zR", function() require("ufo").openAllFolds() end, desc = "Open all folds (ufo)" },
+      { "zR", function() require("ufo").openAllFolds() end,  desc = "Open all folds (ufo)" },
       { "zM", function() require("ufo").closeAllFolds() end, desc = "Close all folds (ufo)" },
     },
   },
@@ -277,10 +297,10 @@ return {
         ["core.esupports.metagen"] = {
           config = {
             template = {
-              { "title", function() return vim.fn.expand "%:t:r" end },
+              { "title",       function() return vim.fn.expand "%:t:r" end },
               { "description", "" },
-              { "author", "Jinser Kafka" },
-              { "categories", "" },
+              { "author",      "Jinser Kafka" },
+              { "categories",  "" },
               { "created", function()
                 os.setlocale("en_US.UTF-8")
                 return os.date("%d %b %Y %H:%M")

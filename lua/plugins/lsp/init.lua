@@ -7,7 +7,7 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      { "folke/neodev.nvim", opts = { experimental = { pathStrict = true } } },
+      { "folke/neodev.nvim",   opts = { experimental = { pathStrict = true } } },
       { "hrsh7th/cmp-nvim-lsp" },
     },
     ---@class PluginLspOpts
