@@ -65,6 +65,7 @@ return {
   -- snippets
   {
     "L3MON4D3/LuaSnip",
+    version = "v2.2.*",
     opts = {
       history = true,
       delete_check_events = "TextChanged",

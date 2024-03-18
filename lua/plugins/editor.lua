@@ -14,9 +14,15 @@ return {
   -- 我能吞下玻璃而不伤身体
 
   {
-    'norcalli/nvim-colorizer.lua',
+    "NvChad/nvim-colorizer.lua",
     event = "VeryLazy",
-    config = true,
+    opts = {
+      filetypes = {
+        "css",
+        "javascript",
+        "typescript",
+      },
+    },
   },
 
   {
@@ -202,29 +208,29 @@ return {
     },
   },
 
-  -- better hlsearch
-  {
-    "kevinhwang91/nvim-hlslens",
-    dependencies = {
-      "kevinhwang91/nvim-ufo",
-    },
-    keys = {
-      {
-        "n",
-        "<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>",
-        desc = "Lens n"
-      },
-      {
-        "N",
-        "<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>",
-        desc = "Lens N"
-      },
-      { "*",  "*<Cmd>lua require('hlslens').start()<CR>",  desc = "Lens *" },
-      { "#",  "#<Cmd>lua require('hlslens').start()<CR>",  desc = "Lens #" },
-      { "g*", "g*<Cmd>lua require('hlslens').start()<CR>", desc = "Lens g*" },
-      { "g#", "g*<Cmd>lua require('hlslens').start()<CR>", desc = "Lens g#" },
-    }
-  },
+  -- -- better hlsearch
+  -- {
+  --   "kevinhwang91/nvim-hlslens",
+  --   dependencies = {
+  --     "kevinhwang91/nvim-ufo",
+  --   },
+  --   keys = {
+  --     {
+  --       "n",
+  --       "<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>",
+  --       desc = "Lens n"
+  --     },
+  --     {
+  --       "N",
+  --       "<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>",
+  --       desc = "Lens N"
+  --     },
+  --     { "*",  "*<Cmd>lua require('hlslens').start()<CR>",  desc = "Lens *" },
+  --     { "#",  "#<Cmd>lua require('hlslens').start()<CR>",  desc = "Lens #" },
+  --     { "g*", "g*<Cmd>lua require('hlslens').start()<CR>", desc = "Lens g*" },
+  --     { "g#", "g*<Cmd>lua require('hlslens').start()<CR>", desc = "Lens g#" },
+  --   }
+  -- },
 
   -- enhanced matchparen.vim
   {
@@ -264,7 +270,7 @@ return {
   {
     "nvim-neorg/neorg",
     build = ":Neorg sync-parsers",
-    ft = { "alpha", "neorg" },
+    ft = { "alpha", "neorg", "norg" },
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {
       load = {
@@ -284,8 +290,8 @@ return {
         ["core.dirman"] = {
           config = {
             workspaces = {
-              tech = "~/life/notes/tech",
-              random = "~/life/notes/random",
+              tech = "~/life/writing/notes/tech",
+              random = "~/life/writing/notes/random",
             },
           },
         },
@@ -322,8 +328,8 @@ return {
               "metadata",
             },
             metadata = {
-              start = "+++",
-              ["end"] = "+++",
+              start = "---",
+              ["end"] = "---",
             },
           },
         },
