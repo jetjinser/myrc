@@ -13,3 +13,4 @@ vim.filetype.add {
 vim.filetype.add({ extension = { ua = "uiua" } })
 vim.filetype.add({ extension = { ncl = "nickel" } })
 vim.filetype.add({ extension = { mdx = "markdown" } })
+vim.filetype.add({ extension = { tree = "tree" } })

@@ -1,5 +1,7 @@
 return {
+  gopls = {},
   jdtls = {},
+  html = {},
   lua_ls = {
     settings = {
       Lua = {
