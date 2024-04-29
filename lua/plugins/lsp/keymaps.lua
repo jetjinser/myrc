@@ -3,13 +3,13 @@ local M = {}
 ---@return (LazyKeys|{has?:string})[]
 function M.get()
   return {
-    { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
-    { "gd", vim.lsp.buf.definition, desc = "Goto Definition" },
-    { "gr", vim.lsp.buf.references, desc = "References" },
-    { "gt", vim.lsp.buf.type_definition, desc = "Goto Type Definition" },
-    { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
-    { "gI", vim.lsp.buf.implementation, desc = "Goto Implementation" },
-    { "K", vim.lsp.buf.hover, desc = "Hover" },
+    { "<leader>cd", vim.diagnostic.open_float,   desc = "Line Diagnostics" },
+    { "gd",         vim.lsp.buf.definition,      desc = "Goto Definition" },
+    { "gr",         vim.lsp.buf.references,      desc = "References" },
+    { "gt",         vim.lsp.buf.type_definition, desc = "Goto Type Definition" },
+    { "gD",         vim.lsp.buf.declaration,     desc = "Goto Declaration" },
+    { "gI",         vim.lsp.buf.implementation,  desc = "Goto Implementation" },
+    { "K",          vim.lsp.buf.hover,           desc = "Hover" },
     {
       "gK",
       vim.lsp.buf.signature_help,
@@ -23,12 +23,12 @@ function M.get()
       desc = "Signature Help",
       has = "signatureHelp"
     },
-    { "]d", M.diagnostic_goto(true), desc = "Next Diagnostic" },
-    { "[d", M.diagnostic_goto(false), desc = "Prev Diagnostic" },
-    { "]e", M.diagnostic_goto(true, "ERROR"), desc = "Next Error" },
+    { "]d", M.diagnostic_goto(true),           desc = "Next Diagnostic" },
+    { "[d", M.diagnostic_goto(false),          desc = "Prev Diagnostic" },
+    { "]e", M.diagnostic_goto(true, "ERROR"),  desc = "Next Error" },
     { "[e", M.diagnostic_goto(false, "ERROR"), desc = "Prev Error" },
-    { "]w", M.diagnostic_goto(true, "WARN"), desc = "Next Warning" },
-    { "[w", M.diagnostic_goto(false, "WARN"), desc = "Prev Warning" },
+    { "]w", M.diagnostic_goto(true, "WARN"),   desc = "Next Warning" },
+    { "[w", M.diagnostic_goto(false, "WARN"),  desc = "Prev Warning" },
     {
       "<leader>ca",
       vim.lsp.buf.code_action,
@@ -82,6 +82,14 @@ function M.on_attach(client, buffer)
       vim.keymap.set(keys.mode, keys.lhs, keys.rhs, opts)
     end
   end
+
+  vim.api.nvim_create_user_command("ToggleInlayHint", function()
+    if client.supports_method("textDocument/inlayHint") then
+      vim.lsp.inlay_hint.enable(buffer, not vim.lsp.inlay_hint.is_enabled())
+    else
+      print("unsupport inlay hints")
+    end
+  end, {})
 end
 
 function M.diagnostic_goto(next, severity)

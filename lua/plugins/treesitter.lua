@@ -25,9 +25,12 @@ return {
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
     end,
+
     init = function()
-      vim.treesitter.language.register("racket", "conjure-rkt")
-      vim.treesitter.language.register("python", "conjure-py")
+      local register = vim.treesitter.language.register;
+
+      register("racket", "conjure-rkt")
+      register("python", "conjure-py")
     end,
   },
 }

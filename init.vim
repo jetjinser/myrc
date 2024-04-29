@@ -1,5 +1,3 @@
-let mapleader = ","
-
 inoremap jk <esc>
 
 " set foldmethod=marker

@@ -110,6 +110,13 @@ return {
   },
 
   -- {
+  --   dir    = "~/.config/nvim/explugins/lspower.nvim",
+  --   config = function(_plugins, opts)
+  --     require("lspower").setup(opts)
+  --   end
+  -- },
+
+  -- {
   --   "ShinKage/idris2-nvim",
   --   event = { "BufReadPre", "BufNewFile" },
   --   config = function(_plugin, _opts)

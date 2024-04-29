@@ -1,16 +1,21 @@
-vim.filetype.add {
-  pattern = {
-    [".*/conjure%-log%-%d+%.(%a+)"] = function(_path, _bufnr, ext)
-      if ext == "rkt" then
-        return "conjure-rkt"
-      elseif ext == "py" then
-        return "conjure-py"
+local fts = {
+  {
+    pattern = {
+      [".*/conjure%-log%-%d+%.(%a+)"] = function(_path, _bufnr, ext)
+        if ext == "rkt" then
+          return "conjure-rkt"
+        elseif ext == "py" then
+          return "conjure-py"
+        end
       end
-    end
+    }
   },
+  { extension = { ua = "uiua" } },
+  { extension = { ncl = "nickel" } },
+  { extension = { mdx = "markdown" } },
+  { extension = { tree = "tree" } },
 }
 
-vim.filetype.add({ extension = { ua = "uiua" } })
-vim.filetype.add({ extension = { ncl = "nickel" } })
-vim.filetype.add({ extension = { mdx = "markdown" } })
-vim.filetype.add({ extension = { tree = "tree" } })
+for _, ft in ipairs(fts) do
+  vim.filetype.add(ft)
+end

@@ -12,3 +12,6 @@ local function close_all_chan()
 end
 
 vim.keymap.set("n", "<leader>q", close_all_chan, { noremap = true })
+
+vim.g.mapleader = ','
+vim.g.maplocalleader = ',,'

@@ -2,7 +2,16 @@ local statusline = require("plugins.ui.statusline")
 
 return {
   -- icons
-  { "nvim-tree/nvim-web-devicons", lazy = true },
+  {
+    "nvim-tree/nvim-web-devicons",
+    lazy = true,
+    opts = {
+      override_by_extension = {
+        ["tree"] = { icon = "🌲" },
+        ["gn"] = { icon = "" },
+      }
+    },
+  },
 
   -- ui components
   { "MunifTanjim/nui.nvim", lazy = true },

@@ -1,4 +1,10 @@
 return {
+  {
+    "chentoast/marks.nvim",
+    event = "BufReadPost",
+    opts = {},
+  },
+
   -- easily jump to any location
   {
     "ggandor/leap.nvim",
@@ -30,23 +36,6 @@ return {
     cond = function(_)
       return vim.fn.has("nvim-0.9") ~= 1;
     end
-  },
-
-  -- buffer remove
-  {
-    "echasnovski/mini.bufremove",
-    keys = {
-      { "<leader>bd", function() require("mini.bufremove").delete(0, false) end, desc = "Delete Buffer" },
-      { "<leader>bD", function() require("mini.bufremove").delete(0, true) end,  desc = "Delete Buffer (Force)" },
-    },
-  },
-
-  -- search/replace in multiple files
-  {
-    "windwp/nvim-spectre",
-    keys = {
-      { "<leader>sr", function() require("spectre").open() end, desc = "Replace in files (Spectre)" },
-    },
   },
 
   -- references
@@ -153,6 +142,12 @@ return {
       end
     end,
     opts = {
+      nesting_rules = {
+        ["forester"] = {
+          pattern = "(.*)-0001%.tree$",
+          files = { "%1-*.tree" },
+        },
+      },
       filesystem = {
         bind_to_cwd = false,
         follow_current_file = {
@@ -175,17 +170,6 @@ return {
     },
   },
 
-  -- better diagnostics list and others
-  {
-    "folke/trouble.nvim",
-    cmd = { "TroubleToggle", "Trouble" },
-    opts = { use_diagnostic_signs = true },
-    keys = {
-      { "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>",  desc = "Document Diagnostics (Trouble)" },
-      { "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
-    },
-  },
-
   -- todo comments
   {
     "folke/todo-comments.nvim",
@@ -193,44 +177,22 @@ return {
     event = "BufReadPost",
     opts = {
       keywords = {
+        HACK = { icon = " ", color = "hacking" },
         SAFETY = {
           icon = "󰩐 ",
           color = "hint",
           alt = { "SAFE" },
         },
       },
+      colors = {
+        hacking = { "DiagnosticOk", "#b3f6c0" },
+      },
     },
     keys = {
-      { "]t",          function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
-      { "[t",          function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
-      { "<leader>xt",  "<cmd>TodoTrouble<cr>",                              desc = "Todo Trouble" },
-      { "<leader>xtt", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>",      desc = "Todo Trouble" },
+      { "]t", function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
+      { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
     },
   },
-
-  -- -- better hlsearch
-  -- {
-  --   "kevinhwang91/nvim-hlslens",
-  --   dependencies = {
-  --     "kevinhwang91/nvim-ufo",
-  --   },
-  --   keys = {
-  --     {
-  --       "n",
-  --       "<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>",
-  --       desc = "Lens n"
-  --     },
-  --     {
-  --       "N",
-  --       "<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>",
-  --       desc = "Lens N"
-  --     },
-  --     { "*",  "*<Cmd>lua require('hlslens').start()<CR>",  desc = "Lens *" },
-  --     { "#",  "#<Cmd>lua require('hlslens').start()<CR>",  desc = "Lens #" },
-  --     { "g*", "g*<Cmd>lua require('hlslens').start()<CR>", desc = "Lens g*" },
-  --     { "g#", "g*<Cmd>lua require('hlslens').start()<CR>", desc = "Lens g#" },
-  --   }
-  -- },
 
   -- enhanced matchparen.vim
   {
@@ -268,10 +230,16 @@ return {
   },
 
   {
+    "vhyrro/luarocks.nvim",
+    priority = 1000,
+    config = true,
+  },
+
+  {
     "nvim-neorg/neorg",
-    build = ":Neorg sync-parsers",
     ft = { "alpha", "neorg", "norg" },
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = { "luarocks.nvim" },
+    version = "*",
     opts = {
       load = {
         ["core.defaults"] = {},
