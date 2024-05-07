@@ -69,7 +69,10 @@ return {
   racket_langserver = {},
   arduino_language_server = {},
   eslint = {},
-  tsserver = {},
+  volar = {
+    filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" }
+  },
+  -- tsserver = {},
   -- denols = {},
 
   -- ruff_lsp = {},
