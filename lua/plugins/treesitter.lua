@@ -20,6 +20,13 @@ return {
           node_decremental = "<bs>",
         },
       },
+      ensure_installed = {
+        "vimdoc",
+        "luadoc",
+        "vim",
+        "lua",
+        "markdown"
+      }
     },
     --- @param opts TSConfig
     config = function(_, opts)

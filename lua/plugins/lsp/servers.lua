@@ -1,5 +1,9 @@
 return {
-  emmet_ls = {},
+  ocamllsp = {},
+  typst_lsp = {},
+  -- svelte = {},
+  cssls = {},
+  -- emmet_ls = {},
   gopls = {},
   jdtls = {},
   html = {},
@@ -54,25 +58,37 @@ return {
       haskell = {
         formattingProvider = "stylish-haskell",
         plugin = {
-          ["inlay-hints"] = {
-            config = {
-              all = true,
-              -- fixity = true,
-              -- localBinding = true,
-              -- hole = true,
-            },
+          ["semanticTokens"] = {
+            globalOn = true,
+          },
+          ["importLens"] = {
+            codeLensOn = false,
+            inlayHintsOn = false,
           },
         },
       },
     },
   },
-  racket_langserver = {},
+  racket_langserver = {
+    filetypes = { "racket" },
+  },
   arduino_language_server = {},
   eslint = {},
-  volar = {
-    filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" }
+  -- volar = {
+  --   filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
+  -- },
+  tsserver = {
+    -- init_options = {
+    --   plugins = {
+    --     {
+    --       name = '@vue/typescript-plugin',
+    --       location = "$HOME/vie/projet/hw/landing-foodie/node_modules/@vue/language-core/",
+    --       languages = { "vue" },
+    --     },
+    --   },
+    -- },
+    filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
   },
-  -- tsserver = {},
   -- denols = {},
 
   -- ruff_lsp = {},

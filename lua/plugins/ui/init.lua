@@ -53,6 +53,7 @@ return {
   {
     "akinsho/nvim-bufferline.lua",
     event = "VeryLazy",
+    version = "*",
     opts = {
       options = {
         diagnostics = "nvim_lsp",

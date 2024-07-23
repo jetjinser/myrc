@@ -123,7 +123,7 @@ return {
           { name = "path" },
           { name = "neorg" },
           { name = "conjure" },
-          { name = "copilot" },
+          -- { name = "copilot" },
         },
         formatting = {
           fields = { "abbr", "kind", "menu" },
@@ -158,7 +158,7 @@ return {
     "windwp/nvim-autopairs",
     event = "VeryLazy",
     opts = {
-      disable_filetype = { "TelescopePrompt", "vim", "clojure", "fennel", "racket" },
+      disable_filetype = { "TelescopePrompt", "vim", "clojure", "fennel", "racket", "scheme", "scheme.guile" },
     },
   },
 
@@ -249,34 +249,34 @@ return {
   -- parinfer
   {
     "gpanders/nvim-parinfer",
-    ft = { "clojure", "fennel", "racket" },
+    ft = { "clojure", "fennel", "racket", "scheme", "guile" },
   },
 
   -- copilot
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    config = function()
-      require("copilot").setup {
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-        filetypes = {
-          ["gitcommit"] = true,
-          ["*"] = false,
-        },
-      }
-    end,
-  },
+  -- {
+  --   "zbirenbaum/copilot.lua",
+  --   cmd = "Copilot",
+  --   event = "InsertEnter",
+  --   config = function()
+  --     require("copilot").setup {
+  --       suggestion = { enabled = false },
+  --       panel = { enabled = false },
+  --       filetypes = {
+  --         ["gitcommit"] = true,
+  --         ["*"] = false,
+  --       },
+  --     }
+  --   end,
+  -- },
 
-  {
-    "zbirenbaum/copilot-cmp",
-    dependencies = {
-      "zbirenbaum/copilot.lua",
-    },
-    config = function()
-      vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
-      require("copilot_cmp").setup()
-    end
-  }
+  -- {
+  --   "zbirenbaum/copilot-cmp",
+  --   dependencies = {
+  --     "zbirenbaum/copilot.lua",
+  --   },
+  --   config = function()
+  --     vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+  --     require("copilot_cmp").setup()
+  --   end
+  -- }
 }

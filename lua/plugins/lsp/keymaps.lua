@@ -56,6 +56,38 @@ function M.get()
       desc = "Rename",
       has = "rename"
     },
+    {
+      "<leader>it",
+      function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+      end,
+      desc = "toggle inlay hints",
+    },
+    {
+      "<leader>ia",
+      function()
+        local current_buffer = vim.api.nvim_get_current_buf()
+
+        local cursor = vim.api.nvim_win_get_cursor(0)
+        local row = cursor[1] - 1;
+        -- local col = cursor[2]
+
+        local range = {
+          start = { line = row, character = 0 },
+          ['end'] = { line = row, character = 1000 },
+        }
+
+        -- TODO: use <cword> range
+
+        local hints = vim.lsp.inlay_hint.get({ bufnr = current_buffer, range = range, })
+
+        for _, hint in ipairs(hints) do
+          vim.print(hint.inlay_hint.textEdits)
+          vim.lsp.util.apply_text_edits(hint.inlay_hint.textEdits, current_buffer, "utf-8")
+        end
+      end,
+      desc = "apply current line inlay hints textEdits",
+    },
   }
 end
 
@@ -83,13 +115,21 @@ function M.on_attach(client, buffer)
     end
   end
 
-  vim.api.nvim_create_user_command("ToggleInlayHint", function()
-    if client.supports_method("textDocument/inlayHint") then
-      vim.lsp.inlay_hint.enable(buffer, not vim.lsp.inlay_hint.is_enabled())
-    else
-      print("unsupport inlay hints")
-    end
-  end, {})
+  -- vim.api.nvim_create_user_command("ApplyIHTextEdits", function(command)
+  --   if client.supports_method("textDocument/inlayHint") then
+  --     local hint = vim.lsp.inlay_hint.get({ bufnr = 0 })[n]
+  --     vim.print(hint);
+  --
+  --     local client = vim.lsp.get_client_by_id(hint.client_id)
+  --     -- resolved_hint = client.request_sync('inlayHint/resolve', hint.inlay_hint, 100, 0).result
+  --     vim.lsp.util.apply_text_edits(hint.textEdits, 0, client.encoding)
+  --
+  --     location = resolved_hint.label[1].location
+  --   else
+  --     print("unsupport inlay hints")
+  --   end
+  -- end, {})
+
 end
 
 function M.diagnostic_goto(next, severity)
