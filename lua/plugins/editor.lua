@@ -19,17 +19,19 @@ return {
   },
   -- 我能吞下玻璃而不伤身体
 
-  {
-    "NvChad/nvim-colorizer.lua",
-    event = "VeryLazy",
-    opts = {
-      filetypes = {
-        "css",
-        "javascript",
-        "typescript",
-      },
-    },
-  },
+  -- {
+  --   "NvChad/nvim-colorizer.lua",
+  --   event = "VeryLazy",
+  --   opts = {
+  --     filetypes = {
+  --       "css",
+  --       "javascript",
+  --       "typescript",
+  --       "vue",
+  --       "svelte",
+  --     },
+  --   },
+  -- },
 
   {
     "gpanders/editorconfig.nvim",
@@ -86,24 +88,38 @@ return {
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
+    ---@class wk.Opts
     opts = {
+      preset = "modern",
       plugins = { spelling = true },
+      delay = function(ctx)
+        return ctx.plugin and 0 or 500
+      end,
+      spec = {
+        mode = { "n", "v" },
+        { "<leader>b",  group = "buffer" },
+        { "<leader>f",  group = "file/find" },
+        { "<leader>g",  group = "git" },
+        { "<leader>gh", group = "hunks" },
+        { "<leader>s",  group = "search" },
+        { "<leader>x",  group = "diagnostics/quickfix" },
+        { "[",          group = "prev" },
+        { "]",          group = "next" },
+        { "g",          group = "goto" },
+      },
+    },
+    keys = {
+      {
+        "<leader>?",
+        function()
+          require("which-key").show({ global = false })
+        end,
+        desc = "Buffer Local Keymaps (which-key)",
+      },
     },
     config = function(_, opts)
       local wk = require("which-key")
       wk.setup(opts)
-      wk.register({
-        mode = { "n", "v" },
-        ["g"] = { name = "+goto" },
-        ["]"] = { name = "+next" },
-        ["["] = { name = "+prev" },
-        ["<leader>f"] = { name = "+file/find" },
-        ["<leader>s"] = { name = "+search" },
-        ["<leader>b"] = { name = "+buffer" },
-        ["<leader>g"] = { name = "+git" },
-        ["<leader>gh"] = { name = "+hunks" },
-        ["<leader>x"] = { name = "+diagnostics/quickfix" },
-      })
     end,
   },
 

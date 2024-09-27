@@ -1,11 +1,12 @@
 return {
   ocamllsp = {},
   typst_lsp = {},
-  -- svelte = {},
+  svelte = {},
   cssls = {},
   -- emmet_ls = {},
   gopls = {},
   jdtls = {},
+  kotlin_language_server = {},
   html = {},
   lua_ls = {
     settings = {
@@ -77,16 +78,16 @@ return {
   -- volar = {
   --   filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
   -- },
-  tsserver = {
-    -- init_options = {
-    --   plugins = {
-    --     {
-    --       name = '@vue/typescript-plugin',
-    --       location = "$HOME/vie/projet/hw/landing-foodie/node_modules/@vue/language-core/",
-    --       languages = { "vue" },
-    --     },
-    --   },
-    -- },
+  ts_ls = {
+  -- init_options = {
+  --   plugins = {
+  --     {
+  --       name = '@vue/typescript-plugin',
+  --       location = "$HOME/vie/projet/hw/landing-foodie/node_modules/@vue/language-core/",
+  --       languages = { "vue" },
+  --     },
+  --   },
+  -- },
     filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
   },
   -- denols = {},

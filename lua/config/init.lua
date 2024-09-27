@@ -2,15 +2,16 @@ require("config.options")
 require("config.map")
 require("config.filetype")
 require("config.autocmds")
+require("config.user_cmds")
 
 local M = {}
 
 M.icons = {
   diagnostics = {
-    Error = " ",
+    Error = "󰋔 ",
     Warn = " ",
     Hint = "󰌶 ",
-    Info = " ",
+    Info = "󰙎 ",
   },
   git = {
     added = " ",

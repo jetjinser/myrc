@@ -1,5 +1,9 @@
 local border = require("config").border;
 
+local parinfer_ft = {
+  "clojure", "fennel", "racket", "guile", "zuo", "yuck",
+}
+
 local tab = function(fallback)
   local cmp = require("cmp")
   local luasnip = require("luasnip")
@@ -158,7 +162,10 @@ return {
     "windwp/nvim-autopairs",
     event = "VeryLazy",
     opts = {
-      disable_filetype = { "TelescopePrompt", "vim", "clojure", "fennel", "racket", "scheme", "scheme.guile" },
+      disable_filetype = {
+        "vim", "scheme", "scheme.guile",
+        unpack(parinfer_ft)
+      },
     },
   },
 
@@ -249,8 +256,28 @@ return {
   -- parinfer
   {
     "gpanders/nvim-parinfer",
-    ft = { "clojure", "fennel", "racket", "scheme", "guile" },
+    ft = parinfer_ft,
+    init = function()
+      vim.g.parinfer_filetypes = parinfer_ft;
+    end
   },
+
+  {
+    "robitx/gp.nvim",
+    opts = {
+      providers = {
+        copilot = {
+          endpoint = "https://api.githubcopilot.com/chat/completions",
+          secret = {
+            "bash",
+            "-c",
+            "cat ~/.config/github-copilot/hosts.json | sed -e 's/.*oauth_token...//;s/\".*//'",
+          },
+        },
+      },
+    },
+    config = true,
+  }
 
   -- copilot
   -- {

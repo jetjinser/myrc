@@ -36,8 +36,13 @@ return {
     init = function()
       local register = vim.treesitter.language.register;
 
+      require("plugins.treesitter.custom_parser");
+
       register("racket", "conjure-rkt")
+      register("racket", "zuo")
       register("python", "conjure-py")
+
+      register("forester", "tree")
     end,
   },
 }

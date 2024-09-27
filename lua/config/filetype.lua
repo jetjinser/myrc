@@ -14,6 +14,8 @@ local fts = {
   { extension = { ncl = "nickel" } },
   { extension = { mdx = "markdown" } },
   { extension = { tree = "tree" } },
+  { extension = { mbt = "moonbit" } },
+  { extension = { zuo = "zuo" } },
 }
 
 for _, ft in ipairs(fts) do

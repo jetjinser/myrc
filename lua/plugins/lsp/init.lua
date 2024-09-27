@@ -16,7 +16,20 @@ return {
       diagnostics = {
         underline = true,
         update_in_insert = false,
-        virtual_text = { spacing = 4, prefix = "●" },
+        virtual_text = {
+          spacing = 4,
+          prefix = function(diagnostic, _i, _total)
+            local severity = vim.diagnostic.severity
+            local dia_icons = require("config").icons.diagnostics;
+            local prefix_map = {
+              [severity.ERROR] = dia_icons.Error,
+              [severity.WARN] = dia_icons.Warn,
+              [severity.INFO] = dia_icons.Info,
+              [severity.HINT] = dia_icons.Hint,
+            };
+            return prefix_map[diagnostic.severity]
+          end
+        },
         severity_sort = true,
         float = { border = border },
       },

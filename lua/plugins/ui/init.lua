@@ -9,6 +9,9 @@ return {
       override_by_extension = {
         ["tree"] = { icon = "🌲" },
         ["gn"] = { icon = "" },
+        ["mbt"] = { icon = "󱩡" },
+        ["zuo"] = { icon = "󰘧" },
+        ["yuck"] = { icon = "󰳆" },
       }
     },
   },
@@ -93,11 +96,12 @@ return {
 
   {
     "j-hui/fidget.nvim",
-    tag = "legacy",
     event = "LspAttach",
     opts = {
-      text = {
-        spinner = "moon",
+      progress = {
+        display = {
+          progress_icon = { pattern = "moon", period = 1 },
+        },
       },
     },
   },
