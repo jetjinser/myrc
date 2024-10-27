@@ -71,7 +71,7 @@ return {
     },
   },
   racket_langserver = {
-    filetypes = { "racket", "rhombus" },
+    filetypes = { "racket", "rhombus", "scribble" },
   },
   arduino_language_server = {},
   eslint = {},

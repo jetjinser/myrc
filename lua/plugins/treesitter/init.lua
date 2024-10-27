@@ -41,6 +41,7 @@ return {
       register("racket", "conjure-rkt")
       register("racket", "zuo")
       register("racket", "rhombus")
+      register("racket", "scribble")
       register("python", "conjure-py")
 
       register("forester", "tree")
