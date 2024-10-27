@@ -1,6 +1,6 @@
 return {
   ocamllsp = {},
-  typst_lsp = {},
+  tinymist = {},
   svelte = {},
   cssls = {},
   -- emmet_ls = {},
