@@ -1,4 +1,6 @@
 return {
+  elp = {},
+  janet_lsp = {},
   ocamllsp = {},
   tinymist = {},
   svelte = {},
@@ -6,7 +8,7 @@ return {
   -- emmet_ls = {},
   gopls = {},
   jdtls = {},
-  kotlin_language_server = {},
+  -- kotlin_language_server = {},
   html = {},
   lua_ls = {
     settings = {
@@ -48,7 +50,7 @@ return {
     settings = {
       ["nil"] = {
         formatting = {
-          command = { "nixpkgs-fmt" },
+          command = { "nixfmt" },
         },
       },
     },
@@ -64,7 +66,7 @@ return {
           },
           ["importLens"] = {
             codeLensOn = false,
-            inlayHintsOn = false,
+            inlayHintsOn = true,
           },
         },
       },

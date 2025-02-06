@@ -1,7 +1,7 @@
 local border = require("config").border;
 
 local parinfer_ft = {
-  "clojure", "fennel", "racket", "guile", "zuo", "yuck",
+  "lisp", "scheme", "clojure", "fennel", "racket", "guile", "zuo", "yuck", "janet"
 }
 
 local tab = function(fallback)
@@ -170,7 +170,7 @@ return {
   },
 
   -- surround
-  -- FIXIT:
+  -- NOTE: almost never used
   {
     "echasnovski/mini.surround",
     keys = function(plugin, keys)
@@ -259,6 +259,7 @@ return {
     ft = parinfer_ft,
     init = function()
       vim.g.parinfer_filetypes = parinfer_ft;
+      vim.g.parinfer_comment_chars = { ";" };
     end
   },
 

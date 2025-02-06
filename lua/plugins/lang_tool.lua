@@ -1,6 +1,11 @@
 local on_attach = require("plugins.lsp.keymaps").on_attach
 
 return {
+  {
+    "sersorrel/vim-lilypond",
+    ft = { "lilypond" },
+  },
+
   -- {
   --   "isovector/cornelis",
   --   ft = { "agda" },
@@ -12,16 +17,39 @@ return {
   -- },
 
   {
+    'moonbit-community/moonbit.nvim',
+    ft = { 'moonbit' },
+    opts = {
+      treesitter = { enabled = true },
+      -- configure the language server integration
+      -- lsp = false,
+      lsp = {
+        -- provide an `on_attach` function to run when the language server starts
+        on_attach = function(client, buffer)
+          require("plugins.lsp.keymaps").on_attach(client, buffer)
+        end,
+        -- provide client capabilities to pass to the language server
+        capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+        handlers = {
+          ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = require("config").border }),
+          ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help,
+            { border = require("config").border }
+          ),
+        },
+      }
+    },
+  },
+
+  { "nfnty/vim-nftables", },
+
+  {
     "Olical/conjure",
-    ft = { "clojure", "fennel", "racket", "python", "scheme" },
-    config = function(_, _opts)
+    ft = { "clojure", "fennel", "python", "scheme" },
+    lazy = true,
+    init = function()
       vim.g["conjure#mapping#prefix"] = ";"
-      vim.g["conjure#filetype"] = { "clojure", "fennel", "racket", "scheme" }
-
+      vim.g["conjure#filetype"] = { "clojure", "fennel", "scheme" }
       vim.g["conjure#filetype#scheme"] = "conjure.client.guile.socket"
-
-      require("conjure.main").main()
-      require("conjure.mapping")["on-filetype"]()
     end,
   },
 

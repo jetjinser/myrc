@@ -10,6 +10,7 @@ return {
         ["tree"] = { icon = "🌲" },
         ["gn"] = { icon = "" },
         ["mbt"] = { icon = "󱩡" },
+        ["mbti"] = { icon = "󱩡" },
         ["zuo"] = { icon = "󰘧" },
         ["yuck"] = { icon = "󰳆" },
       }

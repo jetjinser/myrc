@@ -13,8 +13,8 @@ augroup end
 set cursorline
 set termguicolors
 
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set softtabstop=0
 set expandtab
 

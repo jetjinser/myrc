@@ -45,6 +45,7 @@ return {
       register("python", "conjure-py")
 
       register("forester", "tree")
+      register("moonbit", "moonbit")
     end,
   },
 }
