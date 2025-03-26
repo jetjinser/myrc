@@ -264,25 +264,23 @@ return {
           config = {
             icons = {
               todo = {
-                done = { icon = "✓" },
-                pending = { icon = "▶" },
+                urgent = { icon = "" },
               },
             },
-
+            icon_preset = "diamond";
           },
         },
         ["core.dirman"] = {
           config = {
             workspaces = {
-              tech = "~/life/writing/notes/tech",
-              random = "~/life/writing/notes/random",
+              tech = "~/vie/writing/notes/tech",
+              random = "~/vie/writing/notes/random",
+              tasks = "~/vie/writing/notes/tasks",
             },
           },
         },
         ["core.completion"] = {
-          config = {
-            engine = "nvim-cmp"
-          }
+          config = { engine = "nvim-cmp" }
         },
         ["core.esupports.metagen"] = {
           config = {

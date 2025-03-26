@@ -16,6 +16,15 @@ local fts = {
   { extension = { tree = "tree" } },
   { extension = { mbt = "moonbit" } },
   { extension = { zuo = "zuo" } },
+  {
+    extension = {
+      d2 = function()
+        return "d2", function(bufnr)
+          vim.bo[bufnr].commentstring = "# %s"
+        end
+      end,
+    },
+  }
 }
 
 for _, ft in ipairs(fts) do

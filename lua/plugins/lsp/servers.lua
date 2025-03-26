@@ -8,7 +8,7 @@ return {
   -- emmet_ls = {},
   gopls = {},
   jdtls = {},
-  -- kotlin_language_server = {},
+  kotlin_language_server = {},
   html = {},
   lua_ls = {
     settings = {

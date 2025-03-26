@@ -95,8 +95,13 @@ return {
         debug = true,
         sources = {
           nls.builtins.diagnostics.checkmake,
+
           -- LaTeX
           nls.builtins.diagnostics.chktex,
+          nls.builtins.formatting.latexindent.with({
+            extra_args = { "-l" },
+          }),
+
           nls.builtins.diagnostics.fish,
           nls.builtins.diagnostics.gitlint,
           -- nls.builtins.diagnostics.sqlfluff.with({
@@ -115,7 +120,6 @@ return {
           nls.builtins.code_actions.gitsigns,
 
           -- LaTeX
-          nls.builtins.formatting.latexindent,
           nls.builtins.formatting.black,
         },
       }

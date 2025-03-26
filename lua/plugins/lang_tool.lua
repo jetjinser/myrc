@@ -2,6 +2,22 @@ local on_attach = require("plugins.lsp.keymaps").on_attach
 
 return {
   {
+    "ryleelyman/latex.nvim",
+    ft = { "tex", "plaintex" },
+    config = true,
+    opts = {
+      conceals = {
+        add = {
+          ["textdollar"] = "$",
+          ["textyen"] = "¥",
+        },
+      },
+    },
+  },
+
+  "zoomlogo/vim-apl",
+
+  {
     "sersorrel/vim-lilypond",
     ft = { "lilypond" },
   },
@@ -17,17 +33,15 @@ return {
   -- },
 
   {
-    'moonbit-community/moonbit.nvim',
-    ft = { 'moonbit' },
+    "moonbit-community/moonbit.nvim",
+    ft = { "moonbit" },
     opts = {
       treesitter = { enabled = true },
       -- configure the language server integration
       -- lsp = false,
       lsp = {
         -- provide an `on_attach` function to run when the language server starts
-        on_attach = function(client, buffer)
-          require("plugins.lsp.keymaps").on_attach(client, buffer)
-        end,
+        on_attach = on_attach,
         -- provide client capabilities to pass to the language server
         capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
         handlers = {
@@ -44,7 +58,7 @@ return {
 
   {
     "Olical/conjure",
-    ft = { "clojure", "fennel", "python", "scheme" },
+    ft = { "clojure", "fennel", "scheme", "python" },
     lazy = true,
     init = function()
       vim.g["conjure#mapping#prefix"] = ";"
@@ -59,6 +73,14 @@ return {
     opts = {
       lsp = {
         on_attach = on_attach,
+        -- provide client capabilities to pass to the language server
+        capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+        handlers = {
+          ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = require("config").border }),
+          ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help,
+            { border = require("config").border }
+          ),
+        },
       },
       mappings = true,
     },
