@@ -58,7 +58,7 @@ return {
 
   {
     "Olical/conjure",
-    ft = { "clojure", "fennel", "scheme", "python" },
+    ft = { "clojure", "fennel", "scheme" },
     lazy = true,
     init = function()
       vim.g["conjure#mapping#prefix"] = ";"
