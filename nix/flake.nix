@@ -17,7 +17,16 @@
       perSystem = { pkgs, ... }: {
         devshells.default = {
           packages = with pkgs; [
-            lua-language-server
+            (fennel-ls.overrideAttrs (_: rec {
+              version = "latest";
+              src = pkgs.fetchFromSourcehut {
+                owner = "~xerool";
+                repo = "fennel-ls";
+                rev = "b7984ca5";
+                hash = "sha256-QYqzalnpVkTjOocJrVcOf2kUzruZCDSj2T4WZiPBmOM=";
+              };
+              nativeBuildInputs = [ pkgs.pandoc ];
+            }))
           ];
         };
       };
