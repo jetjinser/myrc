@@ -10,6 +10,7 @@
 (set+ completeopt :noselect)
 
 (vim.lsp.enable [:fennel-ls
+                 :nil
                  :rust-analyzer])
 
 (vim.diagnostic.config {:virtual_lines {:current_line true}})
