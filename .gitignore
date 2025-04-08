@@ -1,3 +1,4 @@
-nvim/plugin/packer_compiled.lua
+ftplugin/*.lua
+lsp/*.lua
 
 .direnv/
