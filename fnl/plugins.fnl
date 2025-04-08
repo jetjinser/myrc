@@ -24,8 +24,9 @@
     :cmd [:TSUpdateSync :TSUpdate :TSInstall]
     :opts {:highlight {:enable true}
            :indent {:enable true}
-           :ensure_installed [ :fennel
-                               :rust
+           :ensure_installed [:fennel
+                              :nix
+                              :rust
                              ]}
     :lazy (= (vim.fn.argc (- 1)) 0)
     :config (λ [_ opts]
