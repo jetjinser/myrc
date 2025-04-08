@@ -23,8 +23,5 @@
 ;; Cursor
 (set! cursorline)
 
-;; Theme
-(color! :lunaperche)
-
 ;; Window
 (set! winborder "shadow")
