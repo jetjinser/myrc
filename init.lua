@@ -22,6 +22,7 @@ end
 -- https://github.com/udayvir-singh/tangerine.nvim/pull/44
 bootstrap("https://github.com/arutonee1/tangerine.nvim", "8361df9")
 bootstrap("https://github.com/udayvir-singh/hibiscus.nvim", "v1.7")
+bootstrap("https://github.com/folke/lazy.nvim", "stable")
 
 require("tangerine").setup {
   target = vim.fn.stdpath "data" .. "/tangerine",

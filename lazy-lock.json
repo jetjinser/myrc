@@ -1,0 +1,5 @@
+{
+  "hibiscus.nvim": { "branch": "master", "commit": "573b37c2f6ed79a6b3e3c6bd18bb305a72db4dc6" },
+  "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
+  "tangerine.nvim": { "branch": "master", "commit": "8361df970f9e5811f9abc0bb07eb90f709ca891f" }
+}
