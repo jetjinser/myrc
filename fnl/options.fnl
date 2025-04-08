@@ -24,4 +24,4 @@
 (set! cursorline)
 
 ;; Window
-(set! winborder "shadow")
+(set! winborder :single)
