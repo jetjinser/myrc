@@ -1,4 +1,4 @@
-(import-macros {: set! : set+ : augroup!} :hibiscus.vim)
+(import-macros {: set+ : augroup!} :hibiscus.vim)
 
 (fn setup [ev]
   (let [client (vim.lsp.get_client_by_id ev.data.client_id)]
@@ -9,9 +9,7 @@
 
 (set+ completeopt :noselect)
 
-(vim.lsp.config :fennel-ls
-  {:settings {:fennel {:workspace {:library (vim.api.nvim_list_runtime_paths)}}}})
-
-(vim.lsp.enable [:fennel-ls])
+(vim.lsp.enable [:fennel-ls
+                 :rust-analyzer])
 
 (vim.diagnostic.config {:virtual_lines {:current_line true}})
