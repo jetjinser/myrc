@@ -70,3 +70,38 @@
                         :config true}]
       :opts {:filesystem {:window {: mappings}}}})
 
+ ;; git
+ (let [on_attach
+       (fn [buffer]
+         (let [gs (require :gitsigns)
+               map (fn [mode l r desc]
+                     (vim.keymap.set mode l r {: buffer : desc}))
+               vline #[(vim.fn.line ".") (vim.fn.line :v)]]
+           ; Navigation
+           (map :n       "]h"          #(gs.nav_hunk :next)          "Next Hunk")
+           (map :n       "[h"          #(gs.nav_hunk :prev)          "Prev Hunk")
+           (map :n       "]H"          #(gs.nav_hunk :last)          "Last Hunk")
+           (map :n       "[H"          #(gs.nav_hunk :first)         "First Hunk")
+           ;; Actions
+           (map :n       "<leader>ghs" gs.stage_hunk                 "Stage Hunk")
+           (map :v       "<leader>ghs" #(gs.stage_hunk (vline))      "Stage Selected Hunk")
+           (map :n       "<leader>ghr" gs.reset_hunk                 "Reset Hunk")
+           (map :v       "<leader>ghr" #(gs.reset_hunk (vline))      "Reset Selected Hunk")
+           (map :n       "<leader>ghS" gs.stage_buffer               "Stage Buffer")
+           (map :n       "<leader>ghR" gs.reset_buffer               "Reset Buffer")
+           (map :n       "<leader>ghp" gs.preview_hunk               "Preview Hunk")
+           (map :n       "<leader>ghi" gs.preview_hunk_inline        "Preview Hunk Inline")
+           (map :n       "<leader>ghb" #(gs.blame_line {:full true}) "Blame Line")
+           (map :n       "<leader>ghd" gs.diffthis                   "Diff This")
+           (map :n       "<leader>ghD" #(gs.diffthis "~")            "Diff This ~")
+           (map :n       "<leader>ghq" gs.setqflist                  "Set QuickFix List")
+           (map :n       "<leader>ghQ" #(gs.setqflist :all)          "Set All QuickFix List")
+           ;; Toggles
+           (map :n "      <leader>gtb" gs.toggle_current_line_blame  "Toggle Current Line Blame")
+           (map :n       "<leader>gtd" gs.toggle_deleted             "Toggle Deleted")
+           (map :n       "<leader>gtw" gs.toggle_word_diff           "Toggle Word Diff")
+           ;; Text object
+           (map [:o :x] "ih"           gs.select_hunk                "Select Hunk")))]
+   {1 :lewis6991/gitsigns.nvim
+      :event :LazyFile
+      :opts {: on_attach}})]
