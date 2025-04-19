@@ -32,3 +32,5 @@
   (set g.netrw_banner 0)
   (set g.netrw_browse_split 4)
   (set g.netrw_winsize 25))
+
+(set vim.g.mapleader ",")
