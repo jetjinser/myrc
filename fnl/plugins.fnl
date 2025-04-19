@@ -104,4 +104,16 @@
            (map [:o :x] "ih"           gs.select_hunk                "Select Hunk")))]
    {1 :lewis6991/gitsigns.nvim
       :event :LazyFile
-      :opts {: on_attach}})]
+      :opts {: on_attach}})
+
+ ;; quick jump
+ (let [flash #((. (require :flash) $1))
+       key (fn [mode lhs rhs desc] {1 lhs 2 rhs : mode : desc})]
+   {1 :folke/flash.nvim
+      :event :VeryLazy
+      :keys [(key [   :n :o :x] "s"     #(flash :jump)              "Flash")
+             (key [   :n :o :x] "S"     #(flash :treesitter)        "Flash Treesitter")
+             (key [      :o   ] "r"     #(flash :remote)            "Remote Flash")
+             (key [      :o :x] "R"     #(flash :treesitter_search) "Treesitter Search")
+             (key [:c         ] "<C-s>" #(flash :toggle)            "Toggle Flash Search")]
+      :opts {}})]
