@@ -25,3 +25,10 @@
 
 ;; Window
 (set! winborder :single)
+
+;; netrw
+(let [g vim.g]
+  (set g.netrw_liststyle 3)
+  (set g.netrw_banner 0)
+  (set g.netrw_browse_split 4)
+  (set g.netrw_winsize 25))
