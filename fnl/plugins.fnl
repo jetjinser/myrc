@@ -32,36 +32,41 @@
     :config (λ [_ opts]
                ((. (require :nvim-treesitter.configs) :setup) opts))}
 
+ ;; repl
  {1 :Olical/conjure
     :ft lang-in-repl
     :init (fn []
             (set vim.g.conjure#mapping#prefix ",,")
             ;; <localleader>k
             (set vim.g.conjure#mapping#doc_word "k"))}
+
+ ;; sexp
  {1 :gpanders/nvim-parinfer
     :ft lang-in-repl}
 
- (let [nowait-cmd (fn [cmd] {1 cmd :nowait false})]
+ ;; file-like tree
+ (let [nowait-cmd (fn [cmd] {1 cmd :nowait false})
+       mappings {:O  {1 :show_help :nowait false
+                        :config {:title "Order by" :prefix_key "O"}}
+                 :Oc (nowait-cmd :order_by_created)
+                 :Od (nowait-cmd :order_by_diagnostics)
+                 :Og (nowait-cmd :order_by_git_status)
+                 :Om (nowait-cmd :order_by_modified)
+                 :On (nowait-cmd :order_by_name)
+                 :Os (nowait-cmd :order_by_size)
+                 :Ot (nowait-cmd :order_by_type)
+                 :o :toggle_node :oc false :od false :og false
+                 :om false :on false :os false :ot false}]
    {1 :nvim-neo-tree/neo-tree.nvim
-    :branch "v3.x"
-    :cmd "Neotree"
-    :keys (let [execute #((. (require :neo-tree.command) :execute) $1)]
-            [{1 "<leader>e" 2 #(execute { :toggle true :dir (vim.uv.cwd)})}])
-    :dependencies [:nvim-lua/plenary.nvim
-                   :nvim-tree/nvim-web-devicons
-                   :MunifTanjim/nui.nvim
-                   {1 :s1n7ax/nvim-window-picker
-                      :version "2.*"
-                      :config true}]
-    :opts {:filesystem {:window {:mappings {:O  {1 :show_help :nowait false
-                                                   :config {:title "Order by" :prefix_key "O"}}
-                                            :Oc (nowait-cmd :order_by_created)
-                                            :Od (nowait-cmd :order_by_diagnostics)
-                                            :Og (nowait-cmd :order_by_git_status)
-                                            :Om (nowait-cmd :order_by_modified)
-                                            :On (nowait-cmd :order_by_name)
-                                            :Os (nowait-cmd :order_by_size)
-                                            :Ot (nowait-cmd :order_by_type)
-                                            :o :toggle_node :oc false :od false :og false
-                                            :om false :on false :os false :ot false}}}}})]
+      :branch "v3.x"
+      :cmd "Neotree"
+      :keys (let [execute #((. (require :neo-tree.command) :execute) $1)]
+              [{1 "<leader>e" 2 #(execute { :toggle true :dir (vim.uv.cwd)})}])
+      :dependencies [:nvim-lua/plenary.nvim
+                     :nvim-tree/nvim-web-devicons
+                     :MunifTanjim/nui.nvim
+                     {1 :s1n7ax/nvim-window-picker
+                        :version "2.*"
+                        :config true}]
+      :opts {:filesystem {:window {: mappings}}}})
 
