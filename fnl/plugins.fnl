@@ -5,6 +5,8 @@
 (set Event.mappings.LazyFile {:event lazy_file_events :id :LazyFile})
 (tset Event.mappings "User LazyFile" Event.mappings.LazyFile)
 
+(local lang-in-repl [:clojure :fennel :scheme])
+
 [;; fennel transpiler & library
  {1 :arutonee1/tangerine.nvim :lazy false}
  {1 :udayvir-singh/hibiscus.nvim :lazy false}
@@ -31,13 +33,13 @@
                ((. (require :nvim-treesitter.configs) :setup) opts))}
 
  {1 :Olical/conjure
-    :ft [:clojure :fennel :scheme]
+    :ft lang-in-repl
     :init (fn []
             (set vim.g.conjure#mapping#prefix ",,")
             ;; <localleader>k
             (set vim.g.conjure#mapping#doc_word "k"))}
  {1 :gpanders/nvim-parinfer
-    :ft [:clujure :fennel :scheme]}
+    :ft lang-in-repl}
 
  (let [nowait-cmd (fn [cmd] {1 cmd :nowait false})]
    {1 :nvim-neo-tree/neo-tree.nvim
