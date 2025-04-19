@@ -32,5 +32,7 @@
 
  {1 :Olical/conjure
     :ft [:clojure :fennel :scheme]
-    :init (fn [] (set vim.g.conjure#mapping#prefix ";"))}]
+    :init (fn [] (set vim.g.conjure#mapping#prefix ";"))}
+ {1 :gpanders/nvim-parinfer
+    :ft [:clujure :fennel :scheme]}]
 

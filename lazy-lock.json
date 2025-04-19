@@ -3,6 +3,7 @@
   "hibiscus.nvim": { "branch": "master", "commit": "573b37c2f6ed79a6b3e3c6bd18bb305a72db4dc6" },
   "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
   "neovim": { "branch": "main", "commit": "96ff3993a67356ee85d1cdab9be652cdc1c5d1ac" },
+  "nvim-parinfer": { "branch": "master", "commit": "5ca09287ab3f4144f78ff7977fabc27466f71044" },
   "nvim-treesitter": { "branch": "master", "commit": "684eeac91ed8e297685a97ef70031d19ac1de25a" },
   "tangerine.nvim": { "branch": "master", "commit": "8361df970f9e5811f9abc0bb07eb90f709ca891f" }
 }
