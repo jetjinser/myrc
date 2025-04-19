@@ -5,8 +5,7 @@
 (set Event.mappings.LazyFile {:event lazy_file_events :id :LazyFile})
 (tset Event.mappings "User LazyFile" Event.mappings.LazyFile)
 
-[
- ;; fennel transpiler & library
+[;; fennel transpiler & library
  {1 :arutonee1/tangerine.nvim :lazy false}
  {1 :udayvir-singh/hibiscus.nvim :lazy false}
 
@@ -26,9 +25,12 @@
            :indent {:enable true}
            :ensure_installed [:fennel
                               :nix
-                              :rust
-                             ]}
+                              :rust]}
     :lazy (= (vim.fn.argc (- 1)) 0)
     :config (λ [_ opts]
                ((. (require :nvim-treesitter.configs) :setup) opts))}
-]
+
+ {1 :Olical/conjure
+    :ft [:clojure :fennel :scheme]
+    :init (fn [] (set vim.g.conjure#mapping#prefix ";"))}]
+
