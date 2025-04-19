@@ -1,3 +1,14 @@
+;; https://github.com/bakpakin/Fennel/issues/353#issuecomment-2604946507
+(macro tx [& args]
+  "Mixed sequential and associative tables at compile time"
+  (let [to-merge (when (table? (. args (length args)))
+                   (table.remove args))]
+    (if to-merge
+        (do (each [key value (pairs to-merge)]
+             (tset args key value))
+            args)
+        args)))
+
 (local Event (require :lazy.core.handler.event))
 
 ;; add `LazyFile` event
@@ -116,4 +127,25 @@
              (key [      :o   ] "r"     #(flash :remote)            "Remote Flash")
              (key [      :o :x] "R"     #(flash :treesitter_search) "Treesitter Search")
              (key [:c         ] "<C-s>" #(flash :toggle)            "Toggle Flash Search")]
-      :opts {}})]
+      :opts {}})
+
+ ;; which key
+ (let [wk #(. (require :which-key) $1)
+       group (fn [cmd group] (tx cmd {: group}))]
+   {1 :folke/which-key.nvim
+    :event :VeryLazy
+    :opts_extend [:spec]
+    :opts {:spec (tx (group "<leader>g"  :git)
+                     (group "<leader>gh" :hunks)
+                     (group "<leader>s"  :search)
+                     (group "["          :prev)
+                     (group "]"          :next)
+                     (group "g"          :goto)
+                     {:mode [:n :v]})
+           :delay (fn [ctx] (or (and ctx.plugin 0) 300))}
+    :keys [(tx "<leader>?"
+               #((wk :show) {:global false})
+               {:desc "Buffer Keymaps (which-key)"})
+           (tx "<c-w><space>"
+               #((wk :show) {:keys :<c-w> :loop true})
+               {:desc "Window Hydra Mode (which-key)"})]})]

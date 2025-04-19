@@ -12,5 +12,6 @@
   "nvim-web-devicons": { "branch": "master", "commit": "c90dee4e930ab9f49fa6d77f289bff335b49e972" },
   "nvim-window-picker": { "branch": "main", "commit": "6382540b2ae5de6c793d4aa2e3fe6dbb518505ec" },
   "plenary.nvim": { "branch": "master", "commit": "857c5ac632080dba10aae49dba902ce3abf91b35" },
-  "tangerine.nvim": { "branch": "master", "commit": "8361df970f9e5811f9abc0bb07eb90f709ca891f" }
+  "tangerine.nvim": { "branch": "master", "commit": "8361df970f9e5811f9abc0bb07eb90f709ca891f" },
+  "which-key.nvim": { "branch": "main", "commit": "370ec46f710e058c9c1646273e6b225acf47cbed" }
 }
