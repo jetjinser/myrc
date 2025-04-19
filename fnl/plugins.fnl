@@ -19,46 +19,44 @@
 (local lang-in-repl [:clojure :fennel :scheme])
 
 [;; fennel transpiler & library
- {1 :arutonee1/tangerine.nvim :lazy false}
- {1 :udayvir-singh/hibiscus.nvim :lazy false}
+ (tx :arutonee1/tangerine.nvim {:lazy false})
+ (tx :udayvir-singh/hibiscus.nvim {:lazy false})
 
  ;; plugin manager
- {1 :folke/lazy.nvim :lazy false}
+ (tx :folke/lazy.nvim {:lazy false})
 
  ;; colorscheme
- {1 :rose-pine/neovim :priority 1000 :lazy false
-    :init #(vim.cmd.colorscheme :rose-pine)}
+ (tx :rose-pine/neovim
+     {:priority 1000 :lazy false :init #(vim.cmd.colorscheme :rose-pine)})
 
  ;; treesitter
- {1 :nvim-treesitter/nvim-treesitter
-    :build ":TSUpdate"
-    :event [:LazyFile :VeryLazy]
-    :cmd [:TSUpdateSync :TSUpdate :TSInstall]
-    :opts {:highlight {:enable true}
-           :indent {:enable true}
-           :ensure_installed [:fennel
-                              :nix
-                              :rust]}
-    :lazy (= (vim.fn.argc (- 1)) 0)
-    :config (λ [_ opts]
-               ((. (require :nvim-treesitter.configs) :setup) opts))}
+ (tx :nvim-treesitter/nvim-treesitter
+     {:build ":TSUpdate"
+      :event [:LazyFile :VeryLazy]
+      :cmd [:TSUpdateSync :TSUpdate :TSInstall]
+      :opts {:highlight {:enable true}
+             :indent {:enable true}
+             :ensure_installed [:fennel :nix :rust]}
+      :lazy (= (vim.fn.argc (- 1)) 0)
+      :config (λ [_ opts]
+                ((. (require :nvim-treesitter.configs) :setup) opts))})
 
  ;; repl
- {1 :Olical/conjure
-    :ft lang-in-repl
-    :init (fn []
-            (set vim.g.conjure#mapping#prefix ",,")
-            ;; <localleader>k
-            (set vim.g.conjure#mapping#doc_word "k"))}
+ (tx :Olical/conjure
+     {:ft lang-in-repl
+      :init (fn []
+              (set vim.g.conjure#mapping#prefix ",,")
+              ;; <localleader>k
+              (set vim.g.conjure#mapping#doc_word :k))})
 
  ;; sexp
- {1 :gpanders/nvim-parinfer
-    :ft lang-in-repl}
+ (tx :gpanders/nvim-parinfer {:ft lang-in-repl})
 
  ;; file-like tree
  (let [nowait-cmd (fn [cmd] {1 cmd :nowait false})
-       mappings {:O  {1 :show_help :nowait false
-                        :config {:title "Order by" :prefix_key "O"}}
+       mappings {:O {1 :show_help
+                     :nowait false
+                     :config {:title "Order by" :prefix_key :O}}
                  :Oc (nowait-cmd :order_by_created)
                  :Od (nowait-cmd :order_by_diagnostics)
                  :Og (nowait-cmd :order_by_git_status)
@@ -67,20 +65,18 @@
                  :Os (nowait-cmd :order_by_size)
                  :Ot (nowait-cmd :order_by_type)
                  :o :toggle_node :oc false :od false :og false
-                 :om false :on false :os false :ot false}]
-   {1 :nvim-neo-tree/neo-tree.nvim
-      :branch "v3.x"
-      :cmd "Neotree"
-      :keys (let [execute #((. (require :neo-tree.command) :execute) $1)]
-              [{1 "<space>e" 2 #(execute { :toggle true :dir (vim.uv.cwd)})}])
-      :dependencies [:nvim-lua/plenary.nvim
-                     :nvim-tree/nvim-web-devicons
-                     :MunifTanjim/nui.nvim
-                     {1 :s1n7ax/nvim-window-picker
-                        :version "2.*"
-                        :config true}]
-      :opts {:filesystem {:window {: mappings}}}})
-
+                 :om false       :on false :os false :ot false}]
+   (tx :nvim-neo-tree/neo-tree.nvim
+       {:branch :v3.x
+        :cmd :Neotree
+        :keys (let [execute #((. (require :neo-tree.command) :execute) $1)]
+                [[:<space>e #(execute {:toggle true :dir (vim.uv.cwd)})]])
+        :dependencies [:nvim-lua/plenary.nvim
+                        :nvim-tree/nvim-web-devicons
+                        :MunifTanjim/nui.nvim
+                        (tx :s1n7ax/nvim-window-picker
+                            {:version :2.* :config true})]
+        :opts {:filesystem {:window {: mappings}}}}))
  ;; git
  (let [on_attach
        (fn [buffer]
@@ -113,39 +109,37 @@
            (map :n       "<leader>gtw" gs.toggle_word_diff           "Toggle Word Diff")
            ;; Text object
            (map [:o :x] "ih"           gs.select_hunk                "Select Hunk")))]
-   {1 :lewis6991/gitsigns.nvim
-      :event :LazyFile
-      :opts {: on_attach}})
+   (tx :lewis6991/gitsigns.nvim {:event :LazyFile :opts {: on_attach}}))
 
  ;; quick jump
  (let [flash #((. (require :flash) $1))
        key (fn [mode lhs rhs desc] {1 lhs 2 rhs : mode : desc})]
-   {1 :folke/flash.nvim
-      :event :VeryLazy
-      :keys [(key [   :n :o :x] "s"     #(flash :jump)              "Flash")
-             (key [   :n :o :x] "S"     #(flash :treesitter)        "Flash Treesitter")
-             (key [      :o   ] "r"     #(flash :remote)            "Remote Flash")
-             (key [      :o :x] "R"     #(flash :treesitter_search) "Treesitter Search")
-             (key [:c         ] "<C-s>" #(flash :toggle)            "Toggle Flash Search")]
-      :opts {}})
-
+   (tx :folke/flash.nvim
+       {:event :VeryLazy
+        :keys [(key [:n :o :x] :s #(flash :jump) :Flash)
+               (key [:n :o :x] :S #(flash :treesitter)
+                    "Flash Treesitter")
+               (key [:o] :r #(flash :remote) "Remote Flash")
+               (key [:o :x] :R #(flash :treesitter_search)
+                    "Treesitter Search")
+               (key [:c] :<C-s> #(flash :toggle)
+                    "Toggle Flash Search")]
+        :opts {}}))
  ;; which key
  (let [wk #(. (require :which-key) $1)
        group (fn [cmd group] (tx cmd {: group}))]
-   {1 :folke/which-key.nvim
-    :event :VeryLazy
-    :opts_extend [:spec]
-    :opts {:spec (tx (group "<leader>g"  :git)
-                     (group "<leader>gh" :hunks)
-                     (group "<leader>s"  :search)
-                     (group "["          :prev)
-                     (group "]"          :next)
-                     (group "g"          :goto)
-                     {:mode [:n :v]})
-           :delay (fn [ctx] (or (and ctx.plugin 0) 300))}
-    :keys [(tx "<leader>?"
-               #((wk :show) {:global false})
-               {:desc "Buffer Keymaps (which-key)"})
-           (tx "<c-w><space>"
-               #((wk :show) {:keys :<c-w> :loop true})
-               {:desc "Window Hydra Mode (which-key)"})]})]
+   (tx :folke/which-key.nvim
+       {:event :VeryLazy
+        :opts_extend [:spec]
+        :opts {:spec (tx (group :<leader>g :git)
+                         (group :<leader>gh :hunks)
+                         (group :<leader>s :search)
+                         (group "[" :prev)
+                         (group "]" :next)
+                         (group :g :goto)
+                         {:mode [:n :v]})
+               :delay (fn [ctx] (or (and ctx.plugin 0) 300))}
+        :keys [(tx "<leader>?" #((wk :show) {:global false})
+                   {:desc "Buffer Keymaps (which-key)"})
+               (tx "<c-w><space>" #((wk :show) {:keys :<c-w> :loop true})
+                   {:desc "Window Hydra Mode (which-key)"})]}))]
