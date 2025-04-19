@@ -72,7 +72,7 @@
       :branch "v3.x"
       :cmd "Neotree"
       :keys (let [execute #((. (require :neo-tree.command) :execute) $1)]
-              [{1 "<leader>e" 2 #(execute { :toggle true :dir (vim.uv.cwd)})}])
+              [{1 "<space>e" 2 #(execute { :toggle true :dir (vim.uv.cwd)})}])
       :dependencies [:nvim-lua/plenary.nvim
                      :nvim-tree/nvim-web-devicons
                      :MunifTanjim/nui.nvim
