@@ -35,8 +35,11 @@
       :event [:LazyFile :VeryLazy]
       :cmd [:TSUpdateSync :TSUpdate :TSInstall]
       :opts {:highlight {:enable true}
-             :indent {:enable true}
-             :ensure_installed [:fennel :nix :rust]}
+             :indent    {:enable true}
+             :ensure_installed [:fennel
+                                :nix
+                                :rust
+                                :scheme]}
       :lazy (= (vim.fn.argc (- 1)) 0)
       :config (λ [_ opts]
                 ((. (require :nvim-treesitter.configs) :setup) opts))})
@@ -54,8 +57,7 @@
 
  ;; file-like tree
  (let [nowait-cmd (fn [cmd] {1 cmd :nowait false})
-       mappings {:O {1 :show_help
-                     :nowait false
+       mappings {:O {1 :show_help :nowait false
                      :config {:title "Order by" :prefix_key :O}}
                  :Oc (nowait-cmd :order_by_created)
                  :Od (nowait-cmd :order_by_diagnostics)
@@ -72,10 +74,10 @@
         :keys (let [execute #((. (require :neo-tree.command) :execute) $1)]
                 [[:<space>e #(execute {:toggle true :dir (vim.uv.cwd)})]])
         :dependencies [:nvim-lua/plenary.nvim
-                        :nvim-tree/nvim-web-devicons
-                        :MunifTanjim/nui.nvim
-                        (tx :s1n7ax/nvim-window-picker
-                            {:version :2.* :config true})]
+                       :nvim-tree/nvim-web-devicons
+                       :MunifTanjim/nui.nvim
+                       (tx :s1n7ax/nvim-window-picker
+                           {:version :2.* :config true})]
         :opts {:filesystem {:window {: mappings}}}}))
  ;; git
  (let [on_attach
@@ -104,7 +106,7 @@
            (map :n       "<leader>ghq" gs.setqflist                  "Set QuickFix List")
            (map :n       "<leader>ghQ" #(gs.setqflist :all)          "Set All QuickFix List")
            ;; Toggles
-           (map :n "      <leader>gtb" gs.toggle_current_line_blame  "Toggle Current Line Blame")
+           (map :n       "<leader>gtb" gs.toggle_current_line_blame  "Toggle Current Line Blame")
            (map :n       "<leader>gtd" gs.toggle_deleted             "Toggle Deleted")
            (map :n       "<leader>gtw" gs.toggle_word_diff           "Toggle Word Diff")
            ;; Text object
@@ -116,30 +118,40 @@
        key (fn [mode lhs rhs desc] {1 lhs 2 rhs : mode : desc})]
    (tx :folke/flash.nvim
        {:event :VeryLazy
-        :keys [(key [:n :o :x] :s #(flash :jump) :Flash)
-               (key [:n :o :x] :S #(flash :treesitter)
-                    "Flash Treesitter")
-               (key [:o] :r #(flash :remote) "Remote Flash")
-               (key [:o :x] :R #(flash :treesitter_search)
-                    "Treesitter Search")
-               (key [:c] :<C-s> #(flash :toggle)
-                    "Toggle Flash Search")]
+        :keys [(key [   :n :o :x] "s"     #(flash :jump)              "Flash")
+               (key [   :n :o :x] "S"     #(flash :treesitter)        "Flash Treesitter")
+               (key [      :o   ] "r"     #(flash :remote)            "Remote Flash")
+               (key [      :o :x] "R"     #(flash :treesitter_search) "Treesitter Search")
+               (key [:c         ] "<C-s>" #(flash :toggle)            "Toggle Flash Search")]
         :opts {}}))
+
  ;; which key
  (let [wk #(. (require :which-key) $1)
        group (fn [cmd group] (tx cmd {: group}))]
    (tx :folke/which-key.nvim
        {:event :VeryLazy
         :opts_extend [:spec]
-        :opts {:spec (tx (group :<leader>g :git)
-                         (group :<leader>gh :hunks)
-                         (group :<leader>s :search)
-                         (group "[" :prev)
-                         (group "]" :next)
-                         (group :g :goto)
+        :opts {:spec (tx (group "<leader>g"  :git)
+                         (group "<leader>gh" :hunks)
+                         (group "<leader>s"  :search)
+                         (group "["          :prev)
+                         (group "]"          :next)
+                         (group "g"          :goto)
                          {:mode [:n :v]})
                :delay (fn [ctx] (or (and ctx.plugin 0) 300))}
         :keys [(tx "<leader>?" #((wk :show) {:global false})
                    {:desc "Buffer Keymaps (which-key)"})
                (tx "<c-w><space>" #((wk :show) {:keys :<c-w> :loop true})
-                   {:desc "Window Hydra Mode (which-key)"})]}))]
+                   {:desc "Window Hydra Mode (which-key)"})]}))
+
+ ;; cmp
+ (tx :saghen/blink.cmp
+     {:version "1.*"
+      :event :InsertEnter
+      :build "nix run .#build-plugin"
+      :keymap {:preset :super-tab
+               :<C-space> [:select_and_accept]}
+      :completion {:documentation {:auto_show true}}
+      :opts {}
+      :opts_extend ["sources.default"]})]
+
