@@ -1,4 +1,4 @@
-(import-macros {: set+ : augroup!} :hibiscus.vim)
+(import-macros {: set+ : augroup! : map!} :hibiscus.vim)
 
 (fn setup [ev]
   (map! [n :buffer] "<leader>cit"
@@ -25,6 +25,7 @@
 
 (vim.lsp.enable [:fennel-ls
                  :nil
-                 :rust-analyzer])
+                 :rust-analyzer
+                 :hls])
 
 (vim.diagnostic.config {:virtual_lines {:current_line true}})
