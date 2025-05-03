@@ -131,7 +131,8 @@
  (let [wk #(. (require :which-key) $1)
        group (fn [cmd group] (tx cmd {: group}))]
    (tx :folke/which-key.nvim
-       {:event :VeryLazy
+       {:enabled false ;; breaks <C-o>
+        :event :VeryLazy
         :opts_extend [:spec]
         :opts {:spec (tx (group "<leader>g"  :git)
                          (group "<leader>gh" :hunks)
