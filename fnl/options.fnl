@@ -37,3 +37,5 @@
   (set g.netrw_winsize 25))
 
 (set vim.g.mapleader ",")
+
+(set+ nrformats :blank)
