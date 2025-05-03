@@ -20,6 +20,9 @@
 ;; Disable mouse
 (set! mouse "")
 
+;; Disable mouse scroll
+(set vim.g.mousescroll "ver:0,hor:0")
+
 ;; Cursor
 (set! cursorline)
 
