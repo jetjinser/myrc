@@ -1,5 +1,13 @@
 (import-macros {: set+ : augroup! : map!} :hibiscus.vim)
 
+(fn diagnostic_goto [next severity*]
+  (let [go       (or (and next vim.diagnostic.goto_next)
+                     vim.diagnostic.goto_prev)
+        severity (or (and severity*)
+                     (. vim.diagnostic.severity severity*)
+                     nil)]
+    (fn [] (go {: severity}))))
+
 (fn setup [ev]
   (map! [n :buffer] "<leader>cit"
         #(let [ih vim.lsp.inlay_hint]
@@ -17,9 +25,17 @@
              (vim.lsp.util.apply_text_edits hint.inlay_hint.textEdits current-buffer
                                                        :utf-8
                    "Apply Current Line Inlay Hints textEdits"))))
-  (map! [n :buffer] "<leader>cf"
-        vim.lsp.buf.format
-        "Format"))
+
+  (map! [n :buffer] "<leader>cf" vim.lsp.buf.format "Format")
+
+  (map! [n :buffer] "gd" vim.lsp.buf.definition "Goto Definition")
+
+  (map! [nv :buffer] "]d" (diagnostic_goto true)         "Next Diagnostic")
+  (map! [nv :buffer] "[d" (diagnostic_goto false)        "Prev Diagnostic")
+  (map! [nv :buffer] "]e" (diagnostic_goto true  :ERROR) "Next Error")
+  (map! [nv :buffer] "[e" (diagnostic_goto false :ERROR) "Prev Error")
+  (map! [nv :buffer] "]w" (diagnostic_goto true  :WARN)  "Next Warning")
+  (map! [nv :buffer] "[w" (diagnostic_goto false :WARN)  "Prev Warning"))
 
 (augroup! :setup-lsp [[LspAttach] * 'setup])
 
