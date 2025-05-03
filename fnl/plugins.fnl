@@ -156,5 +156,10 @@
                :<C-space> [:select_and_accept]}
       :completion {:documentation {:auto_show true}}
       :opts {}
-      :opts_extend ["sources.default"]})]
+      :opts_extend ["sources.default"]})
+
+ (tx :moonbit-community/moonbit.nvim
+     {:ft [:moonbit]
+      :opts {:treesitter {:enabled true}
+             :lsp {}}})]
 
