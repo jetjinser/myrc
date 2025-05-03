@@ -78,7 +78,9 @@
                        :MunifTanjim/nui.nvim
                        (tx :s1n7ax/nvim-window-picker
                            {:version :2.* :config true})]
-        :opts {:filesystem {:window {: mappings}}}}))
+        :opts {:filesystem {:window {: mappings}
+                            :bind_to_cwd :false
+                            :follow_current_file {:enabled :true}}}}))
  ;; git
  (let [on_attach
        (fn [buffer]
