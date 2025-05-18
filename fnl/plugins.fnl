@@ -50,7 +50,9 @@
       :init (fn []
               (set vim.g.conjure#mapping#prefix ",,")
               ;; <localleader>k
-              (set vim.g.conjure#mapping#doc_word :k))})
+              (set vim.g.conjure#mapping#doc_word :k)
+              (set vim.g.conjure#filetype#scheme "conjure.client.guile.socket")
+              (set vim.g.conjure#client#guile#socket#pipename ".guile-repl.socket"))})
 
  ;; sexp
  (tx :gpanders/nvim-parinfer {:ft lang-in-repl})
