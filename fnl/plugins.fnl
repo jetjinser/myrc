@@ -160,8 +160,17 @@
       :opts {}
       :opts_extend ["sources.default"]})
 
+ ;; language tools
  (tx :moonbit-community/moonbit.nvim
      {:ft [:moonbit]
       :opts {:treesitter {:enabled true}
-             :lsp {}}})]
+             :lsp {}}})
+
+ ;; signature
+ (tx :chentoast/marks.nvim
+     {:event :VeryLazy
+      :opts {}})
+
+ ;; statics
+ (tx :wakatime/vim-wakatime {:event :LazyFile})]
 
