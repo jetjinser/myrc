@@ -42,6 +42,9 @@
 (vim.lsp.enable [:fennel-ls
                  :nil
                  :rust-analyzer
-                 :hls])
+                 :hls
+                 :svelte
+                 :eslint
+                 :html])
 
 (vim.diagnostic.config {:virtual_lines {:current_line true}})
