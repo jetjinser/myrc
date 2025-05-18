@@ -16,7 +16,7 @@
 (set Event.mappings.LazyFile {:event lazy_file_events :id :LazyFile})
 (tset Event.mappings "User LazyFile" Event.mappings.LazyFile)
 
-(local lang-in-repl [:clojure :fennel :scheme])
+(local lang-in-repl [:clojure :fennel :scheme :lisp])
 
 [;; fennel transpiler & library
  (tx :arutonee1/tangerine.nvim {:lazy false})
