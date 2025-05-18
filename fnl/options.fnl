@@ -36,6 +36,14 @@
   (set g.netrw_browse_split 4)
   (set g.netrw_winsize 25))
 
-(set vim.g.mapleader ",")
-
 (set+ nrformats :blank)
+
+;; smart case
+(set! ignorecase)
+(set! smartcase)
+
+;; grepprg
+(when (= (vim.fn.executable :rg) 1)
+  ;; default with `-uu`,
+  ;; equivalent to `--no-ignore -./--hidden`
+  (set vim.o.grepprg "rg --vimgrep "))
