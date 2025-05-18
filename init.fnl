@@ -1,4 +1,5 @@
 (require :options)
+(require :mappings)
 (require :lang)
 
 (let [lazy (require :lazy)
