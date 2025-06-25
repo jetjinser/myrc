@@ -26,7 +26,9 @@
                                                        :utf-8
                    "Apply Current Line Inlay Hints textEdits"))))
 
-  (map! [n :buffer] "<leader>cf" vim.lsp.buf.format "Format")
+  (map! [n :buffer] "<leader>cf"
+        #(vim.lsp.buf.format {:filter (fn [client] (not= client.name :ts_ls))})
+        "Format")
 
   (map! [n :buffer] "gd" vim.lsp.buf.definition "Goto Definition")
 
