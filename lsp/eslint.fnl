@@ -21,18 +21,18 @@
                 :eslint.config.ts
                 :eslint.config.mts
                 :eslint.config.cts]
- :settings {:codeAction {:disableRuleComment {:enable true :location :separateLine}}
-                        :showDocumentation {:enable true}
+ :settings {:codeAction {:disableRuleComment {:enable true :location :separateLine}
+                         :showDocumentation {:enable true}}
             :codeActionOnSave {:enable false :mode :all}
             :experimental {:useFlatConfig false}
-            :format true
+            :format false
             :nodePath ""
             :onIgnoredFiles :off
             :packageManager nil
             :problems {:shortenToSingleLine false}
             :quiet false
             :rulesCustomizations {}
-            :run :onType
+            :run :onSave
             :useESLintClass false
             :validate :on
             :workingDirectory {:mode :location}}

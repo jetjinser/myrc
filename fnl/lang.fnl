@@ -41,12 +41,18 @@
 
 (augroup! :setup-lsp [[LspAttach] * 'setup])
 
-(vim.lsp.enable [:fennel-ls
+(vim.lsp.enable [:efm
+                 :fennel-ls
                  :nil
                  :rust-analyzer
                  :hls
                  :svelte
+                 :vue_ls
                  :eslint
-                 :html])
+                 :html
+                 :ts_ls
+                 :cssls
+                 :slint_lsp
+                 :ocamllsp])
 
 (vim.diagnostic.config {:virtual_lines {:current_line true}})
