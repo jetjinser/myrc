@@ -30,6 +30,8 @@
         #(vim.lsp.buf.format {:filter (fn [client] (not= client.name :ts_ls))})
         "Format")
 
+  (map! [n :buffer] "<leader>ca" vim.lsp.buf.code_action "Apply Code Action")
+
   (map! [n :buffer] "gd" vim.lsp.buf.definition "Goto Definition")
 
   (map! [nv :buffer] "]d" (diagnostic_goto true)         "Next Diagnostic")
