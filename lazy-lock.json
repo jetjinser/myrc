@@ -17,6 +17,7 @@
   "plenary.nvim": { "branch": "master", "commit": "857c5ac632080dba10aae49dba902ce3abf91b35" },
   "tangerine.nvim": { "branch": "master", "commit": "8361df970f9e5811f9abc0bb07eb90f709ca891f" },
   "vim-apl": { "branch": "main", "commit": "beedb4c4928bba6495633f0521655866449439a3" },
+  "vim-eunuch": { "branch": "master", "commit": "e86bb794a1c10a2edac130feb0ea590a00d03f1e" },
   "vim-wakatime": { "branch": "master", "commit": "7b53ba7882ba28b91b571fa4ffb2755378086837" },
   "which-key.nvim": { "branch": "main", "commit": "370ec46f710e058c9c1646273e6b225acf47cbed" }
 }

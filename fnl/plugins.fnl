@@ -174,5 +174,8 @@
       :opts {}})
 
  ;; statics
- (tx :wakatime/vim-wakatime {:event :LazyFile})]
+ (tx :wakatime/vim-wakatime {:event :LazyFile})
+
+ ;; misc
+ (tx :tpope/vim-eunuch {:event :LazyFile})]
 
