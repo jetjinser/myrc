@@ -165,6 +165,8 @@
      {:ft [:moonbit]
       :opts {:treesitter {:enabled true}
              :lsp {}}})
+ (tx :PyGamer0/vim-apl
+    {:ft [:apl]})
 
  ;; signature
  (tx :chentoast/marks.nvim
