@@ -47,3 +47,8 @@
   ;; default with `-uu`,
   ;; equivalent to `--no-ignore -./--hidden`
   (set vim.o.grepprg "rg --vimgrep "))
+
+;; Disable unused builtin plugins
+(let [g vim.g]
+  (set g.loaded_tutor_mode_plugin 1)
+  (set g.loaded_netrwPlugin 1))
