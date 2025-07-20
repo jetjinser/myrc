@@ -55,6 +55,7 @@
                  :ts_ls
                  :cssls
                  :slint_lsp
-                 :ocamllsp])
+                 :ocamllsp
+                 :clangd])
 
 (vim.diagnostic.config {:virtual_lines {:current_line true}})
