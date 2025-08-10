@@ -1,6 +1,7 @@
 {
-  "blink.cmp": { "branch": "main", "commit": "9bcb14b43852a6f2bfd5ac9ef29cb5cf09b1b39b" },
-  "conjure": { "branch": "main", "commit": "5f15eb0322b5530eefb16457c061e7c2ccd7cf13" },
+  "blink.cmp": { "branch": "main", "commit": "bae4bae0eedd1fa55f34b685862e94a222d5c6f8" },
+  "codecompanion.nvim": { "branch": "main", "commit": "99448f47c3e23a06009ac176ba4c785e162d9c10" },
+  "conjure": { "branch": "client-goldfish-socket", "commit": "22e2d02e1af22a17e5d494f1bd88fec8681c648c" },
   "flash.nvim": { "branch": "main", "commit": "3c942666f115e2811e959eabbdd361a025db8b63" },
   "gitsigns.nvim": { "branch": "main", "commit": "00f14183abbcc38766d9d0b63f3f03174e3a3bd8" },
   "hibiscus.nvim": { "branch": "master", "commit": "573b37c2f6ed79a6b3e3c6bd18bb305a72db4dc6" },
@@ -18,6 +19,7 @@
   "tangerine.nvim": { "branch": "master", "commit": "8361df970f9e5811f9abc0bb07eb90f709ca891f" },
   "vim-apl": { "branch": "main", "commit": "beedb4c4928bba6495633f0521655866449439a3" },
   "vim-eunuch": { "branch": "master", "commit": "e86bb794a1c10a2edac130feb0ea590a00d03f1e" },
+  "vim-nftables": { "branch": "master", "commit": "26f8a506c6f3e41f1e4a8d6aa94c9a79a666bbff" },
   "vim-wakatime": { "branch": "master", "commit": "f39c4a201ae350aaba713b59d4a4fdd88e0811aa" },
   "which-key.nvim": { "branch": "main", "commit": "370ec46f710e058c9c1646273e6b225acf47cbed" }
 }
