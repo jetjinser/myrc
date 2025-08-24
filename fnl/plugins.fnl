@@ -167,6 +167,8 @@
              :lsp {}}})
  (tx :PyGamer0/vim-apl
     {:ft [:apl]})
+ (tx :nfnty/vim-nftables
+    {:ft [:nftables]})
 
  ;; signature
  (tx :chentoast/marks.nvim
