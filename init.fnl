@@ -1,6 +1,7 @@
 (require :options)
 (require :mappings)
 (require :lang)
+(require :filetype)
 
 (let [lazy (require :lazy)
       plugins (require :plugins)
