@@ -52,3 +52,5 @@
 (let [g vim.g]
   (set g.loaded_tutor_mode_plugin 1)
   (set g.loaded_netrwPlugin 1))
+
+(set! conceallevel 2)
