@@ -29,8 +29,10 @@
  (tx :folke/lazy.nvim {:lazy false})
 
  ;; colorscheme
- (tx :rose-pine/neovim
-     {:priority 1000 :lazy false :init #(vim.cmd.colorscheme :rose-pine)})
+ ; (tx :rose-pine/neovim
+ ;     {:priority 1000 :lazy false :init #(vim.cmd.colorscheme :rose-pine)})
+ (tx :kepano/flexoki-neovim
+     {:priority 1000 :lazy false :init #(vim.cmd.colorscheme :flexoki-dark)})
 
  ;; treesitter
  (tx :nvim-treesitter/nvim-treesitter
