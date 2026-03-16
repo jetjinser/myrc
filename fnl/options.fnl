@@ -54,3 +54,8 @@
   (set g.loaded_netrwPlugin 1))
 
 (set! conceallevel 2)
+
+(set! foldmethod :expr)
+(set! foldexpr "v:lua.vim.treesitter.foldexpr()")
+(set! foldenable false)
+(set! foldlevel 99)

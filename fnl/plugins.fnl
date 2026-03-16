@@ -1,3 +1,6 @@
+(import-macros {: g!} :hibiscus.vim)
+(import-macros {: vmerge!} :hibiscus.core)
+
 ;; https://github.com/bakpakin/Fennel/issues/353#issuecomment-2604946507
 (macro tx [& args]
   "Mixed sequential and associative tables at compile time"
@@ -16,7 +19,7 @@
 (set Event.mappings.LazyFile {:event lazy_file_events :id :LazyFile})
 (tset Event.mappings "User LazyFile" Event.mappings.LazyFile)
 
-(local lang-in-repl [:clojure :fennel :scheme :lisp])
+(local lang-in-repl [:clojure :fennel :scheme :lisp :racket :racket.zuo])
 
 [;; fennel transpiler & library
  (tx :arutonee1/tangerine.nvim {:lazy false})
@@ -42,17 +45,36 @@
                                 :scheme]}
       :lazy (= (vim.fn.argc (- 1)) 0)
       :config (λ [_ opts]
-                ((. (require :nvim-treesitter.configs) :setup) opts))})
+                 (require :ts)
+                 (vim.treesitter.language.register :bqn :bqn)
+                 ((. (require :nvim-treesitter.configs) :setup) opts))})
 
  ;; repl
  (tx :Olical/conjure
-     {:ft lang-in-repl
+ ; (tx :jetjinser/conjure
+     {; :branch :client-goldfish-socket
+      :ft [:bqn (unpack lang-in-repl)]
       :init (fn []
-              (set vim.g.conjure#mapping#prefix ",,")
-              ;; <localleader>k
-              (set vim.g.conjure#mapping#doc_word :k)
-              (set vim.g.conjure#filetype#scheme "conjure.client.guile.socket")
-              (set vim.g.conjure#client#guile#socket#pipename ".guile-repl.socket"))})
+              ; (g! conjure#debug #true)
+
+              (require :conjure-bqn)
+              (g! conjure#filetypes [:bqn (unpack vim.g.conjure#filetypes)])
+              (g! conjure#filetype#bqn :conjure-bqn)
+
+              (g! conjure#client#python#stdio#command "uv run python -iq")
+
+              ;; disable racket.vim mapping
+              (g! no_racket_maps 1)
+
+              (g! conjure#mapping#prefix ",,")
+              (g! conjure#mapping#doc_word false)
+              ; (g! conjure#filetype#scheme "conjure.client.goldfish.socket")
+              ; (g! conjure#filetype#scheme "conjure.client.snd-s7.stdio")
+              ; (g! conjure#client#snd-s7#stdio#command "nix run github:XmacsLabs/goldfish"))})
+              ; (g! conjure#client#snd-s7#stdio#command "./bin/goldfish"))})
+              (g! conjure#filetype#scheme "conjure.client.guile.socket")
+              (g! conjure#client#guile#socket#pipename ".guile-repl.socket"))})
+              ; (g! conjure#client#goldfish#socket#host_port "localhost:37146"))})
 
  ;; sexp
  (tx :gpanders/nvim-parinfer {:ft lang-in-repl})
@@ -166,9 +188,19 @@
       :opts {:treesitter {:enabled true}
              :lsp {}}})
  (tx :PyGamer0/vim-apl
-    {:ft [:apl]})
+     {:ft [:apl]})
  (tx :nfnty/vim-nftables
-    {:ft [:nftables]})
+     {:ft [:nftables]})
+ ;; https://github.com/folke/lazy.nvim/issues/183#issuecomment-1376469054
+ (tx :mlochbaum/BQN
+     {:ft [:bqn]
+      :config (λ [plugin]
+                 (vim.opt.rtp:append (.. plugin.dir :/editors/vim))
+                 ((. (require :lazy.core.loader) :packadd)
+                  (.. plugin.dir :/editors/vim)))
+      :init (λ [plugin]
+               ((. (require :lazy.core.loader) :ftdetect)
+                (.. plugin.dir :/editors/vim)))})
 
  ;; signature
  (tx :chentoast/marks.nvim
@@ -180,4 +212,3 @@
 
  ;; misc
  (tx :tpope/vim-eunuch {:event :LazyFile})]
-

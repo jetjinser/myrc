@@ -56,6 +56,11 @@
                  :cssls
                  :slint_lsp
                  :ocamllsp
-                 :clangd])
+                 :clangd
+                 :racket_langserver
+                 :pyrefly
+                 :gopls
+                 :golangci_lint_ls
+                 :kotlin_language_server])
 
 (vim.diagnostic.config {:virtual_lines {:current_line true}})

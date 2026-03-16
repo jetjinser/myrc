@@ -47,7 +47,7 @@
                            bufnr)))
 {:capabilities {:offsetEncoding [:utf-8 :utf-16]
                 :textDocument {:completion {:editsNearCursor true}}}
- :cmd [:clangd]
+ :cmd [:clangd "--compile-commands-dir=builddir"]
  :filetypes [:c :cpp :objc :objcpp :cuda :proto]
  :on_attach (fn [_ bufnr]
               (vim.api.nvim_buf_create_user_command bufnr

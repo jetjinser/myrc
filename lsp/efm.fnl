@@ -1,10 +1,11 @@
-(local *prettier* "./node_modules/.bin/prettier")
+; (local *prettier* "./node_modules/.bin/prettier")
+(local *prettier* "prettier")
 (fn prettier-fmt [parser]
   (table.concat [*prettier*
                  "--stdin"
                  "--stdin-filepath"
-                 "'${INPUT}'"
-                 (and parser (.. "--parser " parser))]
+                 "'${INPUT}'"]
+                 ; (and parser (.. "--parser " parser))
                 " "))
 
 (local languages {:html       [{:formatCommand (prettier-fmt :html)       :formatCanRange true :formatStdin true}]

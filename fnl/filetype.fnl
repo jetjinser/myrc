@@ -2,5 +2,6 @@
                :hibiscus.vim)
 
 (augroup! :filetype-detect
-  [[BufNewFile BufRead] *.zuo "setf racket.zuo"])
+  [[BufNewFile BufRead] *.zuo "setf racket"]
+  [[BufNewFile BufRead] *.tree "setf latex"])
 

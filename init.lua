@@ -34,5 +34,19 @@ require("tangerine").setup {
     -- compile every time before sourcing init.fnl
     hooks = { "oninit" }
   },
+  -- disable all keymaps
+  keymaps = {
+    eval_buffer = "<Nop>",
+    peek_buffer = "<Nop>",
+    goto_output = "<Nop>",
+    float = {
+      next    = "<Nop>",
+      prev    = "<Nop>",
+      kill    = "<Nop>",
+      close   = "<Nop>",
+      resizef = "<Nop>",
+      resizeb = "<Nop>"
+    },
+  };
 }
 
