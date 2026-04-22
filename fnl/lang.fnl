@@ -1,4 +1,4 @@
-(import-macros {: set+ : augroup! : map!} :hibiscus.vim)
+(import-macros {: set+ : set! : augroup! : map!} :hibiscus.vim)
 
 (fn diagnostic_goto [next severity*]
   (let [go       (or (and next vim.diagnostic.goto_next)
@@ -32,8 +32,6 @@
 
   (map! [n :buffer] "<leader>ca" vim.lsp.buf.code_action "Apply Code Action")
 
-  (map! [n :buffer] "gd" vim.lsp.buf.definition "Goto Definition")
-
   (map! [nv :buffer] "]d" (diagnostic_goto true)         "Next Diagnostic")
   (map! [nv :buffer] "[d" (diagnostic_goto false)        "Prev Diagnostic")
   (map! [nv :buffer] "]e" (diagnostic_goto true  :ERROR) "Next Error")
@@ -64,3 +62,21 @@
                  :kotlin_language_server])
 
 (vim.diagnostic.config {:virtual_lines {:current_line true}})
+
+(set! foldmethod :expr)
+(set! foldexpr "v:lua.vim.treesitter.foldexpr()")
+(vim.api.nvim_create_autocmd :LspAttach
+                             {:callback (fn [ev]
+                                          (local client
+                                                 (vim.lsp.get_client_by_id ev.data.client_id))
+                                          (when (client:supports_method :textDocument/foldingRange)
+                                            (local win (vim.api.nvim_get_current_win))
+                                            (tset (. vim.wo win 0) :foldexpr
+                                                  "v:lua.vim.lsp.foldexpr()")))})
+
+(vim.api.nvim_create_autocmd :LspNotify
+                             {:callback (fn [ev]
+                                          (when (= ev.data.method
+                                                   :textDocument/didOpen)
+                                            (vim.lsp.foldclose :imports
+                                                               (vim.fn.bufwinid ev.buf))))})

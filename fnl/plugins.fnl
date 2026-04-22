@@ -1,4 +1,4 @@
-(import-macros {: g!} :hibiscus.vim)
+(import-macros {: g! : set! : color!} :hibiscus.vim)
 (import-macros {: vmerge!} :hibiscus.core)
 
 ;; https://github.com/bakpakin/Fennel/issues/353#issuecomment-2604946507
@@ -31,12 +31,18 @@
  ;; colorscheme
  ; (tx :rose-pine/neovim
  ;     {:priority 1000 :lazy false :init #(vim.cmd.colorscheme :rose-pine)})
- (tx :kepano/flexoki-neovim
-     {:priority 1000 :lazy false :init #(vim.cmd.colorscheme :flexoki-dark)})
+ ; (tx :kepano/flexoki-neovim
+ ;     {:priority 1000 :lazy false :init #(vim.cmd.colorscheme :flexoki-dark)})
+ (tx :nyoom-engineering/oxocarbon.nvim
+     {:priority 1000 :lazy false
+      :init (λ []
+               (set! background :dark)
+               (color! :oxocarbon))})
 
  ;; treesitter
  (tx :nvim-treesitter/nvim-treesitter
-     {:build ":TSUpdate"
+     {:branch :main
+      :build ":TSUpdate"
       :event [:LazyFile :VeryLazy]
       :cmd [:TSUpdateSync :TSUpdate :TSInstall]
       :opts {:highlight {:enable true}
@@ -47,9 +53,8 @@
                                 :scheme]}
       :lazy (= (vim.fn.argc (- 1)) 0)
       :config (λ [_ opts]
-                 (require :ts)
-                 (vim.treesitter.language.register :bqn :bqn)
-                 ((. (require :nvim-treesitter.configs) :setup) opts))})
+                 ; (vim.treesitter.language.register :bqn :bqn)
+                 ((. (require :nvim-treesitter) :setup) opts))})
 
  ;; repl
  (tx :Olical/conjure
@@ -178,10 +183,16 @@
      {:version "1.*"
       :event :InsertEnter
       :build "nix run .#build-plugin"
-      :keymap {:preset :super-tab
-               :<C-space> [:select_and_accept]}
-      :completion {:documentation {:auto_show true}}
-      :opts {}
+      :opts {:completion {:documentation {:auto_show true
+                                          :auto_show_delay_ms 0}
+                          :menu {:border :single
+                                 :draw {:columns [{1 :kind_icon :gap 1}
+                                                  [:label :label_description]]
+                                        :components {:kind_icon {:text (λ [ctx]
+                                                                         (.. ctx.kind_icon ctx.icon_gap))}}}}
+                          :ghost_text {:enabled false}}
+             :signature {:enabled true
+                         :window {:border :single}}}
       :opts_extend ["sources.default"]})
 
  ;; language tools
@@ -213,4 +224,7 @@
  (tx :wakatime/vim-wakatime {:event :LazyFile})
 
  ;; misc
- (tx :tpope/vim-eunuch {:event :LazyFile})]
+ (tx :tpope/vim-eunuch {:event :LazyFile})
+
+ (tx :undotree {:dir (.. vim.env.VIMRUNTIME :/pack/dist/opt/nvim.undotree)
+                :event :VeryLazy})]

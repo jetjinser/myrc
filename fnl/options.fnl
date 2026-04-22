@@ -59,3 +59,6 @@
 (set! foldexpr "v:lua.vim.treesitter.foldexpr()")
 (set! foldenable false)
 (set! foldlevel 99)
+
+;; enable UI2
+((. (require :vim._core.ui2) :enable) {:enable true})
