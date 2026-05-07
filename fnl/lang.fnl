@@ -1,5 +1,7 @@
 (import-macros {: set+ : set! : augroup! : map!} :hibiscus.vim)
 
+(local api vim.api)
+
 (fn diagnostic_goto [next severity*]
   (let [go       (or (and next vim.diagnostic.goto_next)
                      vim.diagnostic.goto_prev)
@@ -15,8 +17,8 @@
         "Toggle Inlay Hints")
   (map! [n :buffer] "<leader>cia"
         #(let [ih vim.lsp.inlay_hint
-               current-buffer (vim.api.nvim_get_current_buf)
-               cursor (vim.api.nvim_win_get_cursor 0)
+               current-buffer (api.nvim_get_current_buf)
+               cursor (api.nvim_win_get_cursor 0)
                row (- (. cursor 1) 1)
                range {:end {:character 1000 :line row}
                       :start {:character 0 :line row}}
@@ -65,18 +67,55 @@
 
 (set! foldmethod :expr)
 (set! foldexpr "v:lua.vim.treesitter.foldexpr()")
-(vim.api.nvim_create_autocmd :LspAttach
-                             {:callback (fn [ev]
-                                          (local client
-                                                 (vim.lsp.get_client_by_id ev.data.client_id))
-                                          (when (client:supports_method :textDocument/foldingRange)
-                                            (local win (vim.api.nvim_get_current_win))
-                                            (tset (. vim.wo win 0) :foldexpr
-                                                  "v:lua.vim.lsp.foldexpr()")))})
+(api.nvim_create_autocmd :LspAttach
+                         {:callback (fn [ev]
+                                      (local client
+                                             (vim.lsp.get_client_by_id ev.data.client_id))
+                                      (when (client:supports_method :textDocument/foldingRange)
+                                        (local win (api.nvim_get_current_win))
+                                        (tset (. vim.wo win 0) :foldexpr
+                                              "v:lua.vim.lsp.foldexpr()")))})
 
-(vim.api.nvim_create_autocmd :LspNotify
-                             {:callback (fn [ev]
-                                          (when (= ev.data.method
-                                                   :textDocument/didOpen)
-                                            (vim.lsp.foldclose :imports
-                                                               (vim.fn.bufwinid ev.buf))))})
+(api.nvim_create_autocmd :LspNotify
+                         {:callback (fn [ev]
+                                      (when (= ev.data.method
+                                               :textDocument/didOpen)
+                                        (vim.lsp.foldclose :imports
+                                                           (vim.fn.bufwinid ev.buf))))})
+
+;; credit: https://github.com/ofseed/nvim/blob/fab9ec8c0911658f99b980f3d594bc15dfb99593/lua/autocmds.lua#L203-L241
+(fn progress [ev]
+  (local value ev.data.params.value)
+  (local name
+         (.. "ofseed_lsp_progress_clear:"
+             ev.data.params.token))
+  (if (= value.kind :begin)
+      (api.nvim_create_autocmd :VimLeave
+                               {:callback (fn []
+                                            (api.nvim_echo {}
+                                                           false
+                                                           {:id (.. :lsp.
+                                                                    ev.data.params.token)
+                                                            :kind :progress
+                                                            :source :vim.lsp
+                                                            :status :cancel
+                                                            :title value.title}))
+                                :desc "Clear LSP progress on exit"
+                                :group (api.nvim_create_augroup name
+                                                                {:clear true})})
+      (= value.kind :end)
+      (api.nvim_del_augroup_by_name name))
+  (api.nvim_echo [[(or value.message :done)]]
+                 false
+                 {:id (.. :lsp.
+                          ev.data.params.token)
+                  :kind :progress
+                  :percent value.percentage
+                  :source :vim.lsp
+                  :status (or (and (not= value.kind
+                                         :end)
+                                   :running)
+                              :success)
+                  :title value.title}))
+(augroup! :k [[LspProgress :desc "Display LSP progress in the terminal"]
+              * 'progress])
