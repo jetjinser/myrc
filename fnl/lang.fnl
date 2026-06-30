@@ -65,8 +65,6 @@
 
 (vim.diagnostic.config {:virtual_lines {:current_line true}})
 
-(set! foldmethod :expr)
-(set! foldexpr "v:lua.vim.treesitter.foldexpr()")
 (api.nvim_create_autocmd :LspAttach
                          {:callback (fn [ev]
                                       (local client
@@ -78,8 +76,7 @@
 
 (api.nvim_create_autocmd :LspNotify
                          {:callback (fn [ev]
-                                      (when (= ev.data.method
-                                               :textDocument/didOpen)
+                                      (when (= ev.data.method :textDocument/didOpen)
                                         (vim.lsp.foldclose :imports
                                                            (vim.fn.bufwinid ev.buf))))})
 
@@ -118,4 +115,8 @@
                               :success)
                   :title value.title}))
 (augroup! :k [[LspProgress :desc "Display LSP progress in the terminal"]
-              * 'progress])
+              * `progress])
+
+(augroup! :TSStart
+  [[Filetype] [scheme fennel]
+              #(vim.treesitter.start)])
