@@ -7,6 +7,4 @@
 (map! [n] :k :gk)
 (map! [n] :gk :k)
 
-(map! [ci] "<Backspace>" "<NOP>")
-
 (map! [n] "<C-c>" ":cclose<CR>")
