@@ -191,7 +191,7 @@
                                         :components {:kind_icon {:text (λ [ctx]
                                                                          (.. ctx.kind_icon ctx.icon_gap))}}}}
                           :ghost_text {:enabled false}}
-             :signature {:enabled true
+             :signature {:enabled false
                          :window {:border :single}}}
       :opts_extend ["sources.default"]})
 
@@ -219,9 +219,6 @@
  (tx :chentoast/marks.nvim
      {:event :VeryLazy
       :opts {}})
-
- ;; statics
- (tx :wakatime/vim-wakatime {:event :LazyFile})
 
  ;; misc
  (tx :tpope/vim-eunuch {:event :LazyFile})
